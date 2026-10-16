@@ -82,7 +82,7 @@ jobs:
       - name: 上传 Pages 产物
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 工作台/dist
+          path: dist
 
       - name: 部署到 GitHub Pages
         id: deploy
