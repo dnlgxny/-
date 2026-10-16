@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>开源工作台 · 指数情况</title>
+<!-- PWA：加到手机主屏后可全屏运行、离线可看 -->
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="开源工作台">
+<meta name="theme-color" content="#2563eb">
+<style>
+  :root{
+    --bg:#f5f6f8; --card:#fff; --line:#e8eaed; --txt:#1f2328; --sub:#6b7280; --faint:#9aa4b2;
+    --up:#dc2626; --down:#16a34a; --warn:#d97706; --ok:#15803d; --info:#2563eb;
+    --lvA:#dc2626; --lvB:#f59e0b; --lvC:#fcd34d;
+    --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:14px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;padding:16px;max-width:1280px;margin:0 auto}
+  h1{font-size:20px;font-weight:600}
+  .sub{color:var(--sub);font-size:12px}
+  .nav{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:14px;box-shadow:var(--shadow);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .nav .brand{font-weight:600;margin-right:12px}
+  .nav button{font:inherit;font-size:13px;padding:6px 14px;border:1px solid var(--line);background:#fff;border-radius:8px;color:var(--txt)}
+  .nav button.on{background:var(--info);color:#fff;border-color:var(--info)}
+  .nav button.off{color:var(--faint);background:#fafbfc}
+  .nav .gap{flex:1}
+  .sec{margin:18px 0 8px;font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .sec .tag{font-size:11px;font-weight:400;color:var(--sub);border:1px solid var(--line);border-radius:4px;padding:1px 6px;background:#fff}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+  .idxcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:var(--shadow);cursor:pointer;transition:.15s}
+  .idxcard:hover{border-color:var(--info);transform:translateY(-1px)}
+  .idxcard.off{cursor:not-allowed;opacity:.6;background:#fafbfc}
+  .idxcard.off:hover{border-color:var(--line);transform:none}
+  .idxcard .nm{font-weight:600;font-size:15px}
+  .idxcard .code{color:var(--sub);font-size:11px;font-family:ui-monospace,monospace;margin-top:2px}
+  .idxcard .val{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:8px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:var(--shadow)}
+  .btn-back{font-size:12px;color:var(--info);cursor:pointer;background:none;border:none;padding:0;margin-bottom:10px}
+  #mainChart{width:100%;height:430px}
+  .chartbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+  .chartbar .title{font-weight:600;font-size:15px}
+  .chip{font-size:11px;padding:2px 8px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer}
+  .chip.on{background:var(--info);color:#fff;border-color:var(--info)}
+  .legend{font-size:11px;color:var(--sub);margin-top:8px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  .swatch{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+  .cat{margin-top:14px}
+  .cat h3{font-size:13px;font-weight:600;margin:14px 0 8px;display:flex;align-items:center;gap:6px}
+  .cat h3 .dot{width:6px;height:6px;border-radius:50%;background:var(--info)}
+  .mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:10px}
+  .mcard{background:#fff;border:1px solid var(--line);border-radius:8px;padding:11px 13px;cursor:pointer;transition:.15s}
+  .mcard:hover{border-color:var(--info);box-shadow:0 2px 8px rgba(37,99,235,.08)}
+  .mcard.on{border-color:var(--info);background:#f8fbff}
+  .mcard.lock{background:#fafbfc}
+  .mcard.lock:hover{border-color:var(--line);box-shadow:none}
+  .mcard .k{font-size:12px;color:var(--sub);display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .mcard .v{font-size:19px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:3px}
+  .mcard .n{font-size:10.5px;color:var(--faint);margin-top:3px;line-height:1.5}
+  .mcard .q{width:14px;height:14px;border-radius:50%;border:1px solid var(--faint);color:var(--faint);font-size:10px;line-height:12px;text-align:center;flex:none;cursor:pointer}
+  .lock-tag{font-size:10px;color:var(--warn);border:1px solid #fde68a;background:#fffbeb;border-radius:3px;padding:0 4px}
+  .click-tag{font-size:10px;color:var(--info)}
+  .up{color:var(--up)} .down{color:var(--down)} .warn{color:var(--warn)} .ok{color:var(--ok)} .info{color:var(--info)}
+  .modal{position:fixed;inset:0;background:rgba(15,23,42,.42);display:none;align-items:center;justify-content:center;z-index:99;padding:20px}
+  .modal.show{display:flex}
+  .modal .box{background:#fff;border-radius:12px;max-width:560px;width:100%;padding:22px 24px;box-shadow:0 20px 50px rgba(0,0,0,.2);max-height:82vh;overflow:auto}
+  .modal h4{font-size:16px;margin-bottom:4px}
+  .modal .val{font-size:12.5px;color:var(--sub);margin-bottom:10px;line-height:1.7}
+  .modal dt{font-size:12px;font-weight:600;color:var(--info);margin-top:12px}
+  .modal dd{font-size:13px;color:var(--txt);margin-top:3px;line-height:1.75}
+  .modal .close{margin-top:18px;text-align:right}
+  .modal .close button{font:inherit;font-size:13px;padding:6px 18px;border:1px solid var(--line);background:#fff;border-radius:8px;cursor:pointer}
+  footer{color:var(--sub);font-size:11px;text-align:center;margin:26px 0 10px;line-height:1.9}
+  .srcbox{background:#fafbfc;border:1px solid var(--line);border-radius:8px;padding:11px 13px;font-size:11.5px;color:var(--sub);line-height:1.9;margin-top:12px}
+  .warnbox{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 12px;font-size:11.5px;color:#92400e;line-height:1.8;margin-top:10px}
+  /* 多选面板（Q3.c：多选 + 记住选择） */
+  .selbar{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);align-items:center}
+  .selbar .lbl{font-size:11px;color:var(--sub);margin-right:2px}
+  .sel{font-size:11px;padding:3px 9px;border-radius:12px;border:1px solid var(--line);
+       background:#fff;color:var(--sub);cursor:pointer;user-select:none;transition:.12s}
+  .sel:hover{border-color:var(--info)}
+  .sel.on{background:var(--info);color:#fff;border-color:var(--info)}
+  .sel i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;vertical-align:middle}
+  .sel-reset{font-size:11px;color:var(--info);background:none;border:none;cursor:pointer;padding:3px 6px;text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <span class="brand">开源工作台</span>
+  <button id="nav1" class="on">① 指数情况</button>
+  <button class="off" title="模块名称待定">② 待定</button>
+  <button class="off" title="模块名称待定">③ 待定</button>
+  <span class="gap"></span>
+  <span class="sub" id="genAt"></span>
+</div>
+
+<div id="viewList">
+  <div class="sec">指数列表 <span class="tag">本期仅纳指100 有数据</span></div>
+  <div class="grid" id="idxGrid"></div>
+</div>
+
+<div id="viewDetail" style="display:none">
+  <button class="btn-back" onclick="backToList()">← 返回指数列表</button>
+  <div class="card">
+    <div class="chartbar">
+      <span class="title" id="chartTitle"></span>
+      <span style="flex:1"></span>
+      <span class="chip on" id="chipIdx" onclick="showIndexChart()">指数走势</span>
+      <span class="sub" id="chipHint"></span>
+    </div>
+    <div id="mainChart"></div>
+    <div class="legend" id="chartLegend"></div>
+    <div class="selbar" id="selBar"></div>
+  </div>
+  <div class="cat" id="metricCats"></div>
+  <div class="srcbox" id="srcBox"></div>
+</div>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="box">
+    <h4 id="mTitle"></h4>
+    <div class="val" id="mVal"></div>
+    <div id="mBody"></div>
+    <div class="close"><button onclick="closeModal()">关闭</button></div>
+  </div>
+</div>
+
+<footer>
+  数据：FRED · CBOE · CNN · 蛋卷 · nikkei225jp · SEC EDGAR｜本页为个人研究记录工具，<b>不构成投资建议</b><br>
+  <span id="footNote"></span>
+</footer>
+
+<script>/*__ECHARTS__*/</script>
+<script>
+const D = /*__PAYLOAD__*/;
+
+const fmt=(x,n=2)=> (x===null||x===undefined||isNaN(x)) ? '—' : Number(x).toFixed(n);
+const sgn=(x,n=2)=> (x>0?'+':'')+fmt(x,n);
+const cls=x=> x>0?'up':(x<0?'down':'');
+const LV_COLOR={A:'#dc2626',B:'#f59e0b',C:'#fcd34d'};
+const LV_NAME={A:'A级 ≥15%',B:'B级 10-15%',C:'C级 5-10%'};
+const last=a=> (a&&a.length)? a[a.length-1] : null;
+const srcOf=m=> (typeof m.src==='function')? m.src() : m.src;
+function pickSeries(rows){
+  const o={dates:[],values:[]};
+  (rows||[]).forEach(r=>{ o.dates.push(r[0]); o.values.push(r[1]); });
+  return o;
+}
+
+/* ⚠️ 统计量必须在 METRICS 之前算好（METRICS 初始化时会读它们，否则触发 TDZ） */
+function st52(rows){
+  const t=(rows||[]).slice(-252).map(r=>r[1]);
+  if(!t.length) return {low:null,high:null};
+  return {low:Math.min.apply(null,t), high:Math.max.apply(null,t)};
+}
+D.vxnSt52 = st52(D.vxn.rows);
+D.vixSt52 = st52(D.vix.rows);
+D.series = {
+  ndx:{dates:D.indicators.dates,values:D.indicators.close},
+  ma250:{dates:D.indicators.dates,values:D.indicators.ma250},
+  ma500:{dates:D.indicators.dates,values:D.indicators.ma500},
+  r500:{dates:D.indicators.dates,values:D.indicators.r500},
+  r250:{dates:D.indicators.dates,values:D.indicators.r250},
+  rsi14:{dates:D.indicators.dates,values:D.indicators.rsi14},
+  vxn:pickSeries(D.vxn.rows), vix:pickSeries(D.vix.rows), cnn:pickSeries(D.cnn.rows),
+  dividend:pickSeries(D.dividend.rows),
+  pe:pickSeries(D.danjuan.pe.rows), pb:pickSeries(D.danjuan.pb.rows),
+  // ⚠️ ROE 原始值是小数（0.3152），曲线须与卡片统一为百分数
+  roe:pickSeries(D.danjuan.roe.rows.map(r=>[r[0], r[1]*100]))
+};
+
+/* ========== 指标定义（含白话解释）========== */
+const METRICS = [
+  {cat:'估值', key:'pe', name:'PE-TTM 市盈率', hist:'pe', dec:2,
+   get:()=>D.danjuan_now.pe, src:'蛋卷 detail/NDX', date:()=>D.danjuan_now.date,
+   what:'市值 ÷ 过去12个月净利润。',
+   read:'越低越便宜。注意指数是「合计市值÷合计净利润」，不是成分股PE的平均。',
+   cur:'近10年分位 '+(D.danjuan_now.pe_percentile!=null?(D.danjuan_now.pe_percentile*100).toFixed(1)+'%':'—'),
+   caveat:'⚠️ 口径冲突：蛋卷 '+fmt(D.danjuan_now.pe)+'（'+D.danjuan_now.date+'）／Siblis 35.24（2026-06-30）／Nasdaq 官方 35.23（2026-06-30）——三家不可混比。'},
+  {cat:'估值', key:'fpe', name:'远期市盈率', hist:null, dec:2, locked:true,
+   get:()=>23.26, src:'Siblis（仅8个快照）', date:()=>'2026-09-30',
+   what:'市值 ÷ 未来12个月一致预期净利润。',
+   read:'与 TTM PE 的差 = 市场已定价的盈利增长。',
+   cur:'隐含增长 +50.9%（35.09÷23.26−1）',
+   caveat:'⚠️ 无免费历史序列：Siblis 免费层仅 8 个快照，完整序列付费（$768/年 或 $349 一次性）。'},
+  {cat:'估值', key:'cape', name:'CAPE 周期调整市盈率', hist:null, dec:2, locked:true,
+   get:()=>58.89, src:'Siblis（仅8个快照）', date:()=>'2026-09-30',
+   what:'价格 ÷ 过去10年通胀调整后平均盈利。',
+   read:'抹平盈利周期，适合看长周期贵贱。',
+   cur:'2002 年以来第 98 分位',
+   caveat:'⚠️ 无免费历史序列（同远期PE）。'},
+  {cat:'估值', key:'pb', name:'PB 市净率', hist:'pb', dec:2,
+   get:()=>D.danjuan_now.pb, src:'蛋卷 detail/NDX', date:()=>D.danjuan_now.date,
+   what:'市值 ÷ 净资产。',
+   read:'重资产行业更有效，科技股参考性弱。',
+   cur:'近10年分位 '+(D.danjuan_now.pb_percentile!=null?(D.danjuan_now.pb_percentile*100).toFixed(1)+'%':'—')},
+  {cat:'估值', key:'ps', name:'PS 市销率', hist:null, dec:2, locked:true,
+   get:()=>6.34, src:'Nasdaq 官方 2Q2026', date:()=>'2026-06-30',
+   what:'市值 ÷ 营业收入。',
+   read:'盈利波动大或亏损期可用。',
+   caveat:'⚠️ 无免费数值序列：官方仅季度 PDF 图表；Siblis 付费库也不含此项。'},
+  {cat:'盈利与质量', key:'roe', name:'ROE 净资产收益率', hist:'roe', dec:2, isPctVal:true,
+   get:()=>D.danjuan_now.roe, src:'蛋卷 detail/NDX', date:()=>D.danjuan_now.date,
+   what:'净利润 ÷ 净资产，衡量赚钱效率。',
+   read:'越高越能靠自身造血，通常 >15% 算优秀。',
+   cur:'当前 '+(D.danjuan_now.roe*100).toFixed(2)+'%'},
+  {cat:'盈利与质量', key:'gross', name:'毛利率', hist:null, unit:'%', dec:0, locked:true,
+   get:()=>48, src:'Nasdaq 官方 2Q2026', date:()=>'2026-06-30',
+   what:'(营收−成本) ÷ 营收。',
+   read:'越高说明产品越有定价权。',
+   caveat:'⚠️ 无免费序列（官方仅季度 PDF 点值）。'},
+  {cat:'盈利与质量', key:'net', name:'净利率', hist:null, unit:'%', dec:2, locked:true,
+   get:()=>19.93, src:'Nasdaq 官方 2Q2026', date:()=>'2026-06-30',
+   what:'净利润 ÷ 营收。',
+   read:'扣除全部费用后真正留下的比例。',
+   caveat:'⚠️ 无免费序列。'},
+  {cat:'盈利与质量', key:'roa', name:'ROA 总资产收益率', hist:null, unit:'%', dec:2, locked:true,
+   get:()=>10.40, src:'Nasdaq 官方 2Q2026', date:()=>'2026-06-30',
+   what:'净利润 ÷ 总资产。',
+   read:'衡量资产使用效率，含杠杆影响较小。',
+   caveat:'⚠️ 无免费序列。'},
+  {cat:'盈利与质量', key:'growth', name:'盈利增速（3年年化）', hist:null, unit:'%', dec:1, locked:true,
+   get:()=>27.0, src:'Siblis', date:()=>'2026-09-30',
+   what:'指数合计盈利的复合年增长率。',
+   read:'增速越高，高PE越容易被消化。',
+   caveat:'⚠️ 无免费序列；官方 one-pager 仅 2003–2024 CAGR 快照。'},
+  {cat:'股息', key:'dy', name:'股息率', hist:'dividend', unit:'%', dec:2,
+   get:()=>{const a=D.dividend.rows; return a.length?a[a.length-1][1]:null;},
+   src:'nikkei225jp 列15', date:()=>D.dividend.end,
+   what:'每股分红 ÷ 股价。',
+   read:'越高代表股息回报越厚。纳指100 本身很低（<1%）。',
+   cur:'蛋卷快照 '+(D.danjuan_now.yeild*100).toFixed(2)+'%',
+   caveat:'⚠️ 两条来源数值不同（统计截止日不同），不可直接比。'},
+  {cat:'股息', key:'spread', name:'股债收益差', hist:null, unit:'pp', dec:2, locked:true,
+   get:()=>{const pe=D.danjuan_now.pe; return pe? (1/pe-0.0169)*100 : null;},
+   src:'本地自算（1/PE − 10Y国债1.69%）', date:()=>D.danjuan_now.date,
+   what:'股票盈利收益率 − 10年期国债收益率。',
+   read:'差越大，股票相对债券越有吸引力。',
+   caveat:'⚠️ 无免费长序列（PE 序列仅自 2016 起）。'},
+  {cat:'行情与技术', key:'close', name:'指数点位', hist:'ndx', dec:2,
+   get:()=>last(D.indicators.close), src:()=>D.ndx.src, date:()=>D.indicators.end,
+   what:'纳斯达克100 收盘点位（价格口径，不含股息）。',
+   read:'看绝对水平，也要看与均线的关系。',
+   caveat:(D.ndx.src.indexOf('腾讯')>=0? '⚠️ 数据来源拼接：2002–2026-10-13 为 FRED NASDAQ100；2026-10-14 起由腾讯 us.NDX 增量补（FRED 直连被封锁）。' : '')},
+  {cat:'行情与技术', key:'ma250', name:'MA250（年线）', hist:'ma250', dec:2,
+   get:()=>last(D.indicators.ma250), src:'本地自算（250日均线）', date:()=>D.indicators.end,
+   what:'过去250个交易日收盘均价，约等于一年平均成本。',
+   read:'价格在年线上方=长期偏强，下方=长期偏弱。'},
+  {cat:'行情与技术', key:'ma500', name:'MA500（两年线）', hist:'ma500', dec:2,
+   get:()=>last(D.indicators.ma500), src:'本地自算（500日均线）', date:()=>D.indicators.end,
+   what:'过去500个交易日收盘均价。',
+   read:'本项目 r500 判据的分母。'},
+  {cat:'行情与技术', key:'r500', name:'r500（价 ÷ MA500）', hist:'r500', dec:3,
+   get:()=>last(D.indicators.r500), src:'本地自算', date:()=>D.indicators.end,
+   what:'当前价 ÷ 500日均线。衡量价格相对长期均线偏离多远。',
+   read:'越高说明涨得越偏离长期均值。本项目卖出规则阈值：1.30 / 1.38 / 1.46。',
+   cur:'距 1.30 档差 '+fmt(1.30-last(D.indicators.r500),3)},
+  {cat:'行情与技术', key:'r250', name:'r250（价 ÷ MA250）', hist:'r250', dec:3,
+   get:()=>last(D.indicators.r250), src:'本地自算', date:()=>D.indicators.end,
+   what:'当前价 ÷ 250日均线。',
+   read:'本项目买回规则阈值：0.99 / 0.95 / 0.90。'},
+  {cat:'行情与技术', key:'rsi', name:'RSI(14)', hist:'rsi14', dec:1,
+   get:()=>last(D.indicators.rsi14), src:'本地自算（Wilder）', date:()=>D.indicators.end,
+   what:'14日相对强弱指标。',
+   read:'>70 超买、<30 超卖。'},
+  {cat:'行情与技术', key:'dd', name:'当前回撤（距峰）', hist:null, unit:'%', dec:2, locked:true,
+   get:()=>D.indicators.curDrawdown*100, src:'本地自算', date:()=>D.indicators.end,
+   what:'当前价距历史最高点的跌幅。',
+   read:'负得越多，离高点越远。',
+   cur:'历史峰值 '+fmt(D.indicators.curPeak),
+   caveat:'⚠️ 无独立序列；回撤区间见「指数走势」图上的 A/B/C 阴影带。'},
+  {cat:'风险与波动', key:'vxn', name:'VXN（纳指100波动率）', hist:'vxn', dec:2,
+   get:()=>last(D.vxn.rows)[1], src:()=>D.vxn.src, date:()=>D.vxn.end,
+   what:'纳指100 期权隐含的未来30天波动预期。',
+   read:'越高越恐慌。参考：<18 平静｜18–25 中性｜>25 开始紧张｜>40 罕见恐慌。',
+   cur:'52周区间 '+fmt(D.vxnSt52.low)+' ~ '+fmt(D.vxnSt52.high)},
+  {cat:'风险与波动', key:'vix', name:'VIX（标普500波动率）', hist:'vix', dec:2,
+   get:()=>last(D.vix.rows)[1], src:()=>D.vix.src, date:()=>D.vix.end,
+   what:'标普500 期权隐含波动率，市场恐慌温度计。',
+   read:'越高越恐慌。参考：<15 平静｜15–20 中性｜>30 剧烈波动。',
+   cur:'52周区间 '+fmt(D.vixSt52.low)+' ~ '+fmt(D.vixSt52.high)},
+  {cat:'风险与波动', key:'cnn', name:'CNN 恐慌贪婪指数', hist:'cnn', dec:1,
+   get:()=>D.cnn.current.score, src:'CNN Fear & Greed', date:()=>D.cnn.end,
+   what:'综合7项指标（动能/强度/广度/期权/波动率/垃圾债/避险）的市场情绪打分。',
+   read:'⚠️ 方向相反：越低越恐慌。0–25 极度恐慌｜45–55 中性｜75–100 极度贪婪。',
+   cur:'当前 '+D.cnn.current.rating+'（'+D.cnn.current.score+'）｜1周前 '+D.cnn.current.prev_week+'｜1月前 '+D.cnn.current.prev_month,
+   caveat:'⚠️ 历史仅自 2020-07-17 起（更早返回 HTTP 500）。'},
+  {cat:'风险与波动', key:'vol', name:'年化波动率（近1年）', hist:null, unit:'%', dec:2, locked:true,
+   get:()=>D.indicators.vol.y1, src:'本地自算', date:()=>D.indicators.end,
+   what:'过去1年日收益的年化标准差，衡量实际波动。',
+   read:'越高说明价格越颠簸。纳指100 长期约 20%。',
+   cur:'近1月 '+fmt(D.indicators.vol.m1)+'%｜近3月 '+fmt(D.indicators.vol.m3)+'%｜近6月 '+fmt(D.indicators.vol.m6)+'%｜近5年 '+fmt(D.indicators.vol.y5)+'%',
+   caveat:'⚠️ 与 VIX/VXN 口径不同：这是「已实现波动」，VIX 是「隐含波动」，两者不可比。'},
+  {cat:'风险与波动', key:'maxdd', name:'最大回撤（2002起）', hist:null, unit:'%', dec:1, locked:true,
+   get:()=>-53.7, src:'本地自算', date:()=>D.indicators.end,
+   what:'区间内从最高点到最低点的最大跌幅。',
+   read:'衡量最坏情况下要承受多少。',
+   cur:'2002-10-09 起最深：−53.7%（2007-10-31 → 2008-11-20）',
+   caveat:'⚠️ 这是 2002-10-09 起点口径；全历史（1986起）最深为 −82.90%（2000–2002）。'},
+  {cat:'集中度', key:'top10', name:'前十大权重合计', hist:null, unit:'%', dec:2, locked:true,
+   get:()=>D.weights.top10_sum, src:'SEC N-PORT', date:()=>D.weights.asOf,
+   what:'前十大成分股占指数总市值的比例。',
+   read:'越高说明指数越依赖少数公司，风险越集中。',
+   cur:'最大：'+D.weights.top[0][0]+' '+fmt(D.weights.top[0][1])+'%',
+   caveat:'⚠️ 无连续免费序列：SEC 季度披露（2019-11-29 起），非日频。'},
+  {cat:'集中度', key:'top1', name:'第一大成分股权重', hist:null, unit:'%', dec:3, locked:true,
+   get:()=>D.weights.top[0][1], src:'SEC N-PORT', date:()=>D.weights.asOf,
+   what:'权重最高那只成分股（当前：'+D.weights.top[0][0]+'）的占比。',
+   read:'单一公司占比过高会显著影响指数走势。',
+   caveat:'⚠️ 同上，季度披露。'}
+];
+const CATS=['估值','盈利与质量','股息','行情与技术','风险与波动','集中度'];
+
+let chart=null, curMetric=null;
+
+const INDEXES=[
+  {id:'ndx', name:'纳斯达克100', code:'NDX', on:true},
+  {id:'spx', name:'标普500', code:'SPX', on:false, hint:'待接入'},
+  {id:'divlow', name:'红利低波', code:'H30269', on:false, hint:'待接入'},
+  {id:'sse', name:'上证指数', code:'000001', on:false, hint:'待接入'}
+];
+
+function renderIndexList(){
+  const g=document.getElementById('idxGrid');
+  g.innerHTML='';
+  INDEXES.forEach(ix=>{
+    const d=document.createElement('div');
+    d.className='idxcard'+(ix.on?'':' off');
+    if(ix.on){
+      const c=D.indicators.close, ch=c.length>1? c[c.length-1]/c[c.length-2]-1 : null;
+      d.innerHTML='<div class="nm">'+ix.name+'</div><div class="code">'+ix.code+'</div>'+
+        '<div class="val">'+fmt(last(c))+'</div>'+
+        '<div class="sub '+cls(ch)+'" style="font-size:12px">'+(ch===null?'':'当日 '+sgn(ch*100,2)+'%')+'</div>'+
+        '<div class="sub" style="font-size:11px;margin-top:6px">数据日 '+D.indicators.end+'</div>';
+      d.onclick=()=>openIndex(ix.id);
+    }else{
+      d.innerHTML='<div class="nm" style="color:var(--faint)">'+ix.name+'</div><div class="code">'+ix.code+'</div>'+
+        '<div class="val" style="color:var(--faint)">—</div>'+
+        '<div class="sub" style="font-size:11px;margin-top:6px">'+ix.hint+'</div>';
+    }
+    g.appendChild(d);
+  });
+}
+
+/* ══════════ 量纲分组：同组共用一条 Y 轴，避免「各自缩放」造成视觉错位 ══════════ */
+const GROUPS={
+  points:{name:'指数点位', axis:0, side:'left'},
+  ratio :{name:'比率 r',   axis:1, side:'right', offset:0},
+  osc   :{name:'振荡/情绪', axis:2, side:'right', offset:64},
+  vol   :{name:'波动率',   axis:3, side:'right', offset:128},
+  value :{name:'估值',     axis:4, side:'right', offset:192}
+};
+const GROUP_ORDER=['points','ratio','osc','vol','value'];
+
+/* 指数图上可选的全部序列 */
+const IDX_SERIES=[
+  {key:'ndx',      name:'NDX 收盘',       group:'points', color:'#1d4ed8', width:1.6, dec:2, src:'FRED + 腾讯', own:'close'},
+  {key:'ma250',    name:'MA250（年线）',   group:'points', color:'#f59e0b', width:1.2, dash:true, dec:2, src:'本地自算', own:'ma250'},
+  {key:'ma500',    name:'MA500（两年线）', group:'points', color:'#10b981', width:1.2, dash:true, dec:2, src:'本地自算', own:'ma500'},
+  {key:'r500',     name:'r500',           group:'ratio',  color:'#7c3aed', width:1.3, dec:3, src:'本地自算', own:'r500'},
+  {key:'r250',     name:'r250',           group:'ratio',  color:'#a855f7', width:1.0, dash:true, dec:3, src:'本地自算', own:'r250'},
+  {key:'rsi14',    name:'RSI(14)',        group:'osc',    color:'#0891b2', width:1.3, dec:1, src:'本地自算', own:'rsi14'},
+  {key:'cnn',      name:'CNN 恐慌贪婪',    group:'osc',    color:'#ea580c', width:1.1, dec:1, src:'CNN', hist:'cnn'},
+  {key:'vxn',      name:'VXN',            group:'vol',    color:'#db2777', width:1.3, dec:2, src:'FRED VXNCLS', hist:'vxn'},
+  {key:'vix',      name:'VIX',            group:'vol',    color:'#f43f5e', width:1.0, dash:true, dec:2, src:'CBOE', hist:'vix'},
+  {key:'pe',       name:'PE-TTM',         group:'value',  color:'#2563eb', width:1.3, dec:2, src:'蛋卷', hist:'pe'},
+  {key:'pb',       name:'PB',             group:'value',  color:'#0d9488', width:1.0, dash:true, dec:2, src:'蛋卷', hist:'pb'},
+  {key:'roe',      name:'ROE(%)',         group:'value',  color:'#ca8a04', width:1.2, dec:2, src:'蛋卷', hist:'roe'},
+  {key:'dividend', name:'股息率(%)',       group:'value',  color:'#65a30d', width:1.0, dash:true, dec:2, src:'nikkei225jp', hist:'dividend'}
+];
+const SEL_KEY='wb_selected_v1';
+let selected=new Set(['ndx','ma250','ma500']);
+
+function loadSel(){
+  try{
+    const s=JSON.parse(localStorage.getItem(SEL_KEY)||'null');
+    if(Array.isArray(s)&&s.length){
+      const valid=s.filter(k=>IDX_SERIES.some(d=>d.key===k));
+      if(valid.length) return new Set(valid);
+    }
+  }catch(e){}
+  return new Set(['ndx','ma250','ma500']);
+}
+function saveSel(){ try{ localStorage.setItem(SEL_KEY, JSON.stringify([...selected])); }catch(e){} }
+
+/* 二分：找日频轴中 ≤ 目标日期的最后一个下标 */
+function floorIdx(axis,d){
+  let lo=0,hi=axis.length-1,pos=-1;
+  while(lo<=hi){ const mid=(lo+hi)>>1; if(axis[mid]<=d){pos=mid;lo=mid+1;} else hi=mid-1; }
+  return pos;
+}
+/* 把周频指标映射到日频轴（空缺处用 null，配合 connectNulls 连续画） */
+function mapToDaily(histKey){
+  const ser=D.series[histKey];
+  const out=new Array(D.indicators.dates.length).fill(null);
+  if(!ser||!ser.dates.length) return out;
+  for(let i=0;i<ser.dates.length;i++){
+    const pos=floorIdx(D.indicators.dates, ser.dates[i]);
+    if(pos>=0) out[pos]=ser.values[i];
+  }
+  return out;
+}
+/* 取某序列在日频轴上的值 */
+function valuesOnDaily(def){
+  if(def.own) return D.indicators[def.own];
+  return mapToDaily(def.hist||def.key);
+}
+/* 把 NDX 映射到任意时间轴 */
+function ndxOnAxis(xDates){
+  const axis=D.indicators.dates, out=[];
+  for(const d of xDates){ const p=floorIdx(axis,d); out.push(p>=0? D.indicators.close[p]:null); }
+  return out;
+}
+
+/* ══════════ 多选面板 ══════════ */
+function renderSelBar(){
+  const box=document.getElementById('selBar');
+  const isIdx=document.getElementById('chipIdx').classList.contains('on');
+  if(!isIdx){ box.innerHTML=''; return; }
+  let h='<span class="lbl">可选数据（点选，可多选）：</span>';
+  GROUP_ORDER.forEach(g=>{
+    IDX_SERIES.filter(s=>s.group===g).forEach(s=>{
+      const on=selected.has(s.key);
+      h+='<span class="sel'+(on?' on':'')+'" onclick="toggleSeries(\''+s.key+'\')" title="'+GROUPS[g].name+'｜'+s.src+'">'
+        +'<i style="background:'+s.color+'"></i>'+s.name+'</span>';
+    });
+  });
+  h+='<button class="sel-reset" onclick="resetSel()">恢复默认</button>';
+  box.innerHTML=h;
+}
+function toggleSeries(k){
+  if(selected.has(k)) selected.delete(k); else selected.add(k);
+  if(!selected.size) selected.add('ndx');
+  saveSel(); showIndexChart();
+}
+function resetSel(){ selected=new Set(['ndx','ma250','ma500']); saveSel(); showIndexChart(); }
+
+/* ══════════ 通用图表配置 ══════════ */
+function baseOption(xDates){ return {
+  animation:false,
+  grid:{left:66,right:76,top:42,bottom:56},
+  tooltip:{trigger:'axis',axisPointer:{type:'cross'}},
+  xAxis:{type:'category',data:xDates,boundaryGap:false,
+    axisLabel:{fontSize:10,color:'#6b7280'},axisLine:{lineStyle:{color:'#e8eaed'}}},
+  dataZoom:[{type:'inside',start:0,end:100},
+    {type:'slider',height:18,bottom:16,start:0,end:100,borderColor:'#e8eaed',
+     fillerColor:'rgba(37,99,235,.10)'}],
+  series:[]
+};}
+
+/* 按「用到的量纲组」生成 Y 轴：左侧一组、右侧多组错位排列 */
+function buildAxes(activeGroups){
+  const axes=[];
+  GROUP_ORDER.forEach(g=>{
+    const G=GROUPS[g], on=activeGroups.has(g);
+    if(G.axis===0 && G.side==='left'){
+      axes[0]={type:'value',scale:true,position:'left',show:true,
+        axisLabel:{fontSize:10,color:on?'#6b7280':'#e5e7eb'},
+        splitLine:{show:on,lineStyle:{color:'#f1f3f5'}}};
+    }else{
+      axes[G.axis]={type:'value',scale:true,position:'right',offset:G.offset,show:on,
+        axisLabel:{fontSize:10,color:on?'#6b7280':'#e5e7eb',formatter:v=>v},
+        splitLine:{show:false},
+        axisLine:{show:on,lineStyle:{color:'#e8eaed'}},
+        name:on? G.name:'' , nameTextStyle:{fontSize:9,color:'#9aa4b2',align:'left'}};
+    }
+  });
+  return axes;
+}
+
+/* ══════════ 指数走势图（第②层）══════════ */
+function showIndexChart(){
+  curMetric=null; renderMetricCards();
+  document.getElementById('chipIdx').classList.add('on');
+  document.getElementById('chipHint').textContent='';
+  document.getElementById('chartTitle').innerHTML='纳斯达克100 走势（2002-10-09 起）'+
+    '<span class="chip" style="margin-left:8px">数据日 '+D.indicators.end+'</span>';
+
+  const active=IDX_SERIES.filter(s=>selected.has(s.key));
+  const groups=new Set(active.map(s=>s.group));
+
+  const opt=baseOption(D.indicators.dates);
+  opt.yAxis=buildAxes(groups);
+
+  const md=[];
+  D.indicators.segments.forEach(s=>{
+    md.push([{xAxis:s.peakDate,itemStyle:{color:LV_COLOR[s.level],opacity:0.20}},{xAxis:s.troughDate}]);
+  });
+
+  active.forEach(def=>{
+    const ser={name:def.name,type:'line',showSymbol:false,connectNulls:true,
+      yAxisIndex:GROUPS[def.group].axis, data:valuesOnDaily(def),
+      lineStyle:{width:def.width,color:def.color,type:def.dash?'dashed':'solid'},
+      itemStyle:{color:def.color}, z:def.key==='ndx'?5:3};
+    if(def.key==='ndx') ser.markArea={silent:true,data:md};
+    opt.series.push(ser);
+  });
+  if(!active.length){
+    opt.series.push({name:'NDX 收盘',type:'line',showSymbol:false,connectNulls:true,
+      data:D.indicators.close,lineStyle:{width:1.6,color:'#1d4ed8'}});
+  }
+
+  /* 悬停：一次性列出**所有已选**数据（缺值显示 —） */
+  const idxOfDate=new Map(D.indicators.dates.map((d,i)=>[d,i]));
+  opt.tooltip.formatter=function(ps){
+    const d0=ps.length? ps[0].axisValue : '';
+    const i=idxOfDate.has(d0)? idxOfDate.get(d0) : -1;
+    let out='<b>'+d0+'</b><br/>';
+    active.forEach(def=>{
+      const v=(i>=0)? valuesOnDaily(def)[i] : null;
+      const dot='<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'
+        +def.color+';margin-right:5px"></span>';
+      out+=dot+def.name+'：<b>'+(v==null?'—':fmt(v,def.dec))+'</b><br/>';
+    });
+    const seg=D.indicators.segments.find(s=>d0>=s.peakDate&&d0<=s.troughDate);
+    if(seg) out+='<span style="color:'+LV_COLOR[seg.level]+'">■ '+LV_NAME[seg.level]+'：'+
+      seg.peakDate+' → '+seg.troughDate+'（'+(seg.depth*100).toFixed(1)+'%）</span>';
+    return out;
+  };
+  chart.setOption(opt,true);
+
+  const c=D.indicators.segCounts;
+  let lg=active.map(def=>'<span><span class="swatch" style="background:'+def.color+'"></span>'
+      +def.name+'<span style="color:var(--faint)">（'+GROUPS[def.group].name+'）</span></span>').join('');
+  lg+='<span><span class="swatch" style="background:'+LV_COLOR.A+';opacity:.5"></span>A级≥15%：'+c.A+'段</span>'
+    +'<span><span class="swatch" style="background:'+LV_COLOR.B+';opacity:.5"></span>B级10-15%：'+c.B+'段</span>'
+    +'<span><span class="swatch" style="background:'+LV_COLOR.C+';opacity:.5"></span>C级5-10%：'+c.C+'段</span>'
+    +'<span style="color:var(--faint)">D级(&lt;5%)不画｜回撤口径：峰→谷单段</span>';
+  document.getElementById('chartLegend').innerHTML=lg;
+  renderSelBar();
+}
+
+/* ══════════ 指标详情图（第③层）══════════ */
+const SAME_AXIS_AS_POINTS=['close','ma250','ma500'];   // 与指数同量纲 → 必须共用左轴
+function showMetricChart(m){
+  curMetric=m.key; renderMetricCards();
+  document.getElementById('chipIdx').classList.remove('on');
+  document.getElementById('chipHint').textContent='点「指数走势」返回';
+  document.getElementById('chartTitle').innerHTML=m.name+
+    '<span class="chip" style="margin-left:8px">'+srcOf(m)+'｜'+(m.date()||'—')+'</span>';
+
+  const ser=m.hist? D.series[m.hist] : null;
+  /* ① 指标用「自身时间轴」（周频指标不再被日频轴切碎成孤点） */
+  const xDates = (ser && ser.dates.length) ? ser.dates : D.indicators.dates;
+  const same = SAME_AXIS_AS_POINTS.includes(m.key);
+
+  const opt=baseOption(xDates);
+  opt.yAxis=buildAxes(new Set(same? ['points'] : ['points','value']));
+
+  /* ② 背景 NDX：同量纲时与指标**共用左轴**（真实比例，修复视觉错位）；
+        不同量纲时才用右轴（明确标注「仅参考形态」） */
+  const bg=ndxOnAxis(xDates);
+  opt.series.push({name:'NDX（背景）',type:'line',showSymbol:false,connectNulls:true,
+    yAxisIndex: same? 0:1, data:bg,
+    lineStyle:{width:1.2,color:'#94a3b8'},itemStyle:{color:'#94a3b8'},tooltip:{show:false},z:1});
+
+  if(ser){
+    opt.series.push({name:m.name,type:'line',showSymbol:false,connectNulls:true,yAxisIndex:0,
+      data:ser.values,
+      lineStyle:{width:1.7,color: same? '#1d4ed8':'#1d4ed8'},itemStyle:{color:'#1d4ed8'},z:4});
+    if(ser.dates[0]>'2002-10-09'){
+      opt.series[1].markLine={silent:true,symbol:'none',
+        data:[{xAxis:ser.dates[0],lineStyle:{color:'#f59e0b',type:'dashed'},
+          label:{formatter:'数据起点 '+ser.dates[0],fontSize:10,color:'#b45309',position:'insideEndTop'}}]};
+    }
+  }
+
+  opt.tooltip.formatter=function(ps){
+    const d0=ps.length? ps[0].axisValue:'';
+    let out='<b>'+d0+'</b><br/>';
+    if(ser){
+      const i=ser.dates.indexOf(d0);
+      const v=(i>=0)? ser.values[i]:null;
+      out+='<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#1d4ed8;margin-right:5px"></span>'
+        +m.name+'：<b>'+(v==null?'—':fmt(v,m.dec))+'</b><br/>';
+    }
+    const j=xDates.indexOf(d0);
+    if(j>=0 && bg[j]!=null){
+      out+='<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#94a3b8;margin-right:5px"></span>'
+        +'NDX（背景）：<b>'+fmt(bg[j])+'</b><br/>';
+    }
+    return out;
+  };
+  chart.setOption(opt,true);
+
+  let lg='';
+  if(ser){
+    lg+='<span><span class="swatch" style="background:#1d4ed8"></span>'+m.name+'</span>'
+      +'<span><span class="swatch" style="background:#94a3b8"></span>NDX 走势'
+      +(same? '<b>（同轴·真实比例）</b>':'（独立刻度·仅参考形态）')+'</span>';
+    if(ser.dates[0]>'2002-10-09'){
+      lg+='<span class="warn">数据起点 '+ser.dates[0]+'（非 2002）</span>';
+    }
+    lg+='<span style="color:var(--faint)">指标用自身时间轴</span>';
+  }else{
+    lg+='<span class="warn">该指标无免费历史序列，仅显示当期值</span>';
+  }
+  document.getElementById('chartLegend').innerHTML=lg;
+  document.getElementById('selBar').innerHTML='';
+}
+
+function renderMetricCards(){
+  const box=document.getElementById('metricCats');
+  box.innerHTML='';
+  CATS.forEach(cat=>{
+    const ms=METRICS.filter(m=>m.cat===cat);
+    if(!ms.length) return;
+    const h=document.createElement('h3');
+    h.innerHTML='<span class="dot"></span>'+cat;
+    box.appendChild(h);
+    const g=document.createElement('div'); g.className='mgrid';
+    ms.forEach(m=>{
+      const v=m.get();
+      const clickable=!!m.hist&&!m.locked;
+      const c=document.createElement('div');
+      c.className='mcard'+(clickable?'':' lock')+(curMetric===m.key?' on':'');
+      const valTxt=(v===null||v===undefined||isNaN(v))?'—':
+        (m.isPctVal? (v*100).toFixed(m.dec)+'%' : fmt(v,m.dec));
+      c.innerHTML='<div class="k">'+m.name+
+        (m.locked?'<span class="lock-tag">仅当期</span>':'<span class="click-tag">可点曲线</span>')+
+        '<span class="q">?</span></div>'+
+        '<div class="v">'+valTxt+(m.unit&&!m.isPctVal?'<span style="font-size:12px;color:var(--sub)"> '+m.unit+'</span>':'')+'</div>'+
+        '<div class="n">'+srcOf(m)+'｜'+(m.date()||'—')+'</div>';
+      c.querySelector('.q').onclick=(e)=>{ e.stopPropagation(); openModal(m,v); };
+      c.onclick=(e)=>{ if(e.target.classList.contains('q')) return;
+        if(clickable) showMetricChart(m); else openModal(m,v); };
+      g.appendChild(c);
+    });
+    box.appendChild(g);
+  });
+}
+
+function openModal(m,v){
+  const valTxt=(v===null||v===undefined||isNaN(v))?'—':
+    (m.isPctVal?(v*100).toFixed(m.dec)+'%':fmt(v,m.dec)+(m.unit?' '+m.unit:''));
+  document.getElementById('mTitle').textContent=m.name;
+  document.getElementById('mVal').textContent='当前 '+valTxt+'　来源：'+srcOf(m)+'　数据日期：'+(m.date()||'—');
+  const ser=m.hist? D.series[m.hist]:null;
+  const histTxt=ser? ('有历史序列：'+ser.dates[0]+' ~ '+ser.dates[ser.dates.length-1]+'（'+ser.dates.length+' 点）')
+                   : '无免费历史序列，仅显示当期值';
+  document.getElementById('mBody').innerHTML='<dl>'+
+    '<dt>这是什么</dt><dd>'+m.what+'</dd>'+
+    '<dt>怎么读</dt><dd>'+m.read+'</dd>'+
+    (m.cur?'<dt>当前所处位置</dt><dd>'+m.cur+'</dd>':'')+
+    '<dt>数据说明</dt><dd>'+histTxt+'</dd>'+
+    (m.caveat?'<dt style="color:var(--warn)">⚠️ 注意事项</dt><dd>'+m.caveat+'</dd>':'')+
+    '</dl>';
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal(){ document.getElementById('modal').classList.remove('show'); }
+
+function openIndex(id){
+  document.getElementById('viewList').style.display='none';
+  document.getElementById('viewDetail').style.display='';
+  if(!chart) chart=echarts.init(document.getElementById('mainChart'));
+  showIndexChart();
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>chart.resize(),60);
+}
+function backToList(){
+  document.getElementById('viewDetail').style.display='none';
+  document.getElementById('viewList').style.display='';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderSrcBox(){
+  const i=D.indicators;
+  document.getElementById('srcBox').innerHTML=
+    '<b>数据来源与口径</b><br>'+
+    '行情/技术：FRED NASDAQ100（'+i.start+' ~ '+i.end+'，'+i.dates.length+' 个交易日）｜本地自算 MA / r500 / r250 / RSI / 回撤<br>'+
+    '情绪：VXN FRED VXNCLS（2001-02-02 起）｜VIX CBOE（1990-01-02 起）｜CNN Fear&Greed（2020-07-17 起）<br>'+
+    '估值：蛋卷 danjuanfunds（2016-10-12 起，周频 514 点）｜股息率 nikkei225jp（2019-06-06 起）｜权重 SEC N-PORT（'+D.weights.asOf+'，季度）<br>'+
+    '回撤口径：<b>峰→谷单段</b>，A ≥15% / B 10–15% / C 5–10%，D(&lt;5%)不画｜已算出 A '+i.segCounts.A+' 段、B '+i.segCounts.B+' 段、C '+i.segCounts.C+' 段'+
+    '<div class="warnbox"><b>⚠️ 四类必须知道的口径限制</b><br>'+
+    '1. <b>禁止跨口径比大小</b>：NDX 的 PE 三家不同源 —— 蛋卷 '+fmt(D.danjuan_now.pe)+'（'+D.danjuan_now.date+'）／Siblis 35.24（2026-06-30）／Nasdaq 官方 35.23（2026-06-30）。<br>'+
+    '2. <b>估值序列起点 2016-10</b>，覆盖不到 2002（图上留白并已标注）。<br>'+
+    '3. <b>波动率两口径不可比</b>：VXN/VIX 是「隐含波动」（期权预期），年化波动率是「已实现波动」（历史）。<br>'+
+    '4. <b>QDII 净值天然滞后 1 日</b>（本页为指数口径，不受影响）。</div>';
+}
+
+/* ========== 启动 ========== */
+(function init(){
+  document.getElementById('genAt').textContent='页面生成于 '+(D.generatedAt||'');
+  selected=loadSel();                        // Q3.c：恢复上次选择
+  renderIndexList(); renderSrcBox();
+  window.addEventListener('resize',()=>{ if(chart) chart.resize(); });
+})();
+
+/* PWA：注册 Service Worker（离线可看 + 主屏图标）。
+   ⚠️ 仅 http(s) 下注册——本地 file:// 打开时跳过，不影响本地使用。 */
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{ /* 静默失败，不影响页面 */ });
+  });
+}
+</script>
+</body>
+</html>

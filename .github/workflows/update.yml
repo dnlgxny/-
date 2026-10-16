@@ -1,0 +1,92 @@
+name: 每日更新数据并部署
+
+# ═══════════════════════════════════════════════════════════════
+# 用途：每个工作日自动拉取最新数据 → 重新生成页面 → 部署到 GitHub Pages
+# 特点：跑在 GitHub 云端，**不依赖本机开机**
+#
+# ⚠️ 前置条件（在仓库 Settings 里设置）
+#   Settings → Pages → Source 选「GitHub Actions」
+#
+# ⚠️ FRED 封锁说明
+#   本机的 fred.stlouisfed.org 被封，但 GitHub 云端**通常不受影响**；
+#   脚本逻辑是「本地缓存优先 + 替代源拼接」，云端会自动补齐并提交缓存更新。
+# ═══════════════════════════════════════════════════════════════
+
+on:
+  schedule:
+    # 每周一至五 01:30 UTC = 北京时间 09:30
+    # （美股周一收盘对应北京时间周二凌晨，09:30 跑能取到前一日收盘）
+    - cron: '30 1 * * 1-5'
+  workflow_dispatch:        # 支持手动触发（便于首次验证）
+
+permissions:
+  contents: write           # 需要写权限来提交数据更新
+  pages: write
+  id-token: write
+
+concurrency:
+  group: daily-update
+  cancel-in-progress: false
+
+jobs:
+  update-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 拉取数据
+        working-directory: 工作台
+        run: |
+          echo "── 开始拉数据 ──"
+          python 拉数据.py
+        continue-on-error: false
+
+      - name: 生成页面与发布包
+        working-directory: 工作台
+        run: |
+          echo "── 生成页面 ──"
+          python 生成工作台.py
+
+      - name: 校验回撤口径（必须为 10/13/22）
+        working-directory: 工作台
+        run: |
+          python - <<'PY'
+          import json
+          d = json.load(open('_data/indicators.json'))
+          c = d['segCounts']
+          print(f"回撤段数: A={c['A']} B={c['B']} C={c['C']}")
+          assert c == {'A': 10, 'B': 13, 'C': 22}, f"口径异常！期望 10/13/22，实际 {c}"
+          print(f"数据区间: {d['start']} ~ {d['end']}（{len(d['dates'])} 交易日）")
+          print("✅ 口径校验通过")
+          PY
+
+      - name: 提交数据更新（若有变化）
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A 工作台/_data 工作台/dist 工作台/工作台.html
+          if git diff --staged --quiet; then
+            echo "无数据变化，跳过提交"
+          else
+            git commit -m "自动更新数据 $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
+
+      - name: 上传 Pages 产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 工作台/dist
+
+      - name: 部署到 GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4

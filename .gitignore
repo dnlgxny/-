@@ -1,0 +1,10 @@
+# 日志
+logs/
+*.log
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 系统文件
+.DS_Store
