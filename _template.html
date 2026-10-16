@@ -67,6 +67,57 @@
   #chartCard.fs .legend .swatch{width:8px;height:8px}
   #chartCard.fs .btn-full{background:var(--info);color:#fff;border-color:var(--info)}
   body.fs-open{overflow:hidden}
+  /* ── 纯 CSS 横屏（iOS 不支持 orientation.lock 时的兜底）──
+     原理：把卡片转 90°，宽高互换 → 竖屏手机也能看到「横向」长图。
+     尺寸用 JS 写入的 --fl-w/--fl-h 变量，避免 vh/vw 在动态地址栏下算错。 */
+  #chartCard.fs.rot{
+    /* ⚠️ 必须 !important：.fs 的 height:100dvh 同权重且靠后，会覆盖这里 */
+    width:var(--fl-w) !important;
+    height:var(--fl-h) !important;
+    top:50% !important; left:50% !important;
+    right:auto !important; bottom:auto !important;
+    transform:translate(-50%,-50%) rotate(90deg) !important;
+    transform-origin:center center;
+  }
+  /* ── 横屏提示（iOS 不支持方向锁定时引导用户手动横屏）── */
+  #rotateHint{display:none;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);
+              z-index:210;background:rgba(15,23,42,.88);color:#fff;border-radius:12px;
+              padding:18px 22px;font-size:13px;text-align:center;line-height:1.9;
+              max-width:78vw;pointer-events:none}
+  #rotateHint.show{display:block}
+  #rotateHint .ico{font-size:28px;display:block;margin-bottom:6px}
+  /* 全屏 + 横屏时：压缩图例与多选，把空间全给图表 */
+  @media (orientation: landscape){
+    #chartCard.fs .legend{max-height:24px;font-size:9px;gap:8px;flex-wrap:nowrap;overflow-x:auto}
+    #chartCard.fs .selbar{max-height:30px;flex-wrap:nowrap;overflow-x:auto}
+    #chartCard.fs #mainChart{min-height:120px}
+  }
+  /* 纯 CSS 旋转模式（.rot）：图例与多选改为**悬浮覆盖**，不占布局空间
+     → 图表独占整个卡片，最大化可视面积 */
+  #chartCard.fs.rot{position:fixed}
+  #chartCard.fs.rot #mainChart{flex:1 1 auto !important;min-height:0 !important;
+                               width:100% !important;height:100% !important}
+  #chartCard.fs.rot .chartbar{margin:0;position:absolute;top:4px;left:0;right:0;
+                               z-index:5;padding:0 4px;pointer-events:none}
+  #chartCard.fs.rot .chartbar .title{font-size:12px;background:rgba(255,255,255,.82);
+                                      border-radius:5px;padding:1px 6px;display:inline-block;
+                                      max-width:72%;overflow:hidden;text-overflow:ellipsis;
+                                      white-space:nowrap}
+  /* 图例：底部悬浮半透明条 */
+  #chartCard.fs.rot .legend{position:absolute;left:0;right:0;bottom:30px;z-index:5;
+                             max-height:20px;font-size:8.5px;gap:7px;line-height:1.3;
+                             flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;
+                             margin:0;padding:2px 6px;background:rgba(255,255,255,.86);
+                             border-radius:6px}
+  #chartCard.fs.rot .legend .swatch{width:7px;height:7px;margin-right:3px}
+  /* 多选：最底部悬浮条 */
+  #chartCard.fs.rot .selbar{position:absolute;left:0;right:0;bottom:4px;z-index:6;
+                             max-height:24px;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;
+                             margin:0;padding:2px 6px;gap:4px;
+                             background:rgba(255,255,255,.92);border-radius:6px;
+                             border-top:none}
+  #chartCard.fs.rot .sel{font-size:8.5px;padding:1px 6px;white-space:nowrap}
+  #chartCard.fs.rot .sel-reset{font-size:8.5px}
   /* ── 移动端适配 ── */
   @media (max-width: 640px){
     body{padding:10px}
@@ -157,6 +208,12 @@
   </div>
   <div class="cat" id="metricCats"></div>
   <div class="srcbox" id="srcBox"></div>
+</div>
+
+<div id="rotateHint">
+  <span class="ico">📱↻</span>
+  请把手机<b>横过来</b><br>
+  <span style="color:#cbd5e1;font-size:12px">横屏看走势图更清晰</span>
 </div>
 
 <div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
@@ -481,9 +538,12 @@ function resetSel(){ selected=new Set(['ndx','ma250','ma500']); saveSel(); showI
 /* ══════════ 通用图表配置 ══════════ */
 function baseOption(xDates){ return {
   animation:false,
-  grid:{left:(typeof window!=='undefined'&&window.innerWidth<520)?46:66,
-        right:(typeof window!=='undefined'&&window.innerWidth<520)?58:76,
-        top:42,bottom:56},
+  grid:(()=>{
+    // 旋转横屏时按「实际绘图区宽度」判断，而不是视口
+    const narrow = (typeof window!=='undefined' && !isFull && window.innerWidth<520);
+    return narrow ? {left:46,right:58,top:42,bottom:56}
+                  : {left:62,right:70,top:34,bottom:50};
+  })(),
   tooltip:{trigger:'axis',axisPointer:{type:'cross'}},
   xAxis:{type:'category',data:xDates,boundaryGap:false,
     axisLabel:{fontSize:10,color:'#6b7280',hideOverlap:true,
@@ -730,15 +790,56 @@ function enterFull(){
   const btn=document.getElementById('btnFull');
   if(btn) btn.textContent='✕ 退出';
 
-  /* ⚠️ 不调用原生全屏 API：
-     PWA standalone（加到主屏）与微信 X5 内核下，requestFullscreen
-     会改变 fixed 参照系 → 图表被渲染成空白。
-     纯 CSS 方案在两种模式下都稳定。 */
+  /* ⚠️ 不调用原生全屏 API（requestFullscreen）：
+     PWA standalone（加到主屏）与微信 X5 内核下，它会改变 fixed 参照系
+     → 图表被渲染成空白。纯 CSS 全屏在两种模式下都稳定。 */
 
-  /* 多次重算：真机地址栏收缩 / PWA 视口变化是异步的 */
+  /* 横屏模式：尝试锁定横屏（Android PWA/Chrome 支持；iOS Safari 不支持，
+     此时提示用户手动横过手机） */
+  lockLandscape();
+
+  /* 多次重算：真机地址栏收缩 / 旋转 / PWA 视口变化都是异步的 */
   const fix=()=>{ try{ if(chart){ chart.resize(); } }catch(e){} };
   requestAnimationFrame(fix);
-  [80,200,400,700,1200].forEach(t=>setTimeout(fix,t));
+  [80,200,400,700,1200,2000].forEach(t=>setTimeout(fix,t));
+}
+
+/* ── 横屏：优先方向锁，失败则 CSS 旋转（iOS 走这条）── */
+let orientationLocked=false, cssRotated=false;
+
+function lockLandscape(){
+  const card=document.getElementById('chartCard');
+  // 已经物理横屏了就不折腾
+  if(window.innerWidth > window.innerHeight){ return; }
+  try{
+    if(screen.orientation && screen.orientation.lock){
+      screen.orientation.lock('landscape')
+        .then(()=>{ orientationLocked=true; })
+        .catch(()=>{ applyCssRotate(); });     // 锁定被拒（iOS/权限）
+    }else{
+      applyCssRotate();                        // 无该 API（iOS Safari/PWA）
+    }
+  }catch(e){ applyCssRotate(); }
+}
+
+/* 纯 CSS 旋转：把卡片转 90°，视觉上变成横屏 */
+function applyCssRotate(){
+  if(window.innerWidth > window.innerHeight) return;   // 已横屏则无需旋转
+  const card=document.getElementById('chartCard');
+  if(!card) return;
+  setRotateSize(card);
+  card.classList.add('rot');
+  cssRotated=true;
+  const hint=document.getElementById('rotateHint');
+  if(hint) hint.classList.remove('show');              // 已用旋转解决，不必提示
+  [60,200,500,1000].forEach(t=>setTimeout(()=>{ try{ if(chart) chart.resize(); }catch(e){} }, t));
+}
+
+/* 写入旋转后的尺寸变量（宽=视口高，高=视口宽） */
+function setRotateSize(card){
+  const w=window.innerHeight, h=window.innerWidth;
+  card.style.setProperty('--fl-w', w+'px');
+  card.style.setProperty('--fl-h', h+'px');
 }
 
 function exitFull(){
@@ -749,6 +850,14 @@ function exitFull(){
   isFull=false;
   const btn=document.getElementById('btnFull');
   if(btn) btn.textContent='⛶ 全屏';
+  try{ if(orientationLocked && screen.orientation && screen.orientation.unlock) screen.orientation.unlock(); }catch(e){}
+  orientationLocked=false;
+  card.classList.remove('rot');                 // 清除 CSS 旋转
+  card.style.removeProperty('--fl-w');
+  card.style.removeProperty('--fl-h');
+  cssRotated=false;
+  const hint=document.getElementById('rotateHint');
+  if(hint) hint.classList.remove('show');
   const fix=()=>{ try{ if(chart) chart.resize(); }catch(e){} };
   requestAnimationFrame(fix);
   [80,200,400].forEach(t=>setTimeout(fix,t));
@@ -760,7 +869,30 @@ document.addEventListener('keydown', e=>{
 });
 /* 手机旋转 / 视口变化时重算尺寸（真机必需） */
 function refit(){ try{ if(chart) chart.resize(); }catch(e){} }
-window.addEventListener('orientationchange', ()=>{ [100,400,900].forEach(t=>setTimeout(refit,t)); });
+window.addEventListener('orientationchange', ()=>{
+  [100,400,900].forEach(t=>setTimeout(refit,t));
+  setTimeout(()=>{
+    const hint=document.getElementById('rotateHint');
+    const card=document.getElementById('chartCard');
+    if(window.innerWidth>window.innerHeight){
+      // 设备已物理横屏 → 去掉 CSS 旋转，避免「转两次」
+      if(card && cssRotated){ card.classList.remove('rot'); cssRotated=false; }
+      if(hint) hint.classList.remove('show');
+      refit();
+    } else if(isFull && card && !cssRotated && !orientationLocked){
+      // 又转回竖屏 → 重新应用 CSS 旋转
+      applyCssRotate();
+    }
+  }, 500);
+});
+/* 窗口尺寸变化（PWA 拖拽改变窗口）时，更新旋转尺寸 */
+window.addEventListener('resize', ()=>{
+  if(isFull && cssRotated){
+    const card=document.getElementById('chartCard');
+    if(card) setRotateSize(card);
+    refit();
+  }
+});
 if(window.visualViewport){
   window.visualViewport.addEventListener('resize', ()=>{ if(isFull) refit(); });
 }

@@ -69,7 +69,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A _data dist 工作台.html
+          git add -A _data          # 只提交数据；dist 与 工作台.html 每次构建重新生成，避免与本地冲突
           if git diff --staged --quiet; then
             echo "无数据变化，跳过提交"
           else
