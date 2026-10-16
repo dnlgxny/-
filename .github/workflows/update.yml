@@ -31,10 +31,6 @@ concurrency:
 jobs:
   update-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
-
     steps:
       - name: 检出仓库
         uses: actions/checkout@v4
@@ -83,7 +79,24 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+        continue-on-error: true      # Pages 未开启时此步会失败，但不阻塞兜底分支
 
       - name: 部署到 GitHub Pages
         id: deploy
         uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      # ── 兜底：同时把 dist/ 推到 gh-pages 分支 ──
+      # 这样即使你选「Deploy from a branch」也能出链接；
+      # 若选「GitHub Actions」，上面那步会生效，本步无害。
+      - name: 兜底推送 gh-pages 分支
+        if: always()
+        run: |
+          cd dist
+          git init -q -b gh-pages
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "部署 $(date -u '+%Y-%m-%d %H:%M UTC')" || echo "无变化"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" gh-pages
+          echo "✅ 已推送 gh-pages 分支"
