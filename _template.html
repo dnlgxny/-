@@ -43,6 +43,41 @@
   #mainChart{width:100%;height:430px}
   .chartbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
   .chartbar .title{font-weight:600;font-size:15px}
+  /* ── 全屏浏览（手机端看图用） ── */
+  .btn-full{font-size:11px;padding:3px 10px;border-radius:12px;border:1px solid var(--line);
+            background:#fff;color:var(--info);cursor:pointer;white-space:nowrap}
+  .btn-full:hover{border-color:var(--info)}
+  #chartCard.fs{position:fixed;inset:0;z-index:200;border-radius:0;margin:0;
+                display:flex;flex-direction:column;
+                /* 刘海屏/底部横条安全区适配 */
+                padding:calc(8px + env(safe-area-inset-top)) calc(10px + env(safe-area-inset-right))
+                        calc(8px + env(safe-area-inset-bottom)) calc(10px + env(safe-area-inset-left));
+                background:#fff;overflow:hidden}
+  #chartCard.fs #mainChart{flex:1 1 auto;height:auto;min-height:0}
+  #chartCard.fs .chartbar{margin-bottom:4px}
+  #chartCard.fs .legend{font-size:9.5px;gap:6px;margin-top:3px;max-height:34px;overflow:auto;
+                        line-height:1.5}
+  #chartCard.fs .selbar{margin-top:3px;padding-top:3px;max-height:44px;overflow:auto;gap:3px}
+  #chartCard.fs .sel{font-size:9.5px;padding:2px 6px}
+  #chartCard.fs .legend .swatch{width:8px;height:8px}
+  #chartCard.fs .btn-full{background:var(--info);color:#fff;border-color:var(--info)}
+  body.fs-open{overflow:hidden}
+  /* ── 移动端适配 ── */
+  @media (max-width: 640px){
+    body{padding:10px}
+    #mainChart{height:56vh;min-height:280px}   /* 手机上给足高度 */
+    .grid{grid-template-columns:1fr}
+    .mgrid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+    .chartbar .title{font-size:13px;flex:1 1 100%}
+    .btn-full{font-size:12px;padding:5px 12px}  /* 手指好点 */
+    .nav button{font-size:12px;padding:5px 10px}
+    .sel{font-size:10px;padding:3px 8px}
+  }
+  /* 全屏时给图例/多选留足空间，图表占满剩余 */
+  #chartCard.fs #mainChart{height:auto !important;min-height:0 !important}
+  #chartCard.fs .chartbar{flex-wrap:nowrap}
+  #chartCard.fs .chartbar .title{flex:1 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #chartCard.fs .chartbar .title::after{content:" ▲ 最新";font-weight:400;font-size:10px;color:var(--ok)}
   .chip{font-size:11px;padding:2px 8px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer}
   .chip.on{background:var(--info);color:#fff;border-color:var(--info)}
   .legend{font-size:11px;color:var(--sub);margin-top:8px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
@@ -104,12 +139,12 @@
 
 <div id="viewDetail" style="display:none">
   <button class="btn-back" onclick="backToList()">← 返回指数列表</button>
-  <div class="card">
+  <div class="card" id="chartCard">
     <div class="chartbar">
       <span class="title" id="chartTitle"></span>
       <span style="flex:1"></span>
       <span class="chip on" id="chipIdx" onclick="showIndexChart()">指数走势</span>
-      <span class="sub" id="chipHint"></span>
+      <button class="btn-full" id="btnFull" onclick="toggleFull()" title="全屏看图（手机推荐）">⛶ 全屏</button>
     </div>
     <div id="mainChart"></div>
     <div class="legend" id="chartLegend"></div>
@@ -441,10 +476,18 @@ function resetSel(){ selected=new Set(['ndx','ma250','ma500']); saveSel(); showI
 /* ══════════ 通用图表配置 ══════════ */
 function baseOption(xDates){ return {
   animation:false,
-  grid:{left:66,right:76,top:42,bottom:56},
+  grid:{left:(typeof window!=='undefined'&&window.innerWidth<520)?46:66,
+        right:(typeof window!=='undefined'&&window.innerWidth<520)?58:76,
+        top:42,bottom:56},
   tooltip:{trigger:'axis',axisPointer:{type:'cross'}},
   xAxis:{type:'category',data:xDates,boundaryGap:false,
-    axisLabel:{fontSize:10,color:'#6b7280'},axisLine:{lineStyle:{color:'#e8eaed'}}},
+    axisLabel:{fontSize:10,color:'#6b7280',hideOverlap:true,
+      showMinLabel:true, showMaxLabel:true,
+      // ⚠️ 类目轴 formatter 只收 (value, index)，没有第三个参数
+      //    用闭包捕获长度，避免 undefined.length 抛错中断整个渲染
+      formatter:(()=>{ const n=xDates.length;
+        return (v,i)=> (i===0||i===n-1)? v : String(v).slice(2); })()},
+    axisLine:{lineStyle:{color:'#e8eaed'}}},
   dataZoom:[{type:'inside',start:0,end:100},
     {type:'slider',height:18,bottom:16,start:0,end:100,borderColor:'#e8eaed',
      fillerColor:'rgba(37,99,235,.10)'}],
@@ -475,7 +518,7 @@ function buildAxes(activeGroups){
 function showIndexChart(){
   curMetric=null; renderMetricCards();
   document.getElementById('chipIdx').classList.add('on');
-  document.getElementById('chipHint').textContent='';
+  const _h1=document.getElementById('chipHint'); if(_h1) _h1.textContent='';
   document.getElementById('chartTitle').innerHTML='纳斯达克100 走势（2002-10-09 起）'+
     '<span class="chip" style="margin-left:8px">数据日 '+D.indicators.end+'</span>';
 
@@ -538,7 +581,7 @@ const SAME_AXIS_AS_POINTS=['close','ma250','ma500'];   // 与指数同量纲 →
 function showMetricChart(m){
   curMetric=m.key; renderMetricCards();
   document.getElementById('chipIdx').classList.remove('on');
-  document.getElementById('chipHint').textContent='点「指数走势」返回';
+  const _h2=document.getElementById('chipHint'); if(_h2) _h2.textContent='点「指数走势」返回';
   document.getElementById('chartTitle').innerHTML=m.name+
     '<span class="chip" style="margin-left:8px">'+srcOf(m)+'｜'+(m.date()||'—')+'</span>';
 
@@ -661,10 +704,70 @@ function openIndex(id){
   setTimeout(()=>chart.resize(),60);
 }
 function backToList(){
+  exitFull();                                  // 返回时先退出全屏
   document.getElementById('viewDetail').style.display='none';
   document.getElementById('viewList').style.display='';
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
+/* ══════════ 全屏看图（手机端推荐）══════════
+   实现：给图表卡片加 .fs 类 → 固定定位铺满视口；
+   同时尝试调用浏览器原生全屏 API（手机可隐藏地址栏，观感更好）。
+   退出：按钮 / ESC / 返回列表 / 浏览器返回键。 */
+let isFull=false;
+function toggleFull(){ isFull? exitFull() : enterFull(); }
+
+function enterFull(){
+  const card=document.getElementById('chartCard');
+  card.classList.add('fs');
+  document.body.classList.add('fs-open');
+  isFull=true;
+  const btn=document.getElementById('btnFull');
+  if(btn) btn.textContent='✕ 退出';
+  // 尝试原生全屏（部分移动端浏览器支持，失败不影响）
+  const el=card;
+  const rq = el.requestFullscreen || el.webkitRequestFullscreen;
+  if(rq){ try{ rq.call(el); }catch(e){} }
+  // 横屏更利于看长周期走势
+  if(screen.orientation && screen.orientation.lock){
+    try{ screen.orientation.lock('landscape').catch(()=>{}); }catch(e){}
+  }
+  setTimeout(()=>{ if(chart) chart.resize(); }, 120);
+  setTimeout(()=>{ if(chart) chart.resize(); }, 450);
+}
+
+function exitFull(){
+  if(!isFull) return;
+  const card=document.getElementById('chartCard');
+  card.classList.remove('fs');
+  document.body.classList.remove('fs-open');
+  isFull=false;
+  const btn=document.getElementById('btnFull');
+  if(btn) btn.textContent='⛶ 全屏';
+  const ex = document.exitFullscreen || document.webkitExitFullscreen;
+  if(ex && (document.fullscreenElement||document.webkitFullscreenElement)){
+    try{ ex.call(document); }catch(e){}
+  }
+  if(screen.orientation && screen.orientation.unlock){
+    try{ screen.orientation.unlock(); }catch(e){}
+  }
+  setTimeout(()=>{ if(chart) chart.resize(); }, 120);
+}
+
+/* ESC 退出 + 浏览器原生全屏退出时同步状态 */
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape' && isFull) exitFull();
+});
+['fullscreenchange','webkitfullscreenchange'].forEach(ev=>{
+  document.addEventListener(ev, ()=>{
+    const el=document.fullscreenElement||document.webkitFullscreenElement;
+    if(!el && isFull) exitFull();          // 用户按了系统返回/退出全屏
+  });
+});
+/* 手机旋转时重算尺寸 */
+window.addEventListener('orientationchange', ()=>{
+  setTimeout(()=>{ if(chart) chart.resize(); }, 300);
+});
 
 function renderSrcBox(){
   const i=D.indicators;
