@@ -27,7 +27,10 @@ import urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)                      # 项目根
 OUT = os.path.join(HERE, '_data')
-CACHE = os.path.join(ROOT, 'cache-长序列')
+# 缓存目录：优先「仓库内」（云端可用），回落「项目根」（本机既有布局）
+_CACHE_LOCAL = os.path.join(HERE, 'cache-长序列')
+_CACHE_ROOT = os.path.join(ROOT, 'cache-长序列')
+CACHE = _CACHE_LOCAL if os.path.isdir(_CACHE_LOCAL) else _CACHE_ROOT
 os.makedirs(OUT, exist_ok=True)
 
 UA_FF = ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
