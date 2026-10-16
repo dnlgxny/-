@@ -29,7 +29,10 @@ DATA = os.path.join(HERE, '_data')
 TPL = os.path.join(HERE, '_template.html')
 OUT = os.path.join(HERE, '工作台.html')
 DIST = os.path.join(HERE, 'dist')
-ECHARTS = os.path.join(ROOT, 'assets', 'echarts.min.js')
+# ECharts：优先「仓库内 vendor/」（云端可用），回落「项目根 assets/」（本机既有）
+_ECH_LOCAL = os.path.join(HERE, 'vendor', 'echarts.min.js')
+_ECH_ROOT = os.path.join(ROOT, 'assets', 'echarts.min.js')
+ECHARTS = _ECH_LOCAL if os.path.exists(_ECH_LOCAL) else _ECH_ROOT
 ICONS = os.path.join(HERE, 'icons')
 
 

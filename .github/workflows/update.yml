@@ -45,20 +45,17 @@ jobs:
           python-version: '3.12'
 
       - name: 拉取数据
-        working-directory: 工作台
         run: |
           echo "── 开始拉数据 ──"
           python 拉数据.py
         continue-on-error: false
 
       - name: 生成页面与发布包
-        working-directory: 工作台
         run: |
           echo "── 生成页面 ──"
           python 生成工作台.py
 
       - name: 校验回撤口径（必须为 10/13/22）
-        working-directory: 工作台
         run: |
           python - <<'PY'
           import json
@@ -74,7 +71,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A 工作台/_data 工作台/dist 工作台/工作台.html
+          git add -A _data dist 工作台.html
           if git diff --staged --quiet; then
             echo "无数据变化，跳过提交"
           else
