@@ -47,13 +47,18 @@
   .btn-full{font-size:11px;padding:3px 10px;border-radius:12px;border:1px solid var(--line);
             background:#fff;color:var(--info);cursor:pointer;white-space:nowrap}
   .btn-full:hover{border-color:var(--info)}
-  #chartCard.fs{position:fixed;inset:0;z-index:200;border-radius:0;margin:0;
+  #chartCard.fs{position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;
+                border-radius:0;margin:0;
                 display:flex;flex-direction:column;
+                /* PWA standalone 下 100vh 可能算错，用 dvh 优先、vh 兜底 */
+                height:100vh;
+                height:100dvh;
                 /* 刘海屏/底部横条安全区适配 */
-                padding:calc(8px + env(safe-area-inset-top)) calc(10px + env(safe-area-inset-right))
-                        calc(8px + env(safe-area-inset-bottom)) calc(10px + env(safe-area-inset-left));
+                padding:calc(6px + env(safe-area-inset-top)) calc(8px + env(safe-area-inset-right))
+                        calc(6px + env(safe-area-inset-bottom)) calc(8px + env(safe-area-inset-left));
                 background:#fff;overflow:hidden}
-  #chartCard.fs #mainChart{flex:1 1 auto;height:auto;min-height:0}
+  #chartCard.fs #mainChart{flex:1 1 auto !important;height:auto !important;
+                           min-height:180px;width:100%}
   #chartCard.fs .chartbar{margin-bottom:4px}
   #chartCard.fs .legend{font-size:9.5px;gap:6px;margin-top:3px;max-height:34px;overflow:auto;
                         line-height:1.5}
@@ -724,16 +729,16 @@ function enterFull(){
   isFull=true;
   const btn=document.getElementById('btnFull');
   if(btn) btn.textContent='✕ 退出';
-  // 尝试原生全屏（部分移动端浏览器支持，失败不影响）
-  const el=card;
-  const rq = el.requestFullscreen || el.webkitRequestFullscreen;
-  if(rq){ try{ rq.call(el); }catch(e){} }
-  // 横屏更利于看长周期走势
-  if(screen.orientation && screen.orientation.lock){
-    try{ screen.orientation.lock('landscape').catch(()=>{}); }catch(e){}
-  }
-  setTimeout(()=>{ if(chart) chart.resize(); }, 120);
-  setTimeout(()=>{ if(chart) chart.resize(); }, 450);
+
+  /* ⚠️ 不调用原生全屏 API：
+     PWA standalone（加到主屏）与微信 X5 内核下，requestFullscreen
+     会改变 fixed 参照系 → 图表被渲染成空白。
+     纯 CSS 方案在两种模式下都稳定。 */
+
+  /* 多次重算：真机地址栏收缩 / PWA 视口变化是异步的 */
+  const fix=()=>{ try{ if(chart){ chart.resize(); } }catch(e){} };
+  requestAnimationFrame(fix);
+  [80,200,400,700,1200].forEach(t=>setTimeout(fix,t));
 }
 
 function exitFull(){
@@ -744,30 +749,22 @@ function exitFull(){
   isFull=false;
   const btn=document.getElementById('btnFull');
   if(btn) btn.textContent='⛶ 全屏';
-  const ex = document.exitFullscreen || document.webkitExitFullscreen;
-  if(ex && (document.fullscreenElement||document.webkitFullscreenElement)){
-    try{ ex.call(document); }catch(e){}
-  }
-  if(screen.orientation && screen.orientation.unlock){
-    try{ screen.orientation.unlock(); }catch(e){}
-  }
-  setTimeout(()=>{ if(chart) chart.resize(); }, 120);
+  const fix=()=>{ try{ if(chart) chart.resize(); }catch(e){} };
+  requestAnimationFrame(fix);
+  [80,200,400].forEach(t=>setTimeout(fix,t));
 }
 
-/* ESC 退出 + 浏览器原生全屏退出时同步状态 */
+/* ESC 退出 */
 document.addEventListener('keydown', e=>{
   if(e.key==='Escape' && isFull) exitFull();
 });
-['fullscreenchange','webkitfullscreenchange'].forEach(ev=>{
-  document.addEventListener(ev, ()=>{
-    const el=document.fullscreenElement||document.webkitFullscreenElement;
-    if(!el && isFull) exitFull();          // 用户按了系统返回/退出全屏
-  });
-});
-/* 手机旋转时重算尺寸 */
-window.addEventListener('orientationchange', ()=>{
-  setTimeout(()=>{ if(chart) chart.resize(); }, 300);
-});
+/* 手机旋转 / 视口变化时重算尺寸（真机必需） */
+function refit(){ try{ if(chart) chart.resize(); }catch(e){} }
+window.addEventListener('orientationchange', ()=>{ [100,400,900].forEach(t=>setTimeout(refit,t)); });
+if(window.visualViewport){
+  window.visualViewport.addEventListener('resize', ()=>{ if(isFull) refit(); });
+}
+window.addEventListener('resize', ()=>{ if(isFull) refit(); });
 
 function renderSrcBox(){
   const i=D.indicators;
@@ -796,9 +793,38 @@ function renderSrcBox(){
    ⚠️ 仅 http(s) 下注册——本地 file:// 打开时跳过，不影响本地使用。 */
 if('serviceWorker' in navigator && location.protocol.startsWith('http')){
   window.addEventListener('load',()=>{
-    navigator.serviceWorker.register('sw.js').catch(()=>{ /* 静默失败，不影响页面 */ });
+    navigator.serviceWorker.register('sw.js').then(reg=>{
+      reg.update().catch(()=>{});          // 主动检查新版本，避免长期用旧缓存
+      // 新 SW 就绪且页面已受控时，刷新一次以拿到新版
+      reg.addEventListener('updatefound', ()=>{
+        const nw=reg.installing;
+        if(!nw) return;
+        nw.addEventListener('statechange', ()=>{
+          if(nw.state==='installed' && navigator.serviceWorker.controller){
+            // 静默刷新一次（带标记防循环）
+            if(!sessionStorage.getItem('sw_reloaded')){
+              sessionStorage.setItem('sw_reloaded','1');
+              location.reload();
+            }
+          }
+        });
+      });
+    }).catch(()=>{ /* 静默失败，不影响页面 */ });
   });
 }
+
+/* 空白自愈：全屏后若图表区域高度异常（真机兼容问题），自动降级回普通模式 */
+setTimeout(()=>{
+  if(!isFull) return;
+  try{
+    const el=document.getElementById('mainChart');
+    const h=el? el.getBoundingClientRect().height : 0;
+    if(!el || h < 120){                   // 低于 120px 视为异常
+      console.warn('[全屏] 检测到图表高度异常('+h+'px)，自动退出全屏');
+      exitFull();
+    }
+  }catch(e){}
+}, 1500);
 </script>
 </body>
 </html>
