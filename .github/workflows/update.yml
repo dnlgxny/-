@@ -53,16 +53,27 @@ jobs:
           echo "── 生成页面 ──"
           python 生成工作台.py
 
-      - name: 校验回撤口径（必须为 10/13/22）
+      - name: 校验数据完整性
         run: |
           python - <<'PY'
           import json
           d = json.load(open('_data/indicators.json'))
           c = d['segCounts']
           print(f"回撤段数: A={c['A']} B={c['B']} C={c['C']}")
-          assert c == {'A': 10, 'B': 13, 'C': 22}, f"口径异常！期望 10/13/22，实际 {c}"
           print(f"数据区间: {d['start']} ~ {d['end']}（{len(d['dates'])} 交易日）")
-          print("✅ 口径校验通过")
+
+          # ⚠️ 只校验「结构与量级合理」，不写死具体段数：
+          #    C 级段数会随数据增长（每出现一次 5~10% 回撤就 +1，实测已从 22→23）
+          #    A/B 级也会缓慢增长。写死会导致每日更新必然失败。
+          assert d['start'] == '2002-10-09', f"起点错误: {d['start']}"
+          assert len(d['dates']) > 6000, f"数据量异常: {len(d['dates'])}"
+          assert c['A'] >= 10, f"A 级段数异常偏低: {c['A']}"
+          assert c['B'] >= 13, f"B 级段数异常偏低: {c['B']}"
+          assert c['C'] >= 22, f"C 级段数异常偏低: {c['C']}"
+          assert len(d['segments']) == c['A']+c['B']+c['C'], "分段计数与明细不一致"
+
+          last = d['end']
+          print(f"✅ 数据校验通过（最新 {last}）")
           PY
 
       - name: 提交数据更新（若有变化）
