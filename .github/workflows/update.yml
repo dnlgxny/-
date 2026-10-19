@@ -16,10 +16,13 @@ on:
   push:
     branches: [main]        # 推送即触发（便于验证；数据提交也会触发一次）
   schedule:
-    # 每周一至五 01:30 UTC = 北京时间 09:30
-    # （美股周一收盘对应北京时间周二凌晨，09:30 跑能取到前一日收盘）
-    - cron: '30 1 * * 1-5'
-  workflow_dispatch:        # 支持手动触发（便于首次验证）
+    # ⚠️ GitHub 的 schedule **不保证准时**（官方：高峰期可能延迟 1 小时以上）。
+    # 因此设多个时间点，任一次触发成功即可；配合后面的「数据未变则跳过」保证幂等。
+    # UTC 时间 → 北京时间 +8
+    - cron: '30 1 * * 1-5'    # 北京 09:30（主）
+    - cron: '30 3 * * 1-5'    # 北京 11:30（补跑）
+    - cron: '30 6 * * 1-5'    # 北京 14:30（再补）
+  workflow_dispatch:        # 支持手动触发
 
 permissions:
   contents: write           # 需要写权限来提交数据更新
@@ -76,6 +79,18 @@ jobs:
           print(f"✅ 数据校验通过（最新 {last}）")
           PY
 
+      - name: 检查数据是否有变化
+        id: diff
+        run: |
+          if git diff --quiet -- _data; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ 数据无变化（可能是非交易日或已更新），跳过部署"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "✅ 数据有变化，将提交并部署"
+            git diff --stat -- _data | tail -5
+          fi
+
       - name: 提交数据更新（若有变化）
         run: |
           git config user.name  "github-actions[bot]"
@@ -89,6 +104,7 @@ jobs:
           fi
 
       - name: 上传 Pages 产物
+        if: steps.diff.outputs.changed == 'true' || github.event_name != 'schedule'
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
@@ -96,6 +112,7 @@ jobs:
 
       - name: 部署到 GitHub Pages
         id: deploy
+        if: steps.diff.outputs.changed == 'true' || github.event_name != 'schedule'
         uses: actions/deploy-pages@v4
         continue-on-error: true
 
@@ -103,7 +120,7 @@ jobs:
       # 这样即使你选「Deploy from a branch」也能出链接；
       # 若选「GitHub Actions」，上面那步会生效，本步无害。
       - name: 兜底推送 gh-pages 分支
-        if: always()
+        if: always() && (steps.diff.outputs.changed == 'true' || github.event_name != 'schedule')
         run: |
           cd dist
           git init -q -b gh-pages
