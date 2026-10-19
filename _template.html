@@ -257,6 +257,7 @@ D.vxnSt52 = st52(D.vxn.rows);
 D.vixSt52 = st52(D.vix.rows);
 D.series = {
   ndx:{dates:D.indicators.dates,values:D.indicators.close},
+  ma200:{dates:D.indicators.dates,values:D.indicators.ma200},
   ma250:{dates:D.indicators.dates,values:D.indicators.ma250},
   ma500:{dates:D.indicators.dates,values:D.indicators.ma500},
   r500:{dates:D.indicators.dates,values:D.indicators.r500},
@@ -342,6 +343,11 @@ const METRICS = [
    what:'纳斯达克100 收盘点位（价格口径，不含股息）。',
    read:'看绝对水平，也要看与均线的关系。',
    caveat:(D.ndx.src.indexOf('腾讯')>=0? '⚠️ 数据来源拼接：2002–2026-10-13 为 FRED NASDAQ100；2026-10-14 起由腾讯 us.NDX 增量补（FRED 直连被封锁）。' : '')},
+  {cat:'行情与技术', key:'ma200', name:'MA200', hist:'ma200', dec:2,
+   get:()=>last(D.indicators.ma200), src:'本地自算（200日均线）', date:()=>D.indicators.end,
+   what:'过去200个交易日收盘均价，约等于10个月平均成本。',
+   read:'美股市场（尤其标普500）常用 MA200 判断长期趋势：价在其上=长期偏多，其下=长期偏空。',
+   cur:'当前价 '+(D.indicators.close[D.indicators.close.length-1]>=last(D.indicators.ma200)?'在 MA200 上方':'在 MA200 下方')},
   {cat:'行情与技术', key:'ma250', name:'MA250（年线）', hist:'ma250', dec:2,
    get:()=>last(D.indicators.ma250), src:'本地自算（250日均线）', date:()=>D.indicators.end,
    what:'过去250个交易日收盘均价，约等于一年平均成本。',
@@ -455,6 +461,7 @@ const GROUP_ORDER=['points','ratio','osc','vol','value'];
 /* 指数图上可选的全部序列 */
 const IDX_SERIES=[
   {key:'ndx',      name:'NDX 收盘',       group:'points', color:'#1d4ed8', width:1.6, dec:2, src:'FRED + 腾讯', own:'close'},
+  {key:'ma200',    name:'MA200',         group:'points', color:'#8b5cf6', width:1.3, dash:true, dec:2, src:'本地自算', own:'ma200'},
   {key:'ma250',    name:'MA250（年线）',   group:'points', color:'#f59e0b', width:1.2, dash:true, dec:2, src:'本地自算', own:'ma250'},
   {key:'ma500',    name:'MA500（两年线）', group:'points', color:'#10b981', width:1.2, dash:true, dec:2, src:'本地自算', own:'ma500'},
   {key:'r500',     name:'r500',           group:'ratio',  color:'#7c3aed', width:1.3, dec:3, src:'本地自算', own:'r500'},
@@ -469,19 +476,39 @@ const IDX_SERIES=[
   {key:'dividend', name:'股息率(%)',       group:'value',  color:'#65a30d', width:1.0, dash:true, dec:2, src:'nikkei225jp', hist:'dividend'}
 ];
 const SEL_KEY='wb_selected_v1';
-let selected=new Set(['ndx','ma250','ma500']);
+let selected=new Set(['ndx','ma200','ma250','ma500']);
+
+/* 默认选中项（新增指标时只改这里） */
+const DEFAULT_SEL=['ndx','ma200','ma250','ma500'];
+/* 选择集的版本号：v2 起含 ma200。
+   老用户 localStorage 存的是 v1（无 ma200）→ 用版本号判断是否补入新默认项 */
+const SEL_VER='v2';
 
 function loadSel(){
   try{
-    const s=JSON.parse(localStorage.getItem(SEL_KEY)||'null');
-    if(Array.isArray(s)&&s.length){
-      const valid=s.filter(k=>IDX_SERIES.some(d=>d.key===k));
-      if(valid.length) return new Set(valid);
+    const raw=JSON.parse(localStorage.getItem(SEL_KEY)||'null');
+    // 兼容旧格式（纯数组）与新格式（{ver, keys}）
+    const savedKeys = Array.isArray(raw) ? raw : (raw && Array.isArray(raw.keys) ? raw.keys : null);
+    const savedVer  = Array.isArray(raw) ? 'v1' : (raw && raw.ver);
+    if(savedKeys && savedKeys.length){
+      const valid=savedKeys.filter(k=>IDX_SERIES.some(d=>d.key===k));
+      if(valid.length){
+        const set=new Set(valid);
+        // 版本升级时：补入新默认项（用户此前未见过它，视为「新增」而非「用户主动取消」）
+        if(savedVer!==SEL_VER){
+          DEFAULT_SEL.forEach(k=>set.add(k));
+          saveSelWith(set);          // 立即写成新版本
+        }
+        return set;
+      }
     }
   }catch(e){}
-  return new Set(['ndx','ma250','ma500']);
+  return new Set(DEFAULT_SEL);
 }
-function saveSel(){ try{ localStorage.setItem(SEL_KEY, JSON.stringify([...selected])); }catch(e){} }
+function saveSelWith(set){
+  try{ localStorage.setItem(SEL_KEY, JSON.stringify({ver:SEL_VER, keys:[...set]})); }catch(e){}
+}
+function saveSel(){ saveSelWith(selected); }
 
 /* 二分：找日频轴中 ≤ 目标日期的最后一个下标 */
 function floorIdx(axis,d){
@@ -533,7 +560,7 @@ function toggleSeries(k){
   if(!selected.size) selected.add('ndx');
   saveSel(); showIndexChart();
 }
-function resetSel(){ selected=new Set(['ndx','ma250','ma500']); saveSel(); showIndexChart(); }
+function resetSel(){ selected=new Set(['ndx','ma200','ma250','ma500']); saveSel(); showIndexChart(); }
 
 /* ══════════ 通用图表配置 ══════════ */
 function baseOption(xDates){ return {
@@ -642,7 +669,7 @@ function showIndexChart(){
 }
 
 /* ══════════ 指标详情图（第③层）══════════ */
-const SAME_AXIS_AS_POINTS=['close','ma250','ma500'];   // 与指数同量纲 → 必须共用左轴
+const SAME_AXIS_AS_POINTS=['close','ma200','ma250','ma500'];   // 与指数同量纲 → 必须共用左轴
 function showMetricChart(m){
   curMetric=m.key; renderMetricCards();
   document.getElementById('chipIdx').classList.remove('on');

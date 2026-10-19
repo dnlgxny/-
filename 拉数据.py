@@ -412,12 +412,14 @@ def calc_indicators(ndx_rows):
     except ValueError:
         start_i = next(i for i, d in enumerate(dates) if d >= START)
 
-    out = {'dates': [], 'close': [], 'ma250': [], 'ma500': [], 'r250': [], 'r500': [], 'rsi14': []}
+    out = {'dates': [], 'close': [], 'ma200': [], 'ma250': [], 'ma500': [],
+           'r250': [], 'r500': [], 'rsi14': []}
     ag = al = None
     for i in range(start_i, len(full)):
         out['dates'].append(dates[i])
         out['close'].append(round(close[i], 2))
-        m250, m500 = ma_at(i, 250), ma_at(i, 500)
+        m200, m250, m500 = ma_at(i, 200), ma_at(i, 250), ma_at(i, 500)
+        out['ma200'].append(round(m200, 2) if m200 else None)
         out['ma250'].append(round(m250, 2) if m250 else None)
         out['ma500'].append(round(m500, 2) if m500 else None)
         out['r250'].append(round(close[i] / m250, 4) if m250 else None)
