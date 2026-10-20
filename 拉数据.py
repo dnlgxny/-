@@ -184,10 +184,25 @@ def load_ndx():
                 print(f'     [警告] 腾讯与 FRED 重叠期最大差异 {max_diff:.2f}，放弃拼接')
             else:
                 added = 0
+                skipped = []
                 for d in sorted(tx):
                     if d > base_end:
-                        rows.append([d, round(tx[d], 2)])
+                        v = tx[d]
+                        # ⚠️ 合理性校验：防替代源脏数据污染主序列
+                        #    实测 2026-10-19 腾讯日线曾返回 10.56（真实 29529.34）
+                        #    判据：与「最后一个可信值」的偏离不得超过 ±40%
+                        last_ok = rows[-1][1] if rows else None
+                        if last_ok and last_ok > 0:
+                            dev = v / last_ok - 1
+                            if abs(dev) > 0.40:
+                                skipped.append((d, v, last_ok, dev))
+                                continue
+                        rows.append([d, round(v, 2)])
                         added += 1
+                if skipped:
+                    print('     [警告] 跳过异常数据 %d 条：' % len(skipped))
+                    for d, v, lo, dev in skipped:
+                        print(f'       {d}: {v:,.2f}（前值 {lo:,.2f}，偏离 {dev*100:+.1f}%）')
                 if added:
                     rows.sort(key=lambda r: r[0])
                     src = f'FRED NASDAQ100（本地缓存）+ 腾讯 us.NDX 补 {added} 日'
