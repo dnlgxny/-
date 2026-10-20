@@ -146,8 +146,44 @@ def _band(depth):
 
 
 # ============ ① NDX 价格 ============
+def fetch_sina_ndx():
+    """新浪美股 .NDX 日线（**主增量源**）
+    实测（2026-10-20）：
+      - 覆盖 2014-02-18 ~ 至今，3186 条
+      - 与 FRED 重叠 3183 天，仅 19 天微差（最大 0.738%，2025 年后仅 1 天差 0.013%）
+      - **10-19 返回正确值 29529.34**（腾讯日线同日返回脏数据 10.56）
+    返回 {date: close}；失败返回 {}
+    """
+    url = 'https://stock.finance.sina.com.cn/usstock/api/jsonp.php/var%20_k=/US_MinKService.getDailyK?symbol=.NDX'
+    try:
+        h = {'User-Agent': UA_FF, 'Referer': 'https://finance.sina.com.cn/'}
+        ctx = ssl.create_default_context()
+        op = urllib.request.build_opener(urllib.request.HTTPSHandler(context=ctx),
+                                         urllib.request.ProxyHandler({}))
+        req = urllib.request.Request(url, headers=h)
+        with op.open(req, timeout=30) as r:
+            txt = r.read().decode('utf-8', 'replace')
+        m = re.search(r'\((\[.*\])\)', txt, re.S)
+        if not m:
+            return {}
+        arr = json.loads(m.group(1))
+        out = {}
+        for x in arr:
+            try:
+                out[x['d']] = float(x['c'])
+            except (KeyError, ValueError, TypeError):
+                pass
+        return out
+    except Exception as e:
+        print(f'     [警告] 新浪日线失败：{type(e).__name__}: {str(e)[:60]}')
+        return {}
+
+
 def fetch_tencent_ndx():
-    """腾讯 us.NDX 日线（FRED 被封时的增量源）；返回 {date: close}"""
+    """腾讯 us.NDX 日线（**备选增量源**）
+    ⚠️ 已知缺陷：2026-10-19 曾返回 OHLC 全为 10.x 的脏数据
+       ⇒ 必须经过合理性校验才能使用
+    """
     url = 'https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?_var=k&param=us.NDX,day,,,2000,qfq'
     raw = get(url, {'Referer': 'https://gu.qq.com/'}).decode('utf-8', 'replace')
     j = json.loads(raw[raw.index('=') + 1:])
@@ -173,15 +209,27 @@ def load_ndx():
     base = {d: v for d, v in rows}
     src = f'FRED NASDAQ100（{base_src}）'
 
-    # FRED 封锁时，用腾讯补最新（先校验重叠期一致性）
+    # FRED 封锁时补最新：**新浪优先**（数据更可信），腾讯备选
     try:
-        tx = fetch_tencent_ndx()
+        tx = fetch_sina_ndx()
+        source_name = '新浪 .NDX'
+        if not tx:
+            print('     [信息] 新浪无数据，改用腾讯')
+            tx = fetch_tencent_ndx()
+            source_name = '腾讯 us.NDX'
         overlap = [d for d in tx if d in base]
         if overlap:
-            diffs = [abs(tx[d] - base[d]) for d in overlap]
-            max_diff = max(diffs)
-            if max_diff > 0.5:
-                print(f'     [警告] 腾讯与 FRED 重叠期最大差异 {max_diff:.2f}，放弃拼接')
+            # ⚠️ 判据改为「相对差异」而非绝对值：
+            #    指数点位从 800 涨到 30000，绝对差 47.93 在 2018 年只占 0.738%，
+            #    属数据商取整微差，不该因此放弃整个拼接。
+            #    实测（2026-10-20）：新浪 vs FRED 重叠 3183 天，
+            #    最大相对差 0.738%（2018-02-05），2025 年后仅 1 天差 0.013%。
+            rel = [abs(tx[d] - base[d]) / base[d] for d in overlap if base[d] > 0]
+            max_rel = max(rel) if rel else 0
+            max_diff = max(abs(tx[d] - base[d]) for d in overlap)
+            if max_rel > 0.02:          # 相对差异 >2% 才判定为不同标的/数据错误
+                print(f'     [警告] 与 FRED 重叠期最大相对差异 {max_rel*100:.2f}%（绝对 {max_diff:.2f}），放弃拼接')
+                raise RuntimeError('重叠期差异过大')
             else:
                 added = 0
                 skipped = []
@@ -205,8 +253,8 @@ def load_ndx():
                         print(f'       {d}: {v:,.2f}（前值 {lo:,.2f}，偏离 {dev*100:+.1f}%）')
                 if added:
                     rows.sort(key=lambda r: r[0])
-                    src = f'FRED NASDAQ100（本地缓存）+ 腾讯 us.NDX 补 {added} 日'
-                    print(f'     腾讯补 {added} 日（重叠 {len(overlap)} 日最大差异 {max_diff:.3f}）→ 末 {rows[-1][0]}')
+                    src = f'FRED NASDAQ100（本地缓存）+ {source_name} 补 {added} 日'
+                    print(f'     {source_name}补 {added} 日（重叠 {len(overlap)} 日最大差异 {max_diff:.3f}）→ 末 {rows[-1][0]}')
     except Exception as e:
         print(f'     [警告] 腾讯补数失败（{type(e).__name__}: {str(e)[:60]}），仅用缓存')
 
