@@ -257,6 +257,11 @@ D.vxnSt52 = st52(D.vxn.rows);
 D.vixSt52 = st52(D.vix.rows);
 D.series = {
   ndx:{dates:D.indicators.dates,values:D.indicators.close},
+  kdj_k:{dates:D.indicators.dates,values:D.indicators.kdj_k},
+  kdj_d:{dates:D.indicators.dates,values:D.indicators.kdj_d},
+  kdj_j:{dates:D.indicators.dates,values:D.indicators.kdj_j},
+  volratio:{dates:D.indicators.dates,values:D.indicators.volratio},
+  boll_width:{dates:D.indicators.dates,values:D.indicators.boll_width},
   ma200:{dates:D.indicators.dates,values:D.indicators.ma200},
   ma250:{dates:D.indicators.dates,values:D.indicators.ma250},
   ma500:{dates:D.indicators.dates,values:D.indicators.ma500},
@@ -369,6 +374,24 @@ const METRICS = [
    get:()=>last(D.indicators.rsi14), src:'本地自算（Wilder）', date:()=>D.indicators.end,
    what:'14日相对强弱指标。',
    read:'>70 超买、<30 超卖。'},
+  {cat:'行情与技术', key:'volratio', name:'量比', hist:'volratio', dec:2,
+   get:()=>last(D.indicators.volratio), src:'本地自算（新浪成交量）', date:()=>D.indicators.end,
+   what:'当日成交量 ÷ 过去5个交易日平均成交量。衡量今天的交投活跃度相对近期是放大还是萎缩。',
+   read:'>1.5 明显放量｜0.7~1.5 正常｜<0.7 缩量。放量上涨多为资金进场，放量下跌多为恐慌抛售。',
+   cur:'近5日量比 '+D.indicators.volratio.slice(-5).map(v=>v===null?'—':v.toFixed(2)).join(' / '),
+   caveat:'⚠️ 数据起点 2014-02（新浪提供成交量）；2002-2014 段无法计算。'},
+  {cat:'行情与技术', key:'kdj_j', name:'KDJ（9,3,3）J值', hist:'kdj_j', dec:2,
+   get:()=>last(D.indicators.kdj_j), src:'本地自算（新浪OHLC）', date:()=>D.indicators.end,
+   what:'随机指标 KDJ 的 J 值 = 3K − 2D，对短期超买超卖最敏感。',
+   read:'J>100 极度超买｜J<0 短期过冷。K 上穿 D 为金叉，下穿为死叉。',
+   cur:'K='+fmt(last(D.indicators.kdj_k),2)+'　D='+fmt(last(D.indicators.kdj_d),2)+'　J='+fmt(last(D.indicators.kdj_j),2),
+   caveat:'⚠️ 数据起点 2014-02（需 OHLC）；2002-2014 段无法计算。'},
+  {cat:'风险与波动', key:'boll_width', name:'布林带宽（20日）', hist:'boll_width', unit:'%', dec:2,
+   get:()=>last(D.indicators.boll_width), src:'本地自算（20日±2σ）', date:()=>D.indicators.end,
+   what:'布林带宽度 = (上轨 − 下轨) ÷ 中轨 × 100%。衡量波动率的相对水平。',
+   read:'带宽收窄 = 波动收敛（常预示变盘）；带宽扩张 = 波动放大。纳指100 长期区间约 4%~25%。',
+   cur:'上轨 '+fmt(last(D.indicators.boll_upper))+'　下轨 '+fmt(last(D.indicators.boll_lower)),
+   caveat:'⚠️ 带宽是「相对波动」指标，与 VIX/VXN 的「隐含波动」口径不同，不可混比。'},
   {cat:'行情与技术', key:'dd', name:'当前回撤（距峰）', hist:null, unit:'%', dec:2, locked:true,
    get:()=>D.indicators.curDrawdown*100, src:'本地自算', date:()=>D.indicators.end,
    what:'当前价距历史最高点的跌幅。',
@@ -454,9 +477,10 @@ const GROUPS={
   ratio :{name:'比率 r',   axis:1, side:'right', offset:0},
   osc   :{name:'振荡/情绪', axis:2, side:'right', offset:64},
   vol   :{name:'波动率',   axis:3, side:'right', offset:128},
-  value :{name:'估值',     axis:4, side:'right', offset:192}
+  value :{name:'估值',     axis:4, side:'right', offset:192},
+  boll  :{name:'量能',     axis:5, side:'right', offset:256}
 };
-const GROUP_ORDER=['points','ratio','osc','vol','value'];
+const GROUP_ORDER=['points','ratio','osc','vol','value','boll'];
 
 /* 指数图上可选的全部序列 */
 const IDX_SERIES=[
@@ -467,6 +491,9 @@ const IDX_SERIES=[
   {key:'r500',     name:'r500',           group:'ratio',  color:'#7c3aed', width:1.3, dec:3, src:'本地自算', own:'r500'},
   {key:'r250',     name:'r250',           group:'ratio',  color:'#a855f7', width:1.0, dash:true, dec:3, src:'本地自算', own:'r250'},
   {key:'rsi14',    name:'RSI(14)',        group:'osc',    color:'#0891b2', width:1.3, dec:1, src:'本地自算', own:'rsi14'},
+  {key:'kdj_j',    name:'KDJ-J',          group:'osc',    color:'#c026d3', width:1.1, dec:2, src:'本地自算', own:'kdj_j'},
+  {key:'boll_width',name:'布林带宽%',      group:'osc',    color:'#0ea5e9', width:1.1, dash:true, dec:2, src:'本地自算', own:'boll_width'},
+  {key:'volratio', name:'量比',            group:'boll',   color:'#16a34a', width:1.2, dec:2, src:'本地自算', own:'volratio'},
   {key:'cnn',      name:'CNN 恐慌贪婪',    group:'osc',    color:'#ea580c', width:1.1, dec:1, src:'CNN', hist:'cnn'},
   {key:'vxn',      name:'VXN',            group:'vol',    color:'#db2777', width:1.3, dec:2, src:'FRED VXNCLS', hist:'vxn'},
   {key:'vix',      name:'VIX',            group:'vol',    color:'#f43f5e', width:1.0, dash:true, dec:2, src:'CBOE', hist:'vix'},
@@ -563,7 +590,10 @@ function toggleSeries(k){
 function resetSel(){ selected=new Set(['ndx','ma200','ma250','ma500']); saveSel(); showIndexChart(); }
 
 /* ══════════ 通用图表配置 ══════════ */
-function baseOption(xDates){ return {
+/* zoomStart: 0~100，默认显示区间起点（100=只看最后）
+   ⚠️ 量比/KDJ/布林带宽这类日频振荡指标，全历史挤在一屏会成噪声，
+      故默认只看近 2 年；长序列指标（PE等）保持全区间 */
+function baseOption(xDates, zoomStart){ return {
   animation:false,
   grid:(()=>{
     // 旋转横屏时按「实际绘图区宽度」判断，而不是视口
@@ -580,8 +610,8 @@ function baseOption(xDates){ return {
       formatter:(()=>{ const n=xDates.length;
         return (v,i)=> (i===0||i===n-1)? v : String(v).slice(2); })()},
     axisLine:{lineStyle:{color:'#e8eaed'}}},
-  dataZoom:[{type:'inside',start:0,end:100},
-    {type:'slider',height:18,bottom:16,start:0,end:100,borderColor:'#e8eaed',
+  dataZoom:[{type:'inside',start:zoomStart||0,end:100},
+    {type:'slider',height:18,bottom:16,start:zoomStart||0,end:100,borderColor:'#e8eaed',
      fillerColor:'rgba(37,99,235,.10)'}],
   series:[]
 };}
@@ -682,7 +712,14 @@ function showMetricChart(m){
   const xDates = (ser && ser.dates.length) ? ser.dates : D.indicators.dates;
   const same = SAME_AXIS_AS_POINTS.includes(m.key);
 
-  const opt=baseOption(xDates);
+  /* 日频振荡类指标默认只显示近 2 年（约 500 点），避免全历史挤成噪声 */
+  const DENSE_OSC=['kdj_j','volratio','boll_width','rsi','vxn','vix','cnn'];
+  let zoomStart=0;
+  if(DENSE_OSC.includes(m.key) && xDates.length>520){
+    zoomStart=Math.round((1 - 520/xDates.length)*100);
+  }
+
+  const opt=baseOption(xDates, zoomStart);
   opt.yAxis=buildAxes(new Set(same? ['points'] : ['points','value']));
 
   /* ② 背景 NDX：同量纲时与指标**共用左轴**（真实比例，修复视觉错位）；

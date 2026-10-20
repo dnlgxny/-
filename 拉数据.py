@@ -39,6 +39,9 @@ UA_FF = ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
 # 2002-10-09 = 互联网泡沫见底次日，设计稿 A1 规定的起点
 START = '2002-10-09'
 
+# 全局：NDX 的 OHLCV（仅替代源覆盖区间有；FRED 段为空）
+NDX_OHLCV = {}
+
 
 def get(url, headers=None, tries=3, timeout=45):
     h = {'User-Agent': UA_FF}
@@ -170,7 +173,13 @@ def fetch_sina_ndx():
         out = {}
         for x in arr:
             try:
-                out[x['d']] = float(x['c'])
+                out[x['d']] = {
+                    'c': float(x['c']),
+                    'o': float(x.get('o') or x['c']),
+                    'h': float(x.get('h') or x['c']),
+                    'l': float(x.get('l') or x['c']),
+                    'v': float(x.get('v') or 0),
+                }
             except (KeyError, ValueError, TypeError):
                 pass
         return out
@@ -204,6 +213,11 @@ def fetch_tencent_ndx():
 
 def load_ndx():
     print('[1] NDX 价格 ...')
+    # OHLCV：仅替代源覆盖的区间有（新浪 2014 起 / 腾讯 2022 起）
+    # FRED 只有收盘价 → 早期无 OHLCV，量比/KDJ/布林带宽在这些区间为空
+    global NDX_OHLCV
+    NDX_OHLCV = {}
+    ohlcv = NDX_OHLCV
     rows, base_src = ensure_cache(os.path.join(CACHE, 'fred_ndx.csv'), 'NASDAQ100', 'NASDAQ100')
     base_end = rows[-1][0]
     base = {d: v for d, v in rows}
@@ -218,15 +232,15 @@ def load_ndx():
             tx = fetch_tencent_ndx()
             source_name = '腾讯 us.NDX'
         overlap = [d for d in tx if d in base]
+        # ⚠️ 关键：把替代源的**全量** OHLCV 装入全局表
+        #    不只是新增那几天 —— 否则 KDJ/量比只能在最后几天算出值
+        for _d, _bar in tx.items():
+            NDX_OHLCV[_d] = _bar
         if overlap:
-            # ⚠️ 判据改为「相对差异」而非绝对值：
-            #    指数点位从 800 涨到 30000，绝对差 47.93 在 2018 年只占 0.738%，
-            #    属数据商取整微差，不该因此放弃整个拼接。
-            #    实测（2026-10-20）：新浪 vs FRED 重叠 3183 天，
-            #    最大相对差 0.738%（2018-02-05），2025 年后仅 1 天差 0.013%。
-            rel = [abs(tx[d] - base[d]) / base[d] for d in overlap if base[d] > 0]
+            # ⚠️ 判据用「相对差异」而非绝对值（指数从 800→30000，绝对差会失真）
+            rel = [abs(tx[d]['c'] - base[d]) / base[d] for d in overlap if base[d] > 0]
             max_rel = max(rel) if rel else 0
-            max_diff = max(abs(tx[d] - base[d]) for d in overlap)
+            max_diff = max(abs(tx[d]['c'] - base[d]) for d in overlap)
             if max_rel > 0.02:          # 相对差异 >2% 才判定为不同标的/数据错误
                 print(f'     [警告] 与 FRED 重叠期最大相对差异 {max_rel*100:.2f}%（绝对 {max_diff:.2f}），放弃拼接')
                 raise RuntimeError('重叠期差异过大')
@@ -235,10 +249,8 @@ def load_ndx():
                 skipped = []
                 for d in sorted(tx):
                     if d > base_end:
-                        v = tx[d]
-                        # ⚠️ 合理性校验：防替代源脏数据污染主序列
-                        #    实测 2026-10-19 腾讯日线曾返回 10.56（真实 29529.34）
-                        #    判据：与「最后一个可信值」的偏离不得超过 ±40%
+                        v = tx[d]['c']
+                        # 合理性校验：与最后一个可信值偏离 >40% 视为脏数据
                         last_ok = rows[-1][1] if rows else None
                         if last_ok and last_ok > 0:
                             dev = v / last_ok - 1
@@ -246,6 +258,8 @@ def load_ndx():
                                 skipped.append((d, v, last_ok, dev))
                                 continue
                         rows.append([d, round(v, 2)])
+                        # 同步保存 OHLCV（供 KDJ/量比/布林带宽计算）
+                        ohlcv[d] = tx[d]
                         added += 1
                 if skipped:
                     print('     [警告] 跳过异常数据 %d 条：' % len(skipped))
@@ -476,8 +490,12 @@ def calc_indicators(ndx_rows):
         start_i = next(i for i, d in enumerate(dates) if d >= START)
 
     out = {'dates': [], 'close': [], 'ma200': [], 'ma250': [], 'ma500': [],
-           'r250': [], 'r500': [], 'rsi14': []}
+           'r250': [], 'r500': [], 'rsi14': [],
+           'kdj_k': [], 'kdj_d': [], 'kdj_j': [],
+           'volratio': [], 'boll_width': [], 'boll_upper': [], 'boll_lower': [],
+           'volume': []}
     ag = al = None
+    kdj_k_prev = kdj_d_prev = None
     for i in range(start_i, len(full)):
         out['dates'].append(dates[i])
         out['close'].append(round(close[i], 2))
@@ -502,6 +520,66 @@ def calc_indicators(ndx_rows):
             out['rsi14'].append(round(100 - 100 / (1 + ag / al), 2) if al > 0 else 100.0)
         else:
             out['rsi14'].append(None)
+
+        # ── 以下三项需要 OHLCV（新浪 2014 起 / 腾讯 2022 起有；FRED 段为空）──
+        d_i = dates[i]
+        bar = NDX_OHLCV.get(d_i)
+        if bar:
+            out['volume'].append(round(bar['v'], 0))
+        else:
+            out['volume'].append(None)
+
+        # ① 量比 = 当日成交量 / 过去5日平均成交量（不含当日）
+        if bar and bar['v'] > 0:
+            prev_v = []
+            for j in range(max(0, i - 5), i):
+                b2 = NDX_OHLCV.get(dates[j])
+                if b2 and b2['v'] > 0:
+                    prev_v.append(b2['v'])
+            if len(prev_v) == 5:
+                out['volratio'].append(round(bar['v'] / (sum(prev_v) / 5), 3))
+            else:
+                out['volratio'].append(None)
+        else:
+            out['volratio'].append(None)
+
+        # ② 布林带（20日，2倍标准差）+ 带宽 = (上轨-下轨)/中轨
+        if i + 1 >= 20:
+            window = close[i - 19:i + 1]
+            mid = sum(window) / 20
+            var = sum((x - mid) ** 2 for x in window) / 20
+            sd = var ** 0.5
+            up, low = mid + 2 * sd, mid - 2 * sd
+            out['boll_upper'].append(round(up, 2))
+            out['boll_lower'].append(round(low, 2))
+            out['boll_width'].append(round((up - low) / mid * 100, 2) if mid > 0 else None)
+        else:
+            out['boll_upper'].append(None)
+            out['boll_lower'].append(None)
+            out['boll_width'].append(None)
+
+        # ③ KDJ（9,3,3）：RSV → K=2/3·K_prev+1/3·RSV，D=2/3·D_prev+1/3·K，J=3K-2D
+        if bar and i + 1 >= 9:
+            win = [NDX_OHLCV.get(dates[j]) for j in range(i - 8, i + 1)]
+            if all(win):
+                hi = max(b['h'] for b in win)
+                lo = min(b['l'] for b in win)
+                rsv = (close[i] - lo) / (hi - lo) * 100 if hi > lo else 50.0
+                if kdj_k_prev is None:
+                    kk = dd = 50.0          # 初值惯例 50
+                else:
+                    kk, dd = kdj_k_prev, kdj_d_prev
+                kk = 2 / 3 * kk + 1 / 3 * rsv
+                dd = 2 / 3 * dd + 1 / 3 * kk
+                jj = 3 * kk - 2 * dd
+                kdj_k_prev, kdj_d_prev = kk, dd
+                out['kdj_k'].append(round(kk, 2))
+                out['kdj_d'].append(round(dd, 2))
+                out['kdj_j'].append(round(jj, 2))
+            else:
+                out['kdj_k'].append(None); out['kdj_d'].append(None); out['kdj_j'].append(None)
+        else:
+            out['kdj_k'].append(None); out['kdj_d'].append(None); out['kdj_j'].append(None)
 
     # 回撤分段：峰→谷单段（A2），A/B/C 分级（A3）
     segs = []
