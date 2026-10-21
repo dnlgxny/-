@@ -491,6 +491,8 @@ const IDX_SERIES=[
   {key:'r500',     name:'r500',           group:'ratio',  color:'#7c3aed', width:1.3, dec:3, src:'本地自算', own:'r500'},
   {key:'r250',     name:'r250',           group:'ratio',  color:'#a855f7', width:1.0, dash:true, dec:3, src:'本地自算', own:'r250'},
   {key:'rsi14',    name:'RSI(14)',        group:'osc',    color:'#0891b2', width:1.3, dec:1, src:'本地自算', own:'rsi14'},
+  {key:'kdj_k',    name:'KDJ-K',          group:'osc',    color:'#d97706', width:1.1, dec:2, src:'本地自算', own:'kdj_k'},
+  {key:'kdj_d',    name:'KDJ-D',          group:'osc',    color:'#0d9488', width:1.1, dec:2, src:'本地自算', own:'kdj_d'},
   {key:'kdj_j',    name:'KDJ-J',          group:'osc',    color:'#c026d3', width:1.1, dec:2, src:'本地自算', own:'kdj_j'},
   {key:'boll_width',name:'布林带宽%',      group:'osc',    color:'#0ea5e9', width:1.1, dash:true, dec:2, src:'本地自算', own:'boll_width'},
   {key:'volratio', name:'量比',            group:'boll',   color:'#16a34a', width:1.2, dec:2, src:'本地自算', own:'volratio'},
@@ -713,7 +715,7 @@ function showMetricChart(m){
   const same = SAME_AXIS_AS_POINTS.includes(m.key);
 
   /* 日频振荡类指标默认只显示近 2 年（约 500 点），避免全历史挤成噪声 */
-  const DENSE_OSC=['kdj_j','volratio','boll_width','rsi','vxn','vix','cnn'];
+  const DENSE_OSC=['kdj_k','kdj_d','kdj_j','volratio','boll_width','rsi','vxn','vix','cnn'];
   let zoomStart=0;
   if(DENSE_OSC.includes(m.key) && xDates.length>520){
     zoomStart=Math.round((1 - 520/xDates.length)*100);
@@ -729,10 +731,26 @@ function showMetricChart(m){
     yAxisIndex: same? 0:1, data:bg,
     lineStyle:{width:1.2,color:'#94a3b8'},itemStyle:{color:'#94a3b8'},tooltip:{show:false},z:1});
 
+  /* 伴随线：某些指标天然是「一组」，点开时一并画出（如 KDJ 的 K/D/J 三条）
+     —— 单画 J 值看不出金叉死叉，必须三条同屏才有意义 */
+  const COMPANION={
+    kdj_j: [
+      {key:'kdj_k', name:'K', color:'#d97706'},
+      {key:'kdj_d', name:'D', color:'#0d9488'},
+    ],
+  };
+
   if(ser){
     opt.series.push({name:m.name,type:'line',showSymbol:false,connectNulls:true,yAxisIndex:0,
       data:ser.values,
       lineStyle:{width:1.7,color: same? '#1d4ed8':'#1d4ed8'},itemStyle:{color:'#1d4ed8'},z:4});
+
+    (COMPANION[m.key]||[]).forEach(c=>{
+      const cs=D.indicators[c.key];
+      if(!cs) return;
+      opt.series.push({name:'KDJ-'+c.name,type:'line',showSymbol:false,connectNulls:true,yAxisIndex:0,
+        data:cs, lineStyle:{width:1.4,color:c.color},itemStyle:{color:c.color},z:3});
+    });
     if(ser.dates[0]>'2002-10-09'){
       opt.series[1].markLine={silent:true,symbol:'none',
         data:[{xAxis:ser.dates[0],lineStyle:{color:'#f59e0b',type:'dashed'},
