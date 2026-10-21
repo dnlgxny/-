@@ -109,6 +109,11 @@ def build_dist(stamp):
 
     bump_sw_version(DIST, stamp)
 
+    # favicon：浏览器默认请求 /favicon.ico，缺失会 404（不影响页面，但日志脏）
+    _fav = os.path.join(DIST, 'icons', 'icon-192.png')
+    if os.path.exists(_fav):
+        shutil.copy2(_fav, os.path.join(DIST, 'favicon.ico'))
+
     # .nojekyll：GitHub Pages 默认跑 Jekyll，会忽略下划线开头文件；加上更稳
     open(os.path.join(DIST, '.nojekyll'), 'w').close()
 
