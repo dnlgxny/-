@@ -138,6 +138,37 @@
   .chip.on{background:var(--info);color:#fff;border-color:var(--info)}
   .legend{font-size:11px;color:var(--sub);margin-top:8px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
   .swatch{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+  /* ── 关键数据条带（走势图下方，五类上下排列）── */
+  .kbar{margin-top:10px;background:#fff;border:1px solid var(--line);border-radius:8px;
+        overflow:hidden}
+  .kbar .krow{display:flex;align-items:center;gap:10px;padding:7px 12px;
+              border-bottom:1px solid #f1f3f5}
+  .kbar .krow:last-child{border-bottom:none}
+  .kbar .ktag{flex:0 0 62px;font-size:11px;font-weight:600;color:#fff;border-radius:5px;
+              padding:3px 0;text-align:center;letter-spacing:.5px}
+  .kbar .kitems{flex:1;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+  .kbar .ki{display:inline-flex;align-items:baseline;gap:4px;white-space:nowrap}
+  .kbar .ki .kn{font-size:11px;color:var(--sub)}
+  .kbar .ki .kv{font-size:14px;font-weight:600;font-variant-numeric:tabular-nums}
+  .kbar .ki .kst{font-size:10px;padding:1px 5px;border-radius:4px;margin-left:2px}
+  /* 状态色 */
+  .st-hot{background:#fee2e2;color:#b91c1c}
+  .st-cold{background:#dcfce7;color:#15803d}
+  .st-mid{background:#f1f5f9;color:#475569}
+  .st-warn{background:#fef3c7;color:#b45309}
+  /* 五类标签配色 */
+  .kt-trend{background:#2563eb}
+  .kt-mom{background:#dc2626}
+  .kt-vola{background:#f59e0b}
+  .kt-volume{background:#16a34a}
+  .kt-senti{background:#7c3aed}
+  @media (max-width:640px){
+    .kbar .krow{padding:6px 9px;gap:7px}
+    .kbar .ktag{flex:0 0 50px;font-size:10px}
+    .kbar .kitems{gap:4px 10px}
+    .kbar .ki .kv{font-size:13px}
+    .kbar .ki .kn{font-size:10px}
+  }
   .cat{margin-top:14px}
   .cat h3{font-size:13px;font-weight:600;margin:14px 0 8px;display:flex;align-items:center;gap:6px}
   .cat h3 .dot{width:6px;height:6px;border-radius:50%;background:var(--info)}
@@ -206,6 +237,7 @@
     <div class="legend" id="chartLegend"></div>
     <div class="selbar" id="selBar"></div>
   </div>
+  <div class="kbar" id="keyBar"></div>
   <div class="cat" id="metricCats"></div>
   <div class="srcbox" id="srcBox"></div>
 </div>
@@ -980,6 +1012,68 @@ if(window.visualViewport){
 }
 window.addEventListener('resize', ()=>{ if(isFull) refit(); });
 
+/* ══════════ 关键数据条带（走势图下方，五类上下排列）══════════
+   分类依据：抖音图文《纳指与红利低波指标对比》2026-10-14
+     - 作品#2「红利低波六信号」把 RSI(14)、KDJ(K/D/J) 归入「强弱(STRENGTH)」面板，
+       量比归入「位置+量能(POSITION)」，250日均线乖离（=r250 的原始表达）归「位置」
+     - 作品#1「纳指/标普温度」把 VIX/VXN/CNN 归入「情绪」，并强调方向相反
+   五类归并：趋势 / 动量 / 波动率 / 成交量 / 情绪（上下各占一行） */
+function renderKeyBar(){
+  const box=document.getElementById('keyBar');
+  if(!box) return;
+  const i=D.indicators;
+  const L=arr=>{ const a=arr||[]; for(let k=a.length-1;k>=0;k--) if(a[k]!==null&&a[k]!==undefined) return a[k]; return null; };
+
+  const r250=L(i.r250), r500=L(i.r500), rsi=L(i.rsi14);
+  const kk=L(i.kdj_k), kd=L(i.kdj_d);
+  const vr=L(i.volratio);
+  let vxn=null; try{ vxn=last(D.vxn.rows)[1]; }catch(e){}
+  let cnn=null; try{ cnn=D.cnn.current.score; }catch(e){}
+
+  /* 状态判定（区间取自抖音原文） */
+  const stRSI = rsi==null?['','st-mid'] : rsi<30?['超卖','st-cold'] : rsi>70?['超买','st-hot'] : ['中性','st-mid'];
+  /* ⚠️ 状态文字里的 < > 必须转义，否则被当成 HTML 标签吞掉内容 */
+  const stKD  = kd==null?['','st-mid'] : kk>kd?['K&gt;D 多头','st-hot'] : kk<kd?['K&lt;D 空头','st-cold'] : ['交叉','st-mid'];
+  const stR250= r250==null?['','st-mid'] : r250>=1?['价在年线上','st-hot'] : ['价在年线下','st-cold'];
+  const stR500= r500==null?['','st-mid'] : r500>=1?['价在两年线上','st-hot'] : ['价在两年线下','st-cold'];
+  const stVR  = vr==null?['','st-mid'] : vr>1.5?['放量','st-hot'] : vr<0.7?['缩量','st-cold'] : ['正常','st-mid'];
+  const stVXN = vxn==null?['','st-mid'] : vxn>25?['紧张','st-warn'] : vxn>40?['恐慌','st-hot'] : vxn<18?['平静','st-cold'] : ['中性','st-mid'];
+  /* ⚠️ CNN 方向相反：越低越恐慌 */
+  const stCNN = cnn==null?['','st-mid'] : cnn<25?['极度恐慌','st-hot'] : cnn>75?['极度贪婪','st-warn'] : ['中性','st-mid'];
+
+  const row=(cls,tag,items)=>'<div class="krow">'+
+    '<span class="ktag '+cls+'">'+tag+'</span>'+
+    '<span class="kitems">'+items.map(it=>{
+      // it[1]==='' 表示该指标只有状态、无数值（如 KDJ 交叉判定）
+      const val = (it[1]===''||it[1]==null) ? '' : '<span class="kv '+((it[1]==null)?'none':'')+'">'+it[1]+'</span>';
+      return '<span class="ki"><span class="kn">'+it[0]+'</span>'+ val +
+        (it[2]&&it[2][0]?'<span class="kst '+it[2][1]+'">'+it[2][0]+'</span>':'')+
+        '</span>';
+    }).join('')+
+    '</span></div>';
+
+  box.innerHTML =
+    row('kt-trend','趋势',[
+      ['r250', r250==null?'—':r250.toFixed(3), stR250],
+      ['r500', r500==null?'—':r500.toFixed(3), stR500],
+    ])+
+    row('kt-mom','动量',[
+      ['RSI(14)', rsi==null?'—':rsi.toFixed(1), stRSI],
+      ['K', kk==null?'—':kk.toFixed(1), null],
+      ['D', kd==null?'—':kd.toFixed(1), null],
+      ['KDJ', '', stKD],
+    ])+
+    row('kt-vola','波动率',[
+      ['VXN', vxn==null?'—':vxn.toFixed(2), stVXN],
+    ])+
+    row('kt-volume','成交量',[
+      ['量比', vr==null?'—':vr.toFixed(2), stVR],
+    ])+
+    row('kt-senti','情绪',[
+      ['CNN', cnn==null?'—':cnn.toFixed(1), stCNN],
+    ]);
+}
+
 function renderSrcBox(){
   const i=D.indicators;
   /* 量比/KDJ 的可用起点：指标数组里第一个非空位置
@@ -1023,7 +1117,7 @@ function renderSrcBox(){
 (function init(){
   document.getElementById('genAt').textContent='页面生成于 '+(D.generatedAt||'');
   selected=loadSel();                        // Q3.c：恢复上次选择
-  renderIndexList(); renderSrcBox();
+  renderIndexList(); renderKeyBar(); renderSrcBox();
   window.addEventListener('resize',()=>{ if(chart) chart.resize(); });
 
   /* ── 渲染失败自愈 ──
