@@ -979,48 +979,88 @@ function showHoldChart(){
   document.getElementById('chipIdx').classList.remove('on');
   document.getElementById('chartTitle').innerHTML =
     h.name+'（'+h.code+'）'+
-    '<span class="chip" style="margin-left:8px">'+h.src+'｜'+h.end+'</span>';
+    '<span class="chip" style="margin-left:8px">'+h.start+' ~ '+h.end+'（'+h.n+' 个交易日）</span>';
   document.getElementById('selBar').innerHTML='';
-  /* 五类关键数据条带是纳指口径（r250/r500/RSI/KDJ/VXN/量比/CNN），
-     与红利低波无关 → 进入红利低波详情时隐藏，避免张冠李戴 */
   const _kb=document.getElementById('keyBar');
   if(_kb) _kb.style.display='none';
   document.getElementById('chartLegend').innerHTML =
-    '<span class="lg"><i style="background:#2563eb"></i>收盘</span>'+
-    '<span class="lg"><i style="background:#c026d3"></i>RSI14</span>'+
-    '<span class="lg"><i style="background:#f59e0b"></i>MA20</span>';
+    '<span class="lg"><i style="background:#2563eb"></i>收盘价</span>'+
+    '<span class="lg"><i style="background:#f59e0b"></i>MA20</span>'+
+    '<span class="lg"><i style="background:#c026d3"></i>RSI14</span>';
 
-  const dates=(h.rsiSeries||[]).map(x=>x.d);
-  const rsis=(h.rsiSeries||[]).map(x=>x.v);
-  const opt=baseOption(dates);
-  opt.grid={left:52,right:58,top:34,bottom:50};
-  opt.yAxis=[
-    {type:'value',name:'RSI',min:0,max:100,position:'left',
-     axisLabel:{fontSize:10,color:'#6b7280'},splitLine:{lineStyle:{color:'#f1f3f5'}},
-     axisLine:{lineStyle:{color:'#e8eaed'}}},
-    {type:'value',name:'价格',position:'right',scale:true,
-     axisLabel:{fontSize:10,color:'#6b7280'},splitLine:{show:false},
-     axisLine:{lineStyle:{color:'#e8eaed'}}}
-  ];
-  // 参考线：70 超买 / 30 超卖
-  opt.series=[{
-    name:'RSI14', type:'line', showSymbol:false, connectNulls:true, yAxisIndex:0,
-    data:rsis, lineStyle:{width:1.8,color:'#c026d3'}, itemStyle:{color:'#c026d3'}, z:5,
-    markLine:{silent:true,symbol:'none',data:[
-      {yAxis:70,lineStyle:{color:'#dc2626',type:'dashed',width:1},
-       label:{formatter:'70 超买',fontSize:10,color:'#b91c1c',position:'insideEndTop'}},
-      {yAxis:30,lineStyle:{color:'#15803d',type:'dashed',width:1},
-       label:{formatter:'30 超卖',fontSize:10,color:'#15803d',position:'insideEndBottom'}}
-    ]}
-  }];
-  opt.tooltip.formatter=function(ps){
-    const d0=ps.length?ps[0].axisValue:'';
-    const i=dates.indexOf(d0);
+  const dates = h.dates || [];
+  const closes = h.closes || [];
+  const rsis = h.rsiSeries || [];
+  const ma20 = h.ma20Series || [];
+
+  /* 上下双图：上=走势（价格+MA20），下=RSI14（含70/30参考线）
+     用 ECharts grid 分成两个绘图区，共用同一时间轴 */
+  const opt = {
+    animation:false,
+    tooltip:{trigger:'axis',axisPointer:{type:'cross',link:[{xAxisIndex:'all'}]}},
+    axisPointer:{link:[{xAxisIndex:'all'}]},
+    grid:[
+      {left:58,right:62,top:16,height:'46%'},          // 上图：走势
+      {left:58,right:62,top:'62%',height:'26%'},       // 下图：RSI14
+    ],
+    xAxis:[
+      {type:'category',data:dates,gridIndex:0,boundaryGap:false,
+       axisLabel:{show:false},axisLine:{lineStyle:{color:'#e8eaed'}},
+       axisTick:{show:false}},
+      {type:'category',data:dates,gridIndex:1,boundaryGap:false,
+       axisLabel:{fontSize:10,color:'#6b7280',hideOverlap:true,showMinLabel:true,showMaxLabel:true},
+       axisLine:{lineStyle:{color:'#e8eaed'}}}
+    ],
+    yAxis:[
+      {type:'value',name:'价格',gridIndex:0,scale:true,
+       axisLabel:{fontSize:10,color:'#6b7280'},splitLine:{lineStyle:{color:'#f1f3f5'}},
+       axisLine:{show:false},nameTextStyle:{fontSize:10,color:'#9ca3af'}},
+      {type:'value',name:'RSI',gridIndex:1,min:0,max:100,
+       axisLabel:{fontSize:10,color:'#6b7280'},splitLine:{lineStyle:{color:'#f1f3f5'}},
+       axisLine:{show:false},nameTextStyle:{fontSize:10,color:'#9ca3af'}}
+    ],
+    dataZoom:[
+      {type:'inside',xAxisIndex:[0,1],start:0,end:100},
+      {type:'slider',xAxisIndex:[0,1],height:16,bottom:6,start:0,end:100,
+       borderColor:'#e8eaed',fillerColor:'rgba(37,99,235,.10)'}
+    ],
+    series:[
+      /* 上图：收盘价 + MA20 */
+      {name:'收盘价',type:'line',xAxisIndex:0,yAxisIndex:0,showSymbol:false,
+       connectNulls:true,data:closes,sampling:'lttb',
+       lineStyle:{width:1.5,color:'#2563eb'},itemStyle:{color:'#2563eb'},z:4},
+      {name:'MA20',type:'line',xAxisIndex:0,yAxisIndex:0,showSymbol:false,
+       connectNulls:true,data:ma20,sampling:'lttb',
+       lineStyle:{width:1.1,color:'#f59e0b'},itemStyle:{color:'#f59e0b'},z:3},
+      /* 下图：RSI14 + 70/30 参考线 */
+      {name:'RSI14',type:'line',xAxisIndex:1,yAxisIndex:1,showSymbol:false,
+       connectNulls:true,data:rsis,sampling:'lttb',
+       lineStyle:{width:1.4,color:'#c026d3'},itemStyle:{color:'#c026d3'},z:5,
+       markLine:{silent:true,symbol:'none',data:[
+         {yAxis:70,lineStyle:{color:'#dc2626',type:'dashed',width:1},
+          label:{formatter:'70 超买',fontSize:10,color:'#b91c1c',position:'insideEndTop'}},
+         {yAxis:30,lineStyle:{color:'#15803d',type:'dashed',width:1},
+          label:{formatter:'30 超卖',fontSize:10,color:'#15803d',position:'insideEndBottom'}}
+       ]}
+      }
+    ]
+  };
+
+  const idxOfDate = new Map(dates.map((d,i)=>[d,i]));
+  opt.tooltip.formatter = function(ps){
+    const d0 = ps.length? ps[0].axisValue : '';
+    const i = idxOfDate.has(d0)? idxOfDate.get(d0) : -1;
     let out='<b>'+d0+'</b><br/>';
-    if(i>=0&&rsis[i]!=null) out+='RSI14：<b>'+rsis[i].toFixed(2)+'</b><br/>';
+    if(i>=0){
+      if(closes[i]!=null) out+='<span style="color:#2563eb">●</span> 收盘：<b>'+
+        Number(closes[i]).toFixed(h.close<10?3:2)+'</b><br/>';
+      if(ma20[i]!=null) out+='<span style="color:#f59e0b">●</span> MA20：'+Number(ma20[i]).toFixed(h.close<10?3:2)+'<br/>';
+      if(rsis[i]!=null) out+='<span style="color:#c026d3">●</span> RSI14：<b>'+Number(rsis[i]).toFixed(2)+'</b><br/>';
+    }
     return out;
   };
-  chart.setOption(opt,true);
+
+  chart.setOption(opt, true);
   renderHoldCards(h);
 }
 

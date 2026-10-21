@@ -727,7 +727,15 @@ def load_holds():
                 'ma20': ma(20), 'ma60': ma(60), 'ma250': ma(250),
                 'peak': round(peak, 4),
                 'curDrawdown': round(closes[-1] / peak - 1, 4),
-                'rsiSeries': [{'d': dates[i], 'v': rsi[i]} for i in range(max(0, len(dates) - 60), len(dates))],
+                # 全量序列：价格（走势图）+ RSI14（指标图），两者同轴对齐
+                # ⚠️ 之前只存近60点导致「时间线太短」，改为全量
+                'dates': dates,
+                'closes': [round(c, 4) for c in closes],
+                'rsiSeries': rsi,
+                'ma20Series': [
+                    (round(sum(closes[i-19:i+1])/20, 4) if i >= 19 else None)
+                    for i in range(len(closes))
+                ],
             }
             res.append(item)
             print(f"     {h['code']} {h['name']}: 收 {item['close']}  RSI14 {item['rsi14']}  "
