@@ -982,17 +982,41 @@ window.addEventListener('resize', ()=>{ if(isFull) refit(); });
 
 function renderSrcBox(){
   const i=D.indicators;
+  /* 量比/KDJ 的可用起点：指标数组里第一个非空位置
+     （布林带宽只需收盘价，覆盖全区间，不走这个变量） */
+  let volStart='—';
+  for(const key of ['volratio','kdj_j']){
+    const arr=i[key]||[];
+    const idx=arr.findIndex(v=>v!==null && v!==undefined);
+    if(idx>=0 && i.dates[idx]){ volStart=i.dates[idx]; break; }
+  }
+  /* 成交量本身的起点与条数（勿写死，随数据增长） */
+  const _volArr=i.volume||[];
+  const _vIdx=_volArr.findIndex(v=>v!==null && v!==undefined);
+  const volFrom=(_vIdx>=0 && i.dates[_vIdx]) ? i.dates[_vIdx] : '—';
+  const volCount=_volArr.filter(v=>v!==null && v!==undefined).length;
   document.getElementById('srcBox').innerHTML=
     '<b>数据来源与口径</b><br>'+
-    '行情/技术：FRED NASDAQ100（'+i.start+' ~ '+i.end+'，'+i.dates.length+' 个交易日）｜本地自算 MA / r500 / r250 / RSI / 回撤<br>'+
+    '行情/技术：FRED NASDAQ100（'+i.start+' ~ '+i.end+'，'+i.dates.length+' 个交易日）｜本地自算 MA200 / MA250 / MA500 / r500 / r250 / RSI(14) / 回撤<br>'+
+    '量能·KDJ·布林：成交量来自<b>新浪美股 .NDX</b>（'+volFrom+' 起，'+volCount+' 个交易日）｜本地自算 <b>量比、KDJ(9,3,3)、布林带宽(20日±2σ)</b>（'+volStart+' 起）<br>'+
     '情绪：VXN FRED VXNCLS（2001-02-02 起）｜VIX CBOE（1990-01-02 起）｜CNN Fear&Greed（2020-07-17 起）<br>'+
     '估值：蛋卷 danjuanfunds（2016-10-12 起，周频 514 点）｜股息率 nikkei225jp（2019-06-06 起）｜权重 SEC N-PORT（'+D.weights.asOf+'，季度）<br>'+
     '回撤口径：<b>峰→谷单段</b>，A ≥15% / B 10–15% / C 5–10%，D(&lt;5%)不画｜已算出 A '+i.segCounts.A+' 段、B '+i.segCounts.B+' 段、C '+i.segCounts.C+' 段'+
-    '<div class="warnbox"><b>⚠️ 四类必须知道的口径限制</b><br>'+
+    '<div class="warnbox"><b>⚠️ 五类必须知道的口径限制</b><br>'+
     '1. <b>禁止跨口径比大小</b>：NDX 的 PE 三家不同源 —— 蛋卷 '+fmt(D.danjuan_now.pe)+'（'+D.danjuan_now.date+'）／Siblis 35.24（2026-06-30）／Nasdaq 官方 35.23（2026-06-30）。<br>'+
     '2. <b>估值序列起点 2016-10</b>，覆盖不到 2002（图上留白并已标注）。<br>'+
     '3. <b>波动率两口径不可比</b>：VXN/VIX 是「隐含波动」（期权预期），年化波动率是「已实现波动」（历史）。<br>'+
-    '4. <b>QDII 净值天然滞后 1 日</b>（本页为指数口径，不受影响）。</div>';
+    '4. <b>QDII 净值天然滞后 1 日</b>（本页为指数口径，不受影响）。<br>'+
+    '5. <b>量比/KDJ 覆盖不到 2002-2014</b>：这两项需要 OHLCV（开高低收+成交量），而 FRED 只提供收盘价；<br>'+
+    '　　&nbsp;&nbsp;成交量自 <b>2014-02-18</b> 才有（新浪源），此前区间在图上留白。<br>'+
+    '　　&nbsp;&nbsp;布林带宽只用收盘价，<b>覆盖 2002 起全区间</b>，不受此限。'+
+    '<div style="margin-top:8px;padding-top:8px;border-top:1px dashed #e5e7eb">'+
+    '<b>📐 三项新指标的计算式</b><br>'+
+    '<b>量比</b> = 当日成交量 ÷ 过去 5 个交易日平均量（<u>不含当日</u>）｜&gt;1.5 明显放量、0.7~1.5 正常、&lt;0.7 缩量<br>'+
+    '<b>KDJ(9,3,3)</b>：RSV =(收盘−9日最低)÷(9日最高−9日最低)×100｜K = ⅔·K<sub>前</sub> + ⅓·RSV｜D = ⅔·D<sub>前</sub> + ⅓·K｜J = 3K − 2D<br>'+
+    '　　&nbsp;&nbsp;K 上穿 D = 金叉，下穿 = 死叉；J&gt;100 超买、J&lt;0 超卖<br>'+
+    '<b>布林带宽</b> =(上轨−下轨)÷中轨×100%，上/下轨 = 20日均价 ± 2×标准差｜收窄=波动收敛（常预示变盘）、扩张=波动放大'+
+    '</div></div>';
 }
 
 /* ========== 启动 ========== */
