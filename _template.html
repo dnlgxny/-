@@ -1025,6 +1025,35 @@ function renderSrcBox(){
   selected=loadSel();                        // Q3.c：恢复上次选择
   renderIndexList(); renderSrcBox();
   window.addEventListener('resize',()=>{ if(chart) chart.resize(); });
+
+  /* ── 渲染失败自愈 ──
+     场景：手机上 Service Worker 缓存了旧版 JS，与新版数据/结构不兼容，
+           导致指数列表渲染为空、页面看似「打不开」。
+     处理：2 秒后检查是否真的渲染出卡片；若为空 → 注销 SW + 清缓存 + 强刷。
+     防循环：用 sessionStorage 记一次，同一会话只自愈一次。 */
+  setTimeout(()=>{
+    try{
+      const n=document.querySelectorAll('#idxGrid .idxcard').length;
+      if(n>0) return;                        // 渲染正常，无需处理
+      if(sessionStorage.getItem('wb_healed')) return;   // 已自愈过，避免死循环
+      sessionStorage.setItem('wb_healed','1');
+      const clean=()=>{
+        if('serviceWorker' in navigator && navigator.serviceWorker.getRegistrations){
+          navigator.serviceWorker.getRegistrations().then(rs=>{
+            rs.forEach(r=>r.unregister());
+          }).catch(()=>{});
+        }
+        if(window.caches && caches.keys){
+          caches.keys().then(ks=>ks.forEach(k=>caches.delete(k))).catch(()=>{});
+        }
+      };
+      clean();
+      // 加时间戳强刷，绕过所有 HTTP 缓存
+      const u=new URL(location.href);
+      u.searchParams.set('_r', Date.now());
+      setTimeout(()=>{ location.replace(u.toString()); }, 250);
+    }catch(e){}
+  }, 2000);
 })();
 
 /* PWA：注册 Service Worker（离线可看 + 主屏图标）。
