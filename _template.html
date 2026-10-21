@@ -751,6 +751,8 @@ function buildAxes(activeGroups){
 /* ══════════ 指数走势图（第②层）══════════ */
 function showIndexChart(){
   curMetric=null; renderMetricCards();
+  const _kb=document.getElementById('keyBar');
+  if(_kb) _kb.style.display='';            // 回到纳指视图时恢复五类条带
   document.getElementById('chipIdx').classList.add('on');
   const _h1=document.getElementById('chipHint'); if(_h1) _h1.textContent='';
   document.getElementById('chartTitle').innerHTML='纳斯达克100 走势（2002-10-09 起）'+
@@ -979,6 +981,10 @@ function showHoldChart(){
     h.name+'（'+h.code+'）'+
     '<span class="chip" style="margin-left:8px">'+h.src+'｜'+h.end+'</span>';
   document.getElementById('selBar').innerHTML='';
+  /* 五类关键数据条带是纳指口径（r250/r500/RSI/KDJ/VXN/量比/CNN），
+     与红利低波无关 → 进入红利低波详情时隐藏，避免张冠李戴 */
+  const _kb=document.getElementById('keyBar');
+  if(_kb) _kb.style.display='none';
   document.getElementById('chartLegend').innerHTML =
     '<span class="lg"><i style="background:#2563eb"></i>收盘</span>'+
     '<span class="lg"><i style="background:#c026d3"></i>RSI14</span>'+
