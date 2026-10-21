@@ -210,6 +210,36 @@
 </style>
 </head>
 <body>
+<script>
+/* ══════════ 模板防呆（立即执行，不依赖 DOM 事件）══════════
+   _template.html 是**源代码模板**：数据由 生成工作台.py 替换 /*__PAYLOAD__*/ 注入。
+   直接双击打开本文件时，下方主脚本因 `const D = ;` 语法错误整段不执行 → 页面空白，
+   极易被误判为「网页坏了」。本脚本在主脚本之前独立运行并立即替换整个文档。 */
+(function(){
+  if(location.protocol!=='file:') return;
+  if(!/_template\.html$/i.test(location.pathname)) return;
+  var H='<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
+    '<div style="font-family:-apple-system,BlinkMacSystemFont,sans-serif;max-width:560px;margin:12vh auto;padding:0 22px;line-height:1.9;color:#1f2937">'+
+    '<div style="font-size:44px;margin-bottom:10px">&#128196;</div>'+
+    '<h2 style="margin:0 0 14px;font-size:19px">你打开的是「模板文件」，不是成品页面</h2>'+
+    '<div style="background:#fef3c7;border-left:4px solid #f59e0b;padding:12px 14px;border-radius:6px;margin-bottom:18px;font-size:14px">'+
+    '<code style="font-size:12.5px">_template.html</code> 是<b>源代码模板</b>，数据是占位符，需由 <code>生成工作台.py</code> 注入后才能用。直接打开它列表会是空的 —— 这是正常的，不是网页坏了。</div>'+
+    '<div style="font-size:14px;margin-bottom:8px"><b>&#9989; 正确的打开方式（任选其一）</b></div>'+
+    '<div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:14px;font-size:14px">'+
+    '<div style="margin-bottom:12px">&#9312; <b>打开同目录下的成品</b>：<br><code style="font-size:12.5px;color:#1d4ed8">工作台.html</code></div>'+
+    '<div>&#9313; <b>打开线上地址</b>（推荐，手机也能用）：<br>'+
+    '<a href="https://dnlgxny.github.io/-/" style="color:#1d4ed8;font-size:12.5px">https://dnlgxny.github.io/-/</a></div></div>'+
+    '<div style="margin-top:18px;font-size:12px;color:#6b7280">改完模板想看效果：终端运行 <code>python3 生成工作台.py</code> 重新生成成品。</div></div>';
+  function go(){ document.open(); document.write('<body>'+H+'</body>'); document.close(); }
+  // 文档可能还在解析中，用 readyState 判断；无论哪种都立即执行
+  if(document.body) go(); else document.addEventListener('readystatechange', function f(){
+    if(document.body){ document.removeEventListener('readystatechange',f); go(); }
+  });
+})();
+</script>
+
+
+
 
 <div class="nav">
   <span class="brand">开源工作台</span>
