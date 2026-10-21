@@ -633,6 +633,113 @@ def calc_indicators(ndx_rows):
     return out
 
 
+# ══════════════════════════════════════════════════════════════
+# [9] 用户持有的两支红利低波（RSI14 + 基础技术指标）
+#     012708 东方红中证红利低波动指数A  → 跟踪 931446（东证红利低波）
+#     008163 南方标普红利低波50ETF联接A → 跟踪 SPCLLHCP（取不到），
+#            改取其**场内目标 ETF 515450**（红利低波50ETF南方），同标的、有量价
+# ══════════════════════════════════════════════════════════════
+HOLDS = [
+    {'fund': '012708', 'fundName': '东方红中证红利低波动指数A',
+     'secid': '2.931446', 'name': '东证红利低波', 'code': '931446',
+     'track': '中证东方红红利低波动指数', 'note': '指数本体（基金直接跟踪）'},
+    {'fund': '008163', 'fundName': '南方标普红利低波50ETF联接A',
+     'secid': '1.515450', 'name': '红利低波50ETF南方', 'code': '515450',
+     'track': '标普中国A股大盘红利低波50指数',
+     'note': '联接基金跟踪 SPCLLHCP（东财取不到），此处用场内目标 ETF 515450 代理'},
+]
+
+
+def fetch_em_kline(secid, lmt=3000):
+    """东方财富日线（沪深/中证指数通用）。返回 [(date, close), ...]"""
+    url = ('https://push2his.eastmoney.com/api/qt/stock/kline/get?'
+           f'secid={secid}&fields1=f1,f2,f3&fields2=f51,f53&klt=101&fqt=1'
+           f'&end=20500101&lmt={lmt}')
+    h = {'User-Agent': UA_FF, 'Referer': 'https://quote.eastmoney.com/'}
+    ctx = ssl.create_default_context()
+    op = urllib.request.build_opener(urllib.request.HTTPSHandler(context=ctx),
+                                     urllib.request.ProxyHandler({}))
+    req = urllib.request.Request(url, headers=h)
+    with op.open(req, timeout=30) as r:
+        d = json.loads(r.read().decode('utf-8', 'replace'))
+    kl = (d.get('data') or {}).get('klines') or []
+    out = []
+    for line in kl:
+        parts = line.split(',')
+        if len(parts) >= 2:
+            try:
+                out.append((parts[0], float(parts[1])))
+            except ValueError:
+                pass
+    return out
+
+
+def calc_rsi14(closes):
+    """Wilder RSI(14)，返回与 closes 等长的数组（前 14 个为 None）"""
+    n = 14
+    out = [None] * len(closes)
+    if len(closes) <= n:
+        return out
+    gains = losses = 0.0
+    for i in range(1, n + 1):
+        ch = closes[i] - closes[i - 1]
+        if ch > 0:
+            gains += ch
+        else:
+            losses -= ch
+    ag, al = gains / n, losses / n
+    out[n] = round(100 - 100 / (1 + ag / al), 2) if al > 0 else 100.0
+    for i in range(n + 1, len(closes)):
+        ch = closes[i] - closes[i - 1]
+        g = ch if ch > 0 else 0.0
+        l = -ch if ch < 0 else 0.0
+        ag = (ag * (n - 1) + g) / n
+        al = (al * (n - 1) + l) / n
+        out[i] = round(100 - 100 / (1 + ag / al), 2) if al > 0 else 100.0
+    return out
+
+
+def load_holds():
+    print('[9] 红利低波持仓（RSI14）...')
+    res = []
+    for h in HOLDS:
+        try:
+            kl = fetch_em_kline(h['secid'])
+            if len(kl) < 20:
+                raise RuntimeError(f'K线不足（{len(kl)} 根）')
+            dates = [x[0] for x in kl]
+            closes = [x[1] for x in kl]
+            rsi = calc_rsi14(closes)
+
+            def ma(n):
+                return round(sum(closes[-n:]) / n, 4) if len(closes) >= n else None
+
+            ch = closes[-1] / closes[-2] - 1 if len(closes) > 1 else None
+            peak = max(closes)
+            item = {
+                'fund': h['fund'], 'fundName': h['fundName'],
+                'name': h['name'], 'code': h['code'], 'track': h['track'], 'note': h['note'],
+                'src': '东方财富 push2his 日线',
+                'start': dates[0], 'end': dates[-1], 'n': len(closes),
+                'close': round(closes[-1], 4),
+                'chg': round(ch, 4) if ch is not None else None,
+                'rsi14': rsi[-1],
+                'ma20': ma(20), 'ma60': ma(60), 'ma250': ma(250),
+                'peak': round(peak, 4),
+                'curDrawdown': round(closes[-1] / peak - 1, 4),
+                'rsiSeries': [{'d': dates[i], 'v': rsi[i]} for i in range(max(0, len(dates) - 60), len(dates))],
+            }
+            res.append(item)
+            print(f"     {h['code']} {h['name']}: 收 {item['close']}  RSI14 {item['rsi14']}  "
+                  f"({item['start']} ~ {item['end']}, {item['n']} 根)")
+        except Exception as e:
+            print(f"     [X] {h['code']} {h['name']} 失败：{type(e).__name__}: {str(e)[:90]}")
+    if not res:
+        raise RuntimeError('两支标的均取数失败')
+    save('holds.json', {'items': res, 'generatedAt': datetime.datetime.now().strftime('%Y-%m-%d %H:%M')})
+    return res
+
+
 if __name__ == '__main__':
     print('=' * 60)
     print('工作台数据准备')
@@ -651,6 +758,14 @@ if __name__ == '__main__':
         except Exception as e:
             print(f'  [X] {name} 失败: {type(e).__name__}: {str(e)[:110]}')
             fail.append(name)
+
+    # 第 9 步：红利低波持仓（独立，不依赖 NDX）
+    try:
+        load_holds()
+        ok.append('红利低波')
+    except Exception as e:
+        print(f'  [X] 红利低波 失败: {type(e).__name__}: {str(e)[:110]}')
+        fail.append('红利低波')
 
     # 第 8 步依赖 NDX 拼接结果
     if ndx_rows:

@@ -60,6 +60,7 @@ def build_html():
         'dividend': load('dividend.json'),
         'weights': load('weights.json'),
         'indicators': load('indicators.json'),
+        'holds': (load('holds.json') if os.path.exists(os.path.join(DATA, 'holds.json')) else {'items': []}),
         'footNote': '回撤口径：峰→谷单段｜起点 2002-10-09（互联网泡沫见底次日）',
     }
 
@@ -69,9 +70,10 @@ def build_html():
         echarts_js = f.read()
 
     # 内联 ECharts（先替换 ECharts，再替换 payload，避免 </script> 干扰）
-    html = html.replace('/*__ECHARTS__*/', echarts_js)
+    # ⚠️ 只替换第一次：避免注释/文档里出现同名字样被误替换导致体积暴增
+    html = html.replace('/*__ECHARTS__*/', echarts_js, 1)
     js = json.dumps(payload, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c')
-    html = html.replace('/*__PAYLOAD__*/', js)
+    html = html.replace('/*__PAYLOAD__*/', js, 1)
     return html, payload
 
 

@@ -212,7 +212,7 @@
 <body>
 <script>
 /* ══════════ 模板防呆（立即执行，不依赖 DOM 事件）══════════
-   _template.html 是**源代码模板**：数据由 生成工作台.py 替换 /*__PAYLOAD__*/ 注入。
+   _template.html 是**源代码模板**：数据由 生成工作台.py 注入（替换 PAYLOAD 占位符）。
    直接双击打开本文件时，下方主脚本因 `const D = ;` 语法错误整段不执行 → 页面空白，
    极易被误判为「网页坏了」。本脚本在主脚本之前独立运行并立即替换整个文档。 */
 (function(){
@@ -521,9 +521,17 @@ let chart=null, curMetric=null;
 const INDEXES=[
   {id:'ndx', name:'纳斯达克100', code:'NDX', on:true},
   {id:'spx', name:'标普500', code:'SPX', on:false, hint:'待接入'},
-  {id:'divlow', name:'红利低波', code:'H30269', on:false, hint:'待接入'},
+  /* 用户持有的两支红利低波（数据来自 _data/holds.json） */
+  {id:'hold1', name:'东证红利低波', code:'931446', hold:true, on:true},
+  {id:'hold2', name:'红利低波50ETF', code:'515450', hold:true, on:true},
   {id:'sse', name:'上证指数', code:'000001', on:false, hint:'待接入'}
 ];
+
+/* 按 code 找持仓数据 */
+function holdOf(code){
+  const hs=(D.holds&&D.holds.items)||[];
+  return hs.find(x=>x.code===code) || null;
+}
 
 function renderIndexList(){
   const g=document.getElementById('idxGrid');
@@ -531,6 +539,32 @@ function renderIndexList(){
   INDEXES.forEach(ix=>{
     const d=document.createElement('div');
     d.className='idxcard'+(ix.on?'':' off');
+    if(ix.hold){
+      const h=holdOf(ix.code);
+      if(h){
+        const rsiTxt = h.rsi14==null? '—' : h.rsi14.toFixed(1);
+        const rsiCls = h.rsi14==null? '' : (h.rsi14>70?'down':(h.rsi14<30?'up':''));
+        d.className='idxcard';
+        d.innerHTML='<div class="nm">'+ix.name+'</div>'+
+          '<div class="code">'+ix.code+' · 基金 '+h.fund+'</div>'+
+          '<div class="val">'+fmt(h.close, h.close<10?3:2)+'</div>'+
+          '<div class="sub '+cls(h.chg)+'" style="font-size:12px">'+
+            (h.chg===null?'':'当日 '+sgn(h.chg*100,2)+'%')+'</div>'+
+          '<div class="sub" style="font-size:12px;margin-top:6px">'+
+            'RSI14 <b class="'+rsiCls+'">'+rsiTxt+'</b></div>'+
+          '<div class="sub" style="font-size:11px;margin-top:3px">数据日 '+h.end+'</div>';
+        d.onclick=()=>openIndex(ix.id);
+        g.appendChild(d);
+        return;
+      }
+      // 数据缺失 → 灰卡
+      d.className='idxcard off';
+      d.innerHTML='<div class="nm" style="color:var(--faint)">'+ix.name+'</div>'+
+        '<div class="code">'+ix.code+'</div><div class="val" style="color:var(--faint)">—</div>'+
+        '<div class="sub" style="font-size:11px;margin-top:6px">数据未就绪</div>';
+      g.appendChild(d);
+      return;
+    }
     if(ix.on){
       const c=D.indicators.close, ch=c.length>1? c[c.length-1]/c[c.length-2]-1 : null;
       d.innerHTML='<div class="nm">'+ix.name+'</div><div class="code">'+ix.code+'</div>'+
@@ -918,15 +952,111 @@ function openModal(m,v){
 }
 function closeModal(){ document.getElementById('modal').classList.remove('show'); }
 
+let curHold=null;                    // 当前查看的持仓标的（null = 纳指详情）
+
 function openIndex(id){
+  const ix=INDEXES.find(x=>x.id===id);
   document.getElementById('viewList').style.display='none';
   document.getElementById('viewDetail').style.display='';
   if(!chart) chart=echarts.init(document.getElementById('mainChart'));
-  showIndexChart();
+  if(ix && ix.hold){
+    curHold=holdOf(ix.code);
+    showHoldChart();
+  }else{
+    curHold=null;
+    showIndexChart();
+  }
   window.scrollTo({top:0,behavior:'smooth'});
   setTimeout(()=>chart.resize(),60);
 }
+
+/* ══════════ 红利低波详情（RSI14 为主）══════════ */
+function showHoldChart(){
+  const h=curHold;
+  if(!h){ showIndexChart(); return; }
+  document.getElementById('chipIdx').classList.remove('on');
+  document.getElementById('chartTitle').innerHTML =
+    h.name+'（'+h.code+'）'+
+    '<span class="chip" style="margin-left:8px">'+h.src+'｜'+h.end+'</span>';
+  document.getElementById('selBar').innerHTML='';
+  document.getElementById('chartLegend').innerHTML =
+    '<span class="lg"><i style="background:#2563eb"></i>收盘</span>'+
+    '<span class="lg"><i style="background:#c026d3"></i>RSI14</span>'+
+    '<span class="lg"><i style="background:#f59e0b"></i>MA20</span>';
+
+  const dates=(h.rsiSeries||[]).map(x=>x.d);
+  const rsis=(h.rsiSeries||[]).map(x=>x.v);
+  const opt=baseOption(dates);
+  opt.grid={left:52,right:58,top:34,bottom:50};
+  opt.yAxis=[
+    {type:'value',name:'RSI',min:0,max:100,position:'left',
+     axisLabel:{fontSize:10,color:'#6b7280'},splitLine:{lineStyle:{color:'#f1f3f5'}},
+     axisLine:{lineStyle:{color:'#e8eaed'}}},
+    {type:'value',name:'价格',position:'right',scale:true,
+     axisLabel:{fontSize:10,color:'#6b7280'},splitLine:{show:false},
+     axisLine:{lineStyle:{color:'#e8eaed'}}}
+  ];
+  // 参考线：70 超买 / 30 超卖
+  opt.series=[{
+    name:'RSI14', type:'line', showSymbol:false, connectNulls:true, yAxisIndex:0,
+    data:rsis, lineStyle:{width:1.8,color:'#c026d3'}, itemStyle:{color:'#c026d3'}, z:5,
+    markLine:{silent:true,symbol:'none',data:[
+      {yAxis:70,lineStyle:{color:'#dc2626',type:'dashed',width:1},
+       label:{formatter:'70 超买',fontSize:10,color:'#b91c1c',position:'insideEndTop'}},
+      {yAxis:30,lineStyle:{color:'#15803d',type:'dashed',width:1},
+       label:{formatter:'30 超卖',fontSize:10,color:'#15803d',position:'insideEndBottom'}}
+    ]}
+  }];
+  opt.tooltip.formatter=function(ps){
+    const d0=ps.length?ps[0].axisValue:'';
+    const i=dates.indexOf(d0);
+    let out='<b>'+d0+'</b><br/>';
+    if(i>=0&&rsis[i]!=null) out+='RSI14：<b>'+rsis[i].toFixed(2)+'</b><br/>';
+    return out;
+  };
+  chart.setOption(opt,true);
+  renderHoldCards(h);
+}
+
+/* 红利低波的指标卡（替代纳指那套） */
+function renderHoldCards(h){
+  const box=document.getElementById('metricCats');
+  const priceDec = h.close<10?3:2;
+  const rsi=h.rsi14;
+  const rsiState = rsi==null? '—' : rsi>70? '超买' : rsi<30? '超卖' : '中性';
+  const cards=[
+    ['RSI(14)', rsi==null?'—':rsi.toFixed(2), '超买>70｜超卖<30｜当前 '+rsiState,
+     '衡量近14日涨跌力度。'+rsiState+'区域。'],
+    ['最新价', fmt(h.close,priceDec), '当日 '+sgn((h.chg||0)*100,2)+'%',
+     '数据日 '+h.end+'（'+h.src+'）'],
+    ['MA20', fmt(h.ma20,priceDec), h.ma20&&h.close>h.ma20?'价在上方':'价在下方', '20日均线'],
+    ['MA60', fmt(h.ma60,priceDec), h.ma60&&h.close>h.ma60?'价在上方':'价在下方', '60日均线'],
+    ['MA250（年线）', fmt(h.ma250,priceDec), h.ma250&&h.close>h.ma250?'价在年线上':'价在年线下', '250日均线'],
+    ['当前回撤（距峰）', (h.curDrawdown*100).toFixed(2)+'%', '峰值 '+fmt(h.peak,priceDec),
+     h.start+' 起算'],
+  ];
+  let html='<div class="cat"><h3>行情与技术 <span class="sub">'+h.name+'</span></h3><div class="mgrid">';
+  cards.forEach(c=>{
+    html+='<div class="mcard lock"><div class="k">'+c[0]+'</div>'+
+      '<div class="v">'+c[1]+'</div>'+
+      '<div class="sub" style="font-size:11px">'+c[2]+'</div>'+
+      '<div class="sub" style="font-size:10px;margin-top:4px;color:var(--faint)">'+c[3]+'</div></div>';
+  });
+  html+='</div></div>';
+  html+='<div class="srcbox"><b>数据来源与口径</b><br>'+
+    '标的：<b>'+h.code+' '+h.name+'</b>（对应基金 <b>'+h.fund+' '+h.fundName+'</b>）<br>'+
+    '跟踪指数：'+h.track+'<br>'+
+    '数据：'+h.src+'（'+h.start+' ~ '+h.end+'，'+h.n+' 个交易日）<br>'+
+    'RSI(14)：Wilder 平滑，本地自算；超买 >70、超卖 <30<br>'+
+    (h.note? '口径说明：'+h.note+'<br>' : '')+
+    '<div class="warnbox"><b>⚠️ 口径限制</b><br>'+
+    '1. 此处为<b>指数/ETF 点位</b>，与基金净值（含费用、分红、跟踪误差）不完全等同。<br>'+
+    '2. RSI 是技术指标，只反映历史涨跌力度，<b>不预示未来</b>。<br>'+
+    '3. 本页为个人研究记录工具，不构成投资建议。</div></div>';
+  box.innerHTML=html;
+}
 function backToList(){
+  curHold=null;
   exitFull();                                  // 返回时先退出全屏
   document.getElementById('viewDetail').style.display='none';
   document.getElementById('viewList').style.display='';
