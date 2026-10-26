@@ -157,9 +157,19 @@ def _http_get_text(url, headers=None, timeout=8, tries=2, retry_sleep=1):
 
 
 def save(name, obj):
+    """原子写：先写 .tmp 再 os.replace，避免中途中断留下 0 字节文件。
+
+    2026-10-26 事故：save() 原本 open('w') 会先清空文件，
+    若此时进程被网络超时等异常打断，会留下空文件，
+    导致下游「生成页面」步骤 JSONDecodeError 崩溃（今早 VIX 就这样挂的）。
+    """
     p = os.path.join(OUT, name)
-    with open(p, 'w', encoding='utf-8') as f:
+    tmp = p + '.tmp'
+    with open(tmp, 'w', encoding='utf-8') as f:
         json.dump(obj, f, ensure_ascii=False, separators=(',', ':'))
+        f.flush()
+        os.fsync(f.fileno())
+    os.replace(tmp, p)          # 原子替换
     print(f'  [OK] {name}  ({os.path.getsize(p):,} B)')
 
 
@@ -439,20 +449,59 @@ def load_vxn():
 
 # ============ ③ VIX（CBOE）============
 def load_vix():
-    print('[3] VIX（CBOE 官方 CSV）...')
-    raw = get('https://cdn-api.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv').decode('utf-8', 'replace')
-    rows = []
-    for r in csv.DictReader(raw.splitlines()):
+    """VIX：CBOE 官方 CSV 优先，失败回退 FRED VIXCLS（2026-10-26 新增兜底）
+
+    事故背景：CBOE 直连被阻断时本函数抛错，虽不写坏文件，
+    但若旧 vix.json 恰好为空（历史遗留），下游生成会崩。
+    现加 FRED 兜底，保证 CBOE 不可用时仍有数据。
+    """
+    print('[3] VIX ...')
+    rows, src = [], ''
+
+    # ① CBOE 优先（数据最全，1990 起）
+    try:
+        raw = get('https://cdn-api.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv').decode('utf-8', 'replace')
+        for r in csv.DictReader(raw.splitlines()):
+            try:
+                d = datetime.datetime.strptime(r['DATE'], '%m/%d/%Y').strftime('%Y-%m-%d')
+                rows.append([d, float(r['CLOSE'])])
+            except Exception:
+                pass
+        rows.sort()
+        src = 'CBOE VIX_History.csv'
+        print(f'     CBOE {len(rows)} 条 → 末 {rows[-1][0]}')
+    except Exception as e:
+        print(f'     [警告] CBOE 失败（{type(e).__name__}: {str(e)[:60]}），改用 FRED VIXCLS')
+
+    # ② FRED 兜底
+    if not rows:
         try:
-            d = datetime.datetime.strptime(r['DATE'], '%m/%d/%Y').strftime('%Y-%m-%d')
-            rows.append([d, float(r['CLOSE'])])
-        except Exception:
-            pass
-    rows.sort()
+            fresh = fetch_fred_online('VIXCLS')
+            if fresh and len(fresh) > 1000:
+                rows = [[d, round(v, 2)] for d, v in fresh]
+                rows.sort()
+                src = 'FRED VIXCLS'
+                print(f'     FRED {len(rows)} 条 → 末 {rows[-1][0]}')
+        except Exception as e:
+            print(f'     [警告] FRED 也失败（{type(e).__name__}: {str(e)[:60]}）')
+
+    # ③ 双源都失败 → 保留旧文件，不写坏数据
+    if not rows:
+        old = os.path.join(OUT, 'vix.json')
+        if os.path.exists(old):
+            try:
+                prev = json.load(open(old, encoding='utf-8'))
+                if prev.get('rows'):
+                    print(f"     两个源都失败，沿用旧 vix.json（末 {prev['end']}）")
+                    return prev['rows']
+            except Exception:
+                pass
+        raise RuntimeError('VIX：CBOE 与 FRED 均失败，且无可用旧数据')
+
     save('vix.json', {
-        'src': 'CBOE VIX_History.csv', 'unit': '隐含波动率',
+        'src': src, 'unit': '隐含波动率',
         'start': rows[0][0], 'end': rows[-1][0], 'n': len(rows), 'rows': rows,
-        'note': 'CBOE 无 CORS，须预生成',
+        'note': 'CBOE 优先，失败回退 FRED VIXCLS',
     })
     return rows
 
