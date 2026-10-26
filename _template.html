@@ -210,7 +210,8 @@
 </style>
 </head>
 <body>
- 截断问题）。 */
+<!-- 模板防呆：直接以 file:// 打开 _template.html 时给出提示（数据未注入） -->
+<script>
 (function(){
   if(location.protocol!=='file:') return;
   if(!/_template\.html$/i.test(location.pathname)) return;
