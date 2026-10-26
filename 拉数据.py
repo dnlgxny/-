@@ -39,18 +39,69 @@ UA_FF = ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
 # 2002-10-09 = 互联网泡沫见底次日，设计稿 A1 规定的起点
 START = '2002-10-09'
 
+# ══════════════════════════════════════════════════════════════
+# 网络访问策略（2026-10-26 用户选定 A+C 方案）
+#   问题：cdn.cboe.com / fred 部分域名直连被阻断，TCP 握手挂起
+#         原实现 ProxyHandler({}) 明确禁用代理 → 卡死 2 分钟以上
+#   方案 A：自动探测本机代理（127.0.0.1:7877 等），直连失败时回退走代理
+#   方案 C：超时上限从 45s 收紧到 12s，重试次数从 3 降到 2，快速失败
+#          （最坏耗时 12×2×2 源 = 48s，而非原来的 45×3×2 = 270s）
+# ══════════════════════════════════════════════════════════════
+PROXY_CANDIDATES = ['127.0.0.1:7877', '127.0.0.1:7890', '127.0.0.1:1087', '127.0.0.1:6152']
+_PROXY_CACHE = {'checked': False, 'proxy': None}
+
+
+def detect_proxy():
+    """探测本机可用 HTTP 代理；返回 'host:port' 或 None。结果缓存。"""
+    if _PROXY_CACHE['checked']:
+        return _PROXY_CACHE['proxy']
+    _PROXY_CACHE['checked'] = True
+    import socket as _sk
+    for p in PROXY_CANDIDATES:
+        host, _, port = p.partition(':')
+        try:
+            with _sk.create_connection((host, int(port)), timeout=0.6):
+                _PROXY_CACHE['proxy'] = p
+                print(f'     [网络] 检测到本机代理 {p}')
+                return p
+        except Exception:
+            continue
+    print('     [网络] 未检测到本机代理，将直连')
+    return None
+
+
+def _opener(use_proxy=None):
+    """构造 opener：use_proxy=None 表示不指定代理；True/False 强制"""
+    ctx = ssl.create_default_context()
+    handlers = [urllib.request.HTTPSHandler(context=ctx)]
+    if use_proxy is None:
+        handlers.append(urllib.request.ProxyHandler({}))       # 显式直连
+    elif use_proxy is True:
+        px = detect_proxy()
+        handlers.append(urllib.request.ProxyHandler(
+            {'https': f'http://{px}', 'http': f'http://{px}'} if px else {}))
+    else:
+        handlers.append(urllib.request.ProxyHandler({}))
+    return urllib.request.build_opener(*handlers)
+
 # 全局：NDX 的 OHLCV（仅替代源覆盖区间有；FRED 段为空）
 NDX_OHLCV = {}
 
 
-def get(url, headers=None, tries=3, timeout=45):
+def get(url, headers=None, tries=1, timeout=6):
+    """HTTP GET：先直连，失败自动回退代理。
+
+    2026-10-26 改进（用户选定 A+C）：
+      A. 直连失败时自动尝试本机代理（cdn.cboe.com 等直连被阻断的域名）
+      C. 超时 45s→12s、重试 3→2：最坏耗时从 270s 降到 48s，避免卡死整个任务
+    """
     h = {'User-Agent': UA_FF}
     if headers:
         h.update(headers)
-    ctx = ssl.create_default_context()
-    op = urllib.request.build_opener(urllib.request.HTTPSHandler(context=ctx),
-                                     urllib.request.ProxyHandler({}))
+
     last = None
+    # ── 第一轮：直连 ──
+    op = _opener(None)
     for i in range(tries):
         try:
             req = urllib.request.Request(url, headers=h)
@@ -58,8 +109,51 @@ def get(url, headers=None, tries=3, timeout=45):
                 return r.read()
         except Exception as e:
             last = e
-            time.sleep(2 + i * 2)
+            if i < tries - 1:
+                time.sleep(1 + i)
+
+    # ── 第二轮：检测到代理则回退 ──
+    px = detect_proxy()
+    if px:
+        try:
+            op2 = _opener(True)
+            req = urllib.request.Request(url, headers=h)
+            with op2.open(req, timeout=timeout) as r:
+                data = r.read()
+            print(f'     [网络] 直连失败，已通过代理 {px} 取回')
+            return data
+        except Exception as e:
+            last = e
+
     raise RuntimeError(f'{url} -> {type(last).__name__}: {str(last)[:80]}')
+
+
+def _http_get_text(url, headers=None, timeout=8, tries=2, retry_sleep=1):
+    """GET 并返回文本：直连优先，失败回退本机代理（与 get 同策略）"""
+    h = {'User-Agent': UA_FF}
+    if headers:
+        h.update(headers)
+    last = None
+    op = _opener(None)
+    for i in range(tries):
+        try:
+            req = urllib.request.Request(url, headers=h)
+            with op.open(req, timeout=timeout) as r:
+                return r.read().decode('utf-8', 'replace')
+        except Exception as e:
+            last = e
+            if i < tries - 1:
+                time.sleep(retry_sleep)
+    px = detect_proxy()
+    if px:
+        try:
+            op2 = _opener(True)
+            req = urllib.request.Request(url, headers=h)
+            with op2.open(req, timeout=timeout) as r:
+                return r.read().decode('utf-8', 'replace')
+        except Exception as e:
+            last = e
+    raise RuntimeError(f'{url[:70]} -> {type(last).__name__}: {str(last)[:70]}')
 
 
 def save(name, obj):
@@ -160,12 +254,7 @@ def fetch_sina_ndx():
     url = 'https://stock.finance.sina.com.cn/usstock/api/jsonp.php/var%20_k=/US_MinKService.getDailyK?symbol=.NDX'
     try:
         h = {'User-Agent': UA_FF, 'Referer': 'https://finance.sina.com.cn/'}
-        ctx = ssl.create_default_context()
-        op = urllib.request.build_opener(urllib.request.HTTPSHandler(context=ctx),
-                                         urllib.request.ProxyHandler({}))
-        req = urllib.request.Request(url, headers=h)
-        with op.open(req, timeout=30) as r:
-            txt = r.read().decode('utf-8', 'replace')
+        txt = _http_get_text(url, h, timeout=8, tries=2)
         m = re.search(r'\((\[.*\])\)', txt, re.S)
         if not m:
             return {}
@@ -301,7 +390,25 @@ def load_vxn():
     base = {d: v for d, v in rows}
     src = f'FRED VXNCLS（{base_src}）'
 
-    # FRED 封锁时用 CBOE 补最新（CBOE 只有 2009 起，仅用于补尾部）
+    # ⚠️ 2026-10-26 策略调整：FRED 已恢复直连，优先用 FRED 刷新缓存；
+    #    CBOE 作为备选（其 cdn-api.cboe.com 当前直连与代理均不通）
+    try:
+        fresh = fetch_fred_online('VXNCLS')
+        if fresh and len(fresh) > 1000:
+            base = {d: v for d, v in fresh}
+            added = 0
+            for d, v in fresh:
+                if d > base_end:
+                    rows.append([d, round(v, 2)])
+                    added += 1
+            if added:
+                rows.sort(key=lambda r: r[0])
+                src = f'FRED VXNCLS（直连）+ 补 {added} 日'
+                print(f'     FRED 补 {added} 日 → 末 {rows[-1][0]}')
+    except Exception as e:
+        print(f'     [信息] FRED 刷新失败（{type(e).__name__}），尝试 CBOE')
+
+    # FRED 不行时再用 CBOE 补最新
     try:
         cb = fetch_cboe_vxn()
         overlap = [d for d in cb if d in base]
@@ -656,12 +763,9 @@ def fetch_em_kline(secid, lmt=3000):
            f'secid={secid}&fields1=f1,f2,f3&fields2=f51,f53&klt=101&fqt=1'
            f'&end=20500101&lmt={lmt}')
     h = {'User-Agent': UA_FF, 'Referer': 'https://quote.eastmoney.com/'}
-    ctx = ssl.create_default_context()
-    op = urllib.request.build_opener(urllib.request.HTTPSHandler(context=ctx),
-                                     urllib.request.ProxyHandler({}))
-    req = urllib.request.Request(url, headers=h)
-    with op.open(req, timeout=30) as r:
-        d = json.loads(r.read().decode('utf-8', 'replace'))
+    # 东财会间歇性限流（返回空），加 3 次重试 + 直连/代理回退
+    txt = _http_get_text(url, h, timeout=8, tries=3, retry_sleep=2)
+    d = json.loads(txt)
     kl = (d.get('data') or {}).get('klines') or []
     out = []
     for line in kl:
