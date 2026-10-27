@@ -525,8 +525,8 @@ const INDEXES=[
   {id:'ndx', name:'纳斯达克100', code:'NDX', on:true},
   {id:'spx', name:'标普500', code:'SPX', on:false, hint:'待接入'},
   /* 用户持有的两支红利低波（数据来自 _data/holds.json） */
-  {id:'hold1', name:'东证红利低波', code:'931446', hold:true, on:true},
-  {id:'hold2', name:'红利低波50ETF', code:'515450', hold:true, on:true},
+  {id:'hold1', name:'东证红利低波A', code:'012708', hold:true, on:true},
+  {id:'hold2', name:'南方红利低波A', code:'008163', hold:true, on:true},
   {id:'sse', name:'上证指数', code:'000001', on:false, hint:'待接入'}
 ];
 
@@ -549,8 +549,8 @@ function renderIndexList(){
         const rsiCls = h.rsi14==null? '' : (h.rsi14>70?'down':(h.rsi14<30?'up':''));
         d.className='idxcard';
         d.innerHTML='<div class="nm">'+ix.name+'</div>'+
-          '<div class="code">'+ix.code+' · 基金 '+h.fund+'</div>'+
-          '<div class="val">'+fmt(h.close, h.close<10?3:2)+'</div>'+
+          '<div class="code">基金 '+h.fund+'</div>'+
+          '<div class="val">'+fmt(h.close, 4)+'</div>'+
           '<div class="sub '+cls(h.chg)+'" style="font-size:12px">'+
             (h.chg===null?'':'当日 '+sgn(h.chg*100,2)+'%')+'</div>'+
           '<div class="sub" style="font-size:12px;margin-top:6px">'+
@@ -981,13 +981,13 @@ function showHoldChart(){
   if(!h){ showIndexChart(); return; }
   document.getElementById('chipIdx').classList.remove('on');
   document.getElementById('chartTitle').innerHTML =
-    h.name+'（'+h.code+'）'+
-    '<span class="chip" style="margin-left:8px">'+h.start+' ~ '+h.end+'（'+h.n+' 个交易日）</span>';
+    h.name+'（'+h.fund+'）'+
+    '<span class="chip" style="margin-left:8px">单位净值｜'+h.start+' ~ '+h.end+'（'+h.n+' 天）</span>';
   document.getElementById('selBar').innerHTML='';
   const _kb=document.getElementById('keyBar');
   if(_kb) _kb.style.display='none';
   document.getElementById('chartLegend').innerHTML =
-    '<span class="lg"><i style="background:#2563eb"></i>收盘价</span>'+
+    '<span class="lg"><i style="background:#2563eb"></i>单位净值</span>'+
     '<span class="lg"><i style="background:#f59e0b"></i>MA20</span>'+
     '<span class="lg"><i style="background:#c026d3"></i>RSI14</span>';
 
@@ -1055,9 +1055,9 @@ function showHoldChart(){
     const i = idxOfDate.has(d0)? idxOfDate.get(d0) : -1;
     let out='<b>'+d0+'</b><br/>';
     if(i>=0){
-      if(closes[i]!=null) out+='<span style="color:#2563eb">●</span> 收盘：<b>'+
-        Number(closes[i]).toFixed(h.close<10?3:2)+'</b><br/>';
-      if(ma20[i]!=null) out+='<span style="color:#f59e0b">●</span> MA20：'+Number(ma20[i]).toFixed(h.close<10?3:2)+'<br/>';
+      if(closes[i]!=null) out+='<span style="color:#2563eb">●</span> 净值：<b>'+
+        Number(closes[i]).toFixed(4)+'</b><br/>';
+      if(ma20[i]!=null) out+='<span style="color:#f59e0b">●</span> MA20：'+Number(ma20[i]).toFixed(4)+'<br/>';
       if(rsis[i]!=null) out+='<span style="color:#c026d3">●</span> RSI14：<b>'+Number(rsis[i]).toFixed(2)+'</b><br/>';
     }
     return out;
@@ -1070,13 +1070,13 @@ function showHoldChart(){
 /* 红利低波的指标卡（替代纳指那套） */
 function renderHoldCards(h){
   const box=document.getElementById('metricCats');
-  const priceDec = h.close<10?3:2;
+  const priceDec = 4;   // 基金净值惯例 4 位小数
   const rsi=h.rsi14;
   const rsiState = rsi==null? '—' : rsi>70? '超买' : rsi<30? '超卖' : '中性';
   const cards=[
     ['RSI(14)', rsi==null?'—':rsi.toFixed(2), '超买>70｜超卖<30｜当前 '+rsiState,
      '衡量近14日涨跌力度。'+rsiState+'区域。'],
-    ['最新价', fmt(h.close,priceDec), '当日 '+sgn((h.chg||0)*100,2)+'%',
+    ['单位净值', fmt(h.close,priceDec), '当日 '+sgn((h.chg||0)*100,2)+'%',
      '数据日 '+h.end+'（'+h.src+'）'],
     ['MA20', fmt(h.ma20,priceDec), h.ma20&&h.close>h.ma20?'价在上方':'价在下方', '20日均线'],
     ['MA60', fmt(h.ma60,priceDec), h.ma60&&h.close>h.ma60?'价在上方':'价在下方', '60日均线'],

@@ -797,13 +797,56 @@ def calc_indicators(ndx_rows):
 # ══════════════════════════════════════════════════════════════
 HOLDS = [
     {'fund': '012708', 'fundName': '东方红中证红利低波动指数A',
-     'secid': '2.931446', 'name': '东证红利低波', 'code': '931446',
-     'track': '中证东方红红利低波动指数', 'note': '指数本体（基金直接跟踪）'},
+     'name': '东证红利低波A', 'code': '012708',
+     'track': '中证东方红红利低波动指数（931446）',
+     'note': '直接取基金单位净值（非指数点位）'},
     {'fund': '008163', 'fundName': '南方标普红利低波50ETF联接A',
-     'secid': '1.515450', 'name': '红利低波50ETF南方', 'code': '515450',
-     'track': '标普中国A股大盘红利低波50指数',
-     'note': '联接基金跟踪 SPCLLHCP（东财取不到），此处用场内目标 ETF 515450 代理'},
+     'name': '南方红利低波A', 'code': '008163',
+     'track': '标普中国A股大盘红利低波50指数（SPCLLHCP）',
+     'note': '直接取基金单位净值（非目标ETF价格）'},
 ]
+
+
+def fetch_fund_nav(code, max_pages=90):
+    """天天基金历史净值（单位净值 DWJZ）。
+
+    2026-10-27 变更：原来用「指数点位/ETF价格」代理，与用户实际持有的
+    基金单位净值口径不一致（用户截图 012708=1.3736，而指数点位是 3385.72）。
+    现直接取基金净值，与支付宝/天天基金显示完全一致。
+    返回 [(date, nav), ...] 按日期升序。
+    """
+    rows = {}
+    empty = 0
+    for page in range(1, max_pages + 1):
+        url = ('https://api.fund.eastmoney.com/f10/lsjz'
+               f'?fundCode={code}&pageIndex={page}&pageSize=20')
+        h = {'User-Agent': UA_FF, 'Referer': 'https://fundf10.eastmoney.com/'}
+        ctx = ssl.create_default_context()
+        op = urllib.request.build_opener(urllib.request.HTTPSHandler(context=ctx),
+                                         urllib.request.ProxyHandler({}))
+        try:
+            with op.open(urllib.request.Request(url, headers=h), timeout=15) as r:
+                d = json.loads(r.read().decode('utf-8', 'replace'))
+            lst = (d.get('Data') or {}).get('LSJZList') or []
+            if not lst:
+                empty += 1
+                if empty >= 2:
+                    break
+                continue
+            empty = 0
+            for x in lst:
+                try:
+                    rows[x['FSRQ']] = float(x['DWJZ'])
+                except (KeyError, ValueError, TypeError):
+                    pass
+            if len(lst) < 20:
+                break
+        except Exception:
+            empty += 1
+            if empty >= 2:
+                break
+        time.sleep(0.15)
+    return sorted(rows.items())
 
 
 def fetch_em_kline(secid, lmt=3000):
@@ -853,13 +896,19 @@ def calc_rsi14(closes):
 
 
 def load_holds():
-    print('[9] 红利低波持仓（RSI14）...')
+    """红利低波持仓：**基金单位净值**口径（2026-10-27 改）
+
+    之前用「指数点位 931446 / ETF 价格 515450」代理，与用户实际持有的
+    基金单位净值完全对不上（用户截图 012708=1.3736，指数点位却是 3385.72）。
+    现直接取天天基金的单位净值，与支付宝显示一致。
+    """
+    print('[9] 红利低波持仓（基金净值 + RSI14）...')
     res = []
     for h in HOLDS:
         try:
-            kl = fetch_em_kline(h['secid'])
+            kl = fetch_fund_nav(h['fund'])
             if len(kl) < 20:
-                raise RuntimeError(f'K线不足（{len(kl)} 根）')
+                raise RuntimeError(f'净值数据不足（{len(kl)} 条）')
             dates = [x[0] for x in kl]
             closes = [x[1] for x in kl]
             rsi = calc_rsi14(closes)
@@ -872,7 +921,7 @@ def load_holds():
             item = {
                 'fund': h['fund'], 'fundName': h['fundName'],
                 'name': h['name'], 'code': h['code'], 'track': h['track'], 'note': h['note'],
-                'src': '东方财富 push2his 日线',
+                'src': '天天基金 · 单位净值',
                 'start': dates[0], 'end': dates[-1], 'n': len(closes),
                 'close': round(closes[-1], 4),
                 'chg': round(ch, 4) if ch is not None else None,
@@ -891,8 +940,8 @@ def load_holds():
                 ],
             }
             res.append(item)
-            print(f"     {h['code']} {h['name']}: 收 {item['close']}  RSI14 {item['rsi14']}  "
-                  f"({item['start']} ~ {item['end']}, {item['n']} 根)")
+            print(f"     {h['code']} {h['name']}: 净值 {item['close']}  RSI14 {item['rsi14']}  "
+                  f"({item['start']} ~ {item['end']}, {item['n']} 天)")
         except Exception as e:
             print(f"     [X] {h['code']} {h['name']} 失败：{type(e).__name__}: {str(e)[:90]}")
     if not res:
