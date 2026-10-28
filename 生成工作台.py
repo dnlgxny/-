@@ -44,6 +44,15 @@ def load(name):
         return json.load(f)
 
 
+def load_news():
+    """加载金融要闻数据（来自 金融要闻 目录）"""
+    news_path = os.path.join(HERE, '金融要闻', '_data', 'news.json')
+    if os.path.exists(news_path):
+        with open(news_path, encoding='utf-8') as f:
+            return json.load(f)
+    return {'items': [], 'total': 0, 'sources': [], 'generatedAt': '无数据'}
+
+
 def build_html():
     """生成成品 HTML 字符串"""
     if not os.path.exists(ECHARTS):
@@ -61,6 +70,7 @@ def build_html():
         'weights': load('weights.json'),
         'indicators': load('indicators.json'),
         'holds': (load('holds.json') if os.path.exists(os.path.join(DATA, 'holds.json')) else {'items': []}),
+        'news': (load_news()),
         'footNote': '回撤口径：峰→谷单段｜起点 2002-10-09（互联网泡沫见底次日）',
     }
 

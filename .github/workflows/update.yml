@@ -51,6 +51,31 @@ jobs:
           python 拉数据.py
         continue-on-error: false
 
+      # ── 金融要闻（2026-10-28 新增）──
+      - name: 抓取金融要闻
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: |
+          echo "── 抓取金融要闻 ──"
+          if [ -z "$DEEPSEEK_API_KEY" ]; then
+            echo "⚠️ 未配置 DEEPSEEK_API_KEY secret，跳过 AI 翻译与事件说明"
+            echo "   如需启用：仓库 Settings → Secrets → Actions → New secret"
+            echo "   名称填 DEEPSEEK_API_KEY"
+            exit 0
+          fi
+          cd 金融要闻
+          python run_daily.py
+          cd ..
+          echo "── 要闻数据 ──"
+          python -c "
+          import json
+          d=json.load(open('金融要闻/_data/news.json'))
+          print(f\"  新闻 {d['total']} 条｜行情 A股{len(d['market']['stocks'])} 商品{len(d['market']['commodities'])}\" )
+          has_data=sum(1 for it in d['items'] if it.get('data_note'))
+          print(f'  含数据佐证 {has_data}/{d[\"total\"]} 条')
+          "
+        continue-on-error: true     # 要闻失败不阻塞指数数据部署
+
       - name: 生成页面与发布包
         run: |
           echo "── 生成页面 ──"
@@ -82,7 +107,7 @@ jobs:
       - name: 检查数据是否有变化
         id: diff
         run: |
-          if git diff --quiet -- _data; then
+          if git diff --quiet -- _data 金融要闻/_data 2>/dev/null || git diff --quiet -- _data; then
             echo "changed=false" >> $GITHUB_OUTPUT
             echo "ℹ️ 数据无变化（可能是非交易日或已更新），跳过部署"
           else
@@ -95,7 +120,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A _data          # 只提交数据；dist 与 工作台.html 每次构建重新生成，避免与本地冲突
+          git add -A _data 金融要闻/_data   # 只提交数据；dist 与 工作台.html 每次构建重新生成
           if git diff --staged --quiet; then
             echo "无数据变化，跳过提交"
           else

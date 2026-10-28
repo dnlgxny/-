@@ -139,6 +139,59 @@
   .chip.on{background:var(--info);color:#fff;border-color:var(--info)}
   .legend{font-size:11px;color:var(--sub);margin-top:8px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
   .swatch{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+  /* ── 金融要闻 ── */
+  .newsbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:12px}
+  .nf{font-size:12px;padding:4px 12px;border-radius:14px;border:1px solid var(--line);
+      background:#fff;cursor:pointer;color:var(--sub);white-space:nowrap;transition:.15s}
+  .nf:hover{border-color:var(--info);color:var(--info)}
+  .nf.on{background:var(--info);color:#fff;border-color:var(--info)}
+  .nsort{font-size:12px;color:var(--info);cursor:pointer;padding:4px 8px;
+         border:1px solid var(--line);border-radius:12px;background:#fff}
+  .nitem{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 15px;
+         margin-bottom:10px;transition:.15s}
+  .nitem:hover{border-color:var(--info);box-shadow:0 2px 10px rgba(37,99,235,.08)}
+  .nitem .ntop{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px}
+  .nitem .ntitle{font-size:14.5px;font-weight:600;line-height:1.5;flex:1;color:#111827}
+  .nitem .nscore{flex:0 0 auto;font-size:13px;font-weight:700;padding:2px 9px;border-radius:6px;
+                 font-variant-numeric:tabular-nums}
+  .sc-hi{background:#fee2e2;color:#b91c1c}
+  .sc-mid{background:#fef3c7;color:#b45309}
+  .sc-lo{background:#f1f5f9;color:#64748b}
+  .nitem .ndesc{font-size:13px;color:#4b5563;line-height:1.7;margin-bottom:8px}
+  .nitem .nfoot{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:11.5px;color:#9ca3af}
+  .ntag{background:#f1f5f9;color:#475569;padding:1px 7px;border-radius:4px}
+  .nitem .nlink{color:var(--info);text-decoration:none;margin-left:auto}
+  .nitem .nlink:hover{text-decoration:underline}
+  .nempty{text-align:center;color:#9ca3af;padding:40px 0;font-size:13px}
+  /* 行情快照条 */
+  .mkbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:#fff;
+         border:1px solid var(--line);border-radius:9px;padding:9px 13px;margin-bottom:12px;
+         font-size:12.5px;overflow-x:auto}
+  .mkt-label{font-size:11px;color:#fff;background:var(--info);padding:2px 8px;
+             border-radius:4px;flex:0 0 auto}
+  .mkitem{white-space:nowrap;color:#4b5563}
+  .mkitem b{color:#111827;font-weight:600;margin-right:2px}
+  .up{color:#dc2626;font-weight:600}
+  .down{color:#15803d;font-weight:600}
+  .ndata{color:#0369a1;font-weight:500}
+  /* 事件说明块 */
+  .nevt{background:#f8fafc;border-left:3px solid var(--info);border-radius:0 6px 6px 0;
+        padding:8px 11px;margin:8px 0;font-size:12.5px;line-height:1.75}
+  .nevt-row{display:flex;gap:8px}
+  .nevt-row+.nevt-row{margin-top:3px}
+  .nevt-k{flex:0 0 30px;color:#94a3b8;font-size:11.5px;padding-top:1px}
+  .nevt-v{flex:1;color:#374151}
+  /* 确定性标记 */
+  .cert{font-size:10.5px;padding:1px 6px;border-radius:4px;font-weight:500}
+  .ct-hi{background:#dcfce7;color:#15803d}
+  .ct-mid{background:#fef3c7;color:#b45309}
+  .ct-lo{background:#fee2e2;color:#b91c1c}
+  /* 时效标记 */
+  .nfresh{font-size:10.5px;padding:1px 6px;border-radius:4px;background:#f1f5f9;color:#64748b}
+  .nf-hot{background:#fee2e2;color:#b91c1c;font-weight:600}
+  .nf-new{background:#dbeafe;color:#1d4ed8}
+  .nf-old{opacity:.65}
+
   /* ── 关键数据条带（走势图下方，五类上下排列）── */
   .kbar{margin-top:10px;background:#fff;border:1px solid var(--line);border-radius:8px;
         overflow:hidden}
@@ -246,8 +299,8 @@
 
 <div class="nav">
   <span class="brand">开源工作台</span>
-  <button id="nav1" class="on">① 指数情况</button>
-  <button class="off" title="模块名称待定">② 待定</button>
+  <button id="nav1" class="on" onclick="switchView(1)">① 指数情况</button>
+  <button id="nav2" class="off" onclick="switchView(2)">② 金融要闻</button>
   <button class="off" title="模块名称待定">③ 待定</button>
   <span class="gap"></span>
   <span class="sub" id="genAt"></span>
@@ -256,6 +309,25 @@
 <div id="viewList">
   <div class="sec">指数列表 <span class="tag">本期仅纳指100 有数据</span></div>
   <div class="grid" id="idxGrid"></div>
+</div>
+
+<div id="viewNews" style="display:none">
+  <div class="sec">金融要闻 <span class="tag" id="newsMeta"></span></div>
+  <div class="newsbar">
+    <span class="nf on" data-f="all" onclick="filterNews('all',this)">全部</span>
+    <span class="nf" data-f="石油" onclick="filterNews('石油',this)">石油</span>
+    <span class="nf" data-f="天然气" onclick="filterNews('天然气',this)">天然气</span>
+    <span class="nf" data-f="贵金属" onclick="filterNews('贵金属',this)">贵金属</span>
+    <span class="nf" data-f="工业金属" onclick="filterNews('工业金属',this)">工业金属</span>
+    <span class="nf" data-f="锂/电池金属" onclick="filterNews('锂/电池金属',this)">锂/电池</span>
+    <span class="nf" data-f="铀" onclick="filterNews('铀',this)">铀</span>
+    <span class="nf" data-f="煤炭" onclick="filterNews('煤炭',this)">煤炭</span>
+    <span class="nf" data-f="农产品" onclick="filterNews('农产品',this)">农产品</span>
+    <span style="flex:1"></span>
+    <span class="nsort" onclick="toggleSort()" id="sortBtn">排序：评分↓</span>
+  </div>
+  <div id="newsMarket"></div>
+  <div id="newsList"></div>
 </div>
 
 <div id="viewDetail" style="display:none">
@@ -1334,6 +1406,127 @@ function renderSrcBox(){
     '　　&nbsp;&nbsp;K 上穿 D = 金叉，下穿 = 死叉；J&gt;100 超买、J&lt;0 超卖<br>'+
     '<b>布林带宽</b> =(上轨−下轨)÷中轨×100%，上/下轨 = 20日均价 ± 2×标准差｜收窄=波动收敛（常预示变盘）、扩张=波动放大'+
     '</div></div>';
+}
+
+/* ══════════ 金融要闻 ══════════ */
+let newsFilter='all', newsSortDesc=true;
+
+function switchView(n){
+  const s1=document.getElementById('viewList'), s2=document.getElementById('chartCard');
+  const v1=document.getElementById('viewList'), v2=document.getElementById('viewDetail');
+  const vn=document.getElementById('viewNews');
+  const b1=document.getElementById('nav1'), b2=document.getElementById('nav2');
+
+  if(n===1){
+    v1.style.display=''; v2.style.display='none'; vn.style.display='none';
+    b1.classList.add('on'); b1.classList.remove('off');
+    b2.classList.add('off'); b2.classList.remove('on');
+  }else if(n===2){
+    v1.style.display='none'; v2.style.display='none'; vn.style.display='';
+    b2.classList.add('on'); b2.classList.remove('off');
+    b1.classList.add('off'); b1.classList.remove('on');
+    renderNews();
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function filterNews(f, el){
+  newsFilter=f;
+  document.querySelectorAll('.nf').forEach(x=>x.classList.remove('on'));
+  if(el) el.classList.add('on');
+  renderNews();
+}
+
+function toggleSort(){
+  newsSortDesc=!newsSortDesc;
+  const b=document.getElementById('sortBtn');
+  if(b) b.textContent='排序：'+(newsSortDesc?'评分↓':'评分↑');
+  renderNews();
+}
+
+function renderNews(){
+  const box=document.getElementById('newsList');
+  if(!box) return;
+  const N=(D.news && D.news.items) || [];
+  const meta=document.getElementById('newsMeta');
+
+  if(!N.length){
+    box.innerHTML='<div class="nempty">暂无要闻数据（请先运行 金融要闻 的每日更新）</div>';
+    if(meta) meta.textContent='无数据';
+    return;
+  }
+  if(meta) meta.textContent = D.news.generatedAt + ' · ' + D.news.total + ' 条 · ' + D.news.sources.length + ' 个源';
+
+  // 行情快照
+  const mk=document.getElementById('newsMarket');
+  if(mk){
+    const M=D.news.market||{};
+    const cs=M.commodities||[], ss=M.stocks||[];
+    if(cs.length || ss.length){
+      let h='<div class="mkbar"><span class="mkt-label">实时行情</span>';
+      cs.forEach(c=>{
+        const p= c.chg_pct==null?'' : (c.chg_pct>=0?'up':'down');
+        const pct= c.chg_pct==null?'—':(c.chg_pct>=0?'+':'')+c.chg_pct.toFixed(2)+'%';
+        h+='<span class="mkitem"><b>'+c.name+'</b> '+c.price+' <span class="'+p+'">'+pct+'</span></span>';
+      });
+      ss.slice(0,6).forEach(s=>{
+        const p= s.chg_pct==null?'' : (s.chg_pct>=0?'up':'down');
+        const pct= s.chg_pct==null?'—':(s.chg_pct>=0?'+':'')+s.chg_pct.toFixed(2)+'%';
+        h+='<span class="mkitem"><b>'+s.name+'</b> '+s.price+' <span class="'+p+'">'+pct+'</span></span>';
+      });
+      h+='</div>';
+      mk.innerHTML=h;
+    } else { mk.innerHTML=''; }
+  }
+
+  let list = N.slice();
+  if(newsFilter!=='all') list = list.filter(x=>(x.topics||[]).includes(newsFilter));
+  list.sort((a,b)=> newsSortDesc ? b.score-a.score : a.score-b.score);
+
+  if(!list.length){
+    box.innerHTML='<div class="nempty">该分类下暂无新闻</div>';
+    return;
+  }
+
+  const CERT={'高':'ct-hi','中':'ct-mid','低':'ct-lo'};
+  box.innerHTML = list.map(it=>{
+    const sc = it.score>=58 ? 'sc-hi' : (it.score>=52 ? 'sc-mid' : 'sc-lo');
+    const title = it.title_zh || it.title;
+    const desc = it.desc_zh || it.desc || '';
+    const topics = (it.topics||[]).map(t=>'<span class="ntag">'+t+'</span>').join('');
+    // 时效标签
+    let fresh='';
+    if(it.age_hours!=null){
+      const h=it.age_hours;
+      if(h<=6) fresh='<span class="nfresh nf-hot">'+Math.round(h)+'h前</span>';
+      else if(h<=24) fresh='<span class="nfresh nf-new">'+Math.round(h)+'h前</span>';
+      else if(h<=72) fresh='<span class="nfresh">'+Math.round(h/24)+'天前</span>';
+      else fresh='<span class="nfresh nf-old">'+Math.round(h/24)+'天前</span>';
+    }
+    // 确定性
+    const cert = it.certainty ? '<span class="cert '+(CERT[it.certainty]||'ct-mid')+'">确定性'+it.certainty+'</span>' : '';
+    // 事件说明块（含数据佐证）
+    let evt='';
+    if(it.event || it.impact || it.data_note){
+      evt = '<div class="nevt">'
+        + (it.event ? '<div class="nevt-row"><span class="nevt-k">事件</span><span class="nevt-v">'+it.event+'</span></div>' : '')
+        + (it.data_note ? '<div class="nevt-row"><span class="nevt-k">数据</span><span class="nevt-v ndata">'+it.data_note+'</span></div>' : '')
+        + (it.impact ? '<div class="nevt-row"><span class="nevt-k">影响</span><span class="nevt-v">'+it.impact+'</span></div>' : '')
+        + '</div>';
+    }
+    const orig = it.title_zh && it.title_zh!==it.title
+      ? '<div style="font-size:11px;color:#cbd5e1;margin-top:6px;font-style:italic;line-height:1.5">'
+        + it.title + '</div>' : '';
+    return '<div class="nitem">'
+      + '<div class="ntop"><div class="ntitle">'+title+'</div>'
+      +   '<span class="nscore '+sc+'">'+it.score+'</span></div>'
+      + evt
+      + (desc ? '<div class="ndesc">'+desc+'</div>' : '')
+      + '<div class="nfoot">'+topics+cert+fresh
+      +   '<span style="margin-left:auto">'+it.source+'</span>'
+      +   '<a class="nlink" style="margin-left:8px" href="'+it.link+'" target="_blank" rel="noopener">原文 →</a></div>'
+      + orig + '</div>';
+  }).join('');
 }
 
 /* ========== 启动 ========== */
