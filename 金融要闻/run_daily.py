@@ -80,7 +80,28 @@ def main():
     fresh = sum(1 for it in keep if it.get('age_hours') is not None and it['age_hours'] <= 24)
     print(f'    24h 内新鲜新闻: {fresh}/{len(keep)} 条')
 
-    print(f'\n[6] 输出 _data/news.json（{len(keep)} 条）')
+    # ⚠️ 保护：若 AI 全失败（如 API 欠费），不要覆盖昨天已有的好数据
+    zh_ok = sum(1 for it in keep if it.get('title_zh'))
+    ai_ok = sum(1 for it in keep if it.get('event'))
+    if zh_ok == 0 and ai_ok == 0:
+        old_path = '_data/news.json'
+        if os.path.exists(old_path):
+            try:
+                prev = json.load(open(old_path, encoding='utf-8'))
+                prev_zh = sum(1 for it in prev.get('items',[]) if it.get('title_zh'))
+                if prev_zh > 0:
+                    print()
+                    print('=' * 60)
+                    print('⚠️ 翻译与 AI 分析全部失败（可能 API 余额不足）')
+                    print(f'   本次结果中文 {zh_ok} 条 / AI {ai_ok} 条')
+                    print(f'   保留上次可用数据：{prev.get("generatedAt")}（中文 {prev_zh} 条）')
+                    print('   不覆盖 news.json；请充值后重跑')
+                    print('=' * 60)
+                    return
+            except Exception:
+                pass
+
+    print(f'\n[6] 输出 _data/news.json（{len(keep)} 条，中文 {zh_ok} 条）')
     out = {
         'generatedAt': datetime.datetime.now().strftime('%Y-%m-%d %H:%M'),
         'total': len(keep),
