@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-30 08:57",
+ "generatedAt": "2026-11-03 10:25",
  "total": 40,
  "sources": [
   "OilPrice.com",
@@ -13,260 +13,172 @@
    {
     "name": "新奥股份",
     "code": "600803",
-    "price": 20.74,
-    "chg_pct": 1.42
+    "price": 20.77,
+    "chg_pct": 1.56
    },
    {
     "name": "新天绿能",
     "code": "600956",
-    "price": 6.72,
-    "chg_pct": -0.44
+    "price": 6.7,
+    "chg_pct": 1.36
    },
    {
     "name": "陕天然气",
     "code": "002267",
-    "price": 7.09,
-    "chg_pct": 0.0
+    "price": 7.12,
+    "chg_pct": 0.85
    },
    {
     "name": "紫金矿业",
     "code": "601899",
-    "price": 28.04,
-    "chg_pct": 0.32
+    "price": 27.53,
+    "chg_pct": 2.57
    },
    {
     "name": "江西铜业",
     "code": "600362",
-    "price": 33.56,
-    "chg_pct": -8.21
+    "price": 32.36,
+    "chg_pct": 1.31
    },
    {
     "name": "中国铝业",
     "code": "601600",
-    "price": 8.43,
-    "chg_pct": -1.17
+    "price": 8.82,
+    "chg_pct": 3.28
    },
    {
     "name": "南山铝业",
     "code": "600219",
-    "price": 4.24,
-    "chg_pct": -0.7
-   },
-   {
-    "name": "中国神华",
-    "code": "601088",
-    "price": 51.62,
-    "chg_pct": 3.97
-   },
-   {
-    "name": "兖矿能源",
-    "code": "600188",
-    "price": 18.8,
-    "chg_pct": 3.64
-   },
-   {
-    "name": "陕西煤业",
-    "code": "601225",
-    "price": 27.5,
-    "chg_pct": 2.27
+    "price": 4.37,
+    "chg_pct": 2.58
    },
    {
     "name": "中国石油",
     "code": "601857",
-    "price": 13.69,
-    "chg_pct": 3.24
+    "price": 13.43,
+    "chg_pct": -4.21
    },
    {
     "name": "中国石化",
     "code": "600028",
-    "price": 5.62,
-    "chg_pct": 2.55
+    "price": 5.69,
+    "chg_pct": -3.56
    },
    {
     "name": "中国海油",
     "code": "600938",
-    "price": 35.42,
-    "chg_pct": 1.64
+    "price": 33.48,
+    "chg_pct": -5.05
    },
    {
     "name": "中海油服",
     "code": "601808",
-    "price": 13.63,
-    "chg_pct": -0.94
+    "price": 13.2,
+    "chg_pct": -2.08
    },
    {
     "name": "山东黄金",
     "code": "600547",
-    "price": 24.13,
-    "chg_pct": -3.44
+    "price": 23.76,
+    "chg_pct": 4.16
    },
    {
     "name": "中金黄金",
     "code": "600489",
-    "price": 19.89,
-    "chg_pct": -0.6
+    "price": 19.26,
+    "chg_pct": 4.0
    },
    {
     "name": "湖南黄金",
     "code": "002155",
-    "price": 18.91,
-    "chg_pct": -2.98
-   },
-   {
-    "name": "中国核电",
-    "code": "601985",
-    "price": 9.94,
-    "chg_pct": 2.9
-   },
-   {
-    "name": "国投电力",
-    "code": "600886",
-    "price": 16.24,
-    "chg_pct": 2.27
+    "price": 18.1,
+    "chg_pct": 1.86
    },
    {
     "name": "天齐锂业",
     "code": "002466",
-    "price": 34.91,
-    "chg_pct": -3.62
+    "price": 35.93,
+    "chg_pct": 3.07
    },
    {
     "name": "宁德时代",
     "code": "300750",
-    "price": 229.07,
-    "chg_pct": -0.03
+    "price": 251.54,
+    "chg_pct": 4.73
    },
    {
     "name": "北方稀土",
     "code": "600111",
-    "price": 35.29,
-    "chg_pct": -0.62
+    "price": 35.79,
+    "chg_pct": 1.16
    }
   ],
   "commodities": [
    {
     "name": "天然气",
-    "price": 3.353,
-    "chg_pct": -1.15,
-    "chg_amt": -0.039,
-    "high": 3.364,
-    "low": 3.353
+    "price": 3.371,
+    "chg_pct": 0.69,
+    "chg_amt": 0.023,
+    "high": 3.371,
+    "low": 3.35
    },
    {
     "name": "LME铜",
-    "price": 14346.08,
-    "chg_pct": -0.07,
-    "chg_amt": -10.42,
-    "high": 14491.0,
-    "low": 14278.0
+    "price": 14188.05,
+    "chg_pct": -1.09,
+    "chg_amt": -156.95,
+    "high": 14300.5,
+    "low": 14183.5
    },
    {
     "name": "LME铝",
-    "price": 3069.44,
-    "chg_pct": -0.29,
-    "chg_amt": -9.06,
-    "high": 3086.0,
-    "low": 3043.5
+    "price": 3062.955,
+    "chg_pct": -1.0,
+    "chg_amt": -31.045,
+    "high": 3093.0,
+    "low": 3062.5
    },
    {
     "name": "WTI原油",
-    "price": 102.558,
-    "chg_pct": 0.55,
-    "chg_amt": 0.558,
-    "high": 102.94,
-    "low": 102.54
+    "price": 96.494,
+    "chg_pct": 0.04,
+    "chg_amt": 0.034,
+    "high": 97.17,
+    "low": 96.12
    },
    {
     "name": "布伦特原油",
-    "price": 111.178,
-    "chg_pct": 0.34,
-    "chg_amt": 0.378,
-    "high": 111.64,
-    "low": 111.15
+    "price": 104.662,
+    "chg_pct": -0.1,
+    "chg_amt": -0.108,
+    "high": 105.5,
+    "low": 104.27
    },
    {
     "name": "COMEX黄金",
-    "price": 4018.212,
-    "chg_pct": -0.33,
-    "chg_amt": -13.188,
-    "high": 4038.2,
-    "low": 4015.3
+    "price": 3953.659,
+    "chg_pct": -0.4,
+    "chg_amt": -15.941,
+    "high": 3974.5,
+    "low": 3950.9
    },
    {
     "name": "COMEX白银",
-    "price": 51.871,
-    "chg_pct": -0.97,
-    "chg_amt": -0.509,
-    "high": 52.315,
-    "low": 51.84
+    "price": 50.271,
+    "chg_pct": -1.21,
+    "chg_amt": -0.617,
+    "high": 50.915,
+    "low": 50.225
    }
   ]
  },
- "marketTime": "2026-10-30 08:56",
+ "marketTime": "2026-11-03 10:24",
  "items": [
   {
-   "title": "What’s Next for Global Natural Gas Demand?",
-   "link": "https://oilprice.com/Energy/Natural-Gas/Whats-Next-for-Global-Natural-Gas-Demand.html",
-   "desc": "The Iran war and the lack of LNG supply from the Middle East have upended forecasts of near-term natural gas demand and import costs. So far this year, economies in Europe and Asia have relied more on renewables and coal for power generation to offset reduced gas supplies procured at very high prices. This year’s crisis has prompted governments to rethink energy policies with energy security the top priority, again, after the 2022-2023 energy crisis. After the decline in global gas demand this year, due to prices at four-year highs, the obvious…",
-   "date": "Thu, 29 Oct 2026 18:00:00 -0500",
-   "source": "OilPrice.com",
-   "source_id": "oilprice",
-   "topics": [
-    "天然气",
-    "煤炭"
-   ],
-   "score": 71,
-   "score_detail": [
-    "主题匹配+25（天然气/煤炭）",
-    "多主题+10",
-    "标题含品种+15",
-    "重要性词+6（war,demand,forecast）",
-    "摘要详实+10",
-    "24h内+5"
-   ],
-   "id": "bd0a476e8e95",
-   "title_zh": "全球天然气需求下一步走向如何？",
-   "desc_zh": "伊朗战争及中东LNG供应缺失颠覆了短期天然气需求与进口成本预测。今年以来，欧洲和亚洲经济体更多依赖可再生能源和煤炭发电，以抵消高价采购的天然气供应减少。",
-   "event": "中东LNG断供重塑天然气需求结构",
-   "data_note": "国际期货天然气3.353 -1.15%；欧洲亚洲转向煤炭替代",
-   "impact": "天然气国际期货承压，煤炭品种获替代支撑",
-   "certainty": "高",
-   "age_hours": 2.0
-  },
-  {
-   "title": "Eldorado drops as Skouries setbacks cut gold outlook 18%",
-   "link": "https://www.mining.com/eldorado-drops-as-skouries-setbacks-cut-gold-outlook-18/",
-   "desc": "The miner slashed its 2026 gold forecast by 18% and raised spending due to delays at its Skouries copper-gold operation in Greece.",
-   "date": "Thu, 29 Oct 2026 14:56:43 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "贵金属",
-    "工业金属"
-   ],
-   "score": 63,
-   "score_detail": [
-    "主题匹配+25（贵金属/工业金属）",
-    "多主题+10",
-    "标题含品种+15",
-    "重要性词+2（forecast,outlook）",
-    "摘要有内容+6",
-    "24h内+5"
-   ],
-   "id": "5d09f8580ffc",
-   "title_zh": "Eldorado下调金矿产量预期18%股价下跌",
-   "desc_zh": "因希腊Skouries铜金矿项目延期，该矿企将2026年黄金产量预期下调18%并增加支出。",
-   "event": "铜金矿项目延期下调黄金产量",
-   "data_note": "Eldorado黄金产量预期下调18%，COMEX黄金4018.212 -0.33%",
-   "impact": "黄金国际期货供给端收缩预期，偏多",
-   "certainty": "中",
-   "age_hours": 10.0
-  },
-  {
-   "title": "Sinopec Third-Quarter Profit Jumps 64% as Oil Prices Climb",
-   "link": "https://oilprice.com/Latest-Energy-News/World-News/Sinopec-Third-Quarter-Profit-Jumps-64-as-Oil-Prices-Climb.html",
-   "desc": "Higher oil prices helped raise Sinopec’s third-quarter earnings by 64% from a year earlier, even as China’s top refiner couldn’t fully capture the record-high global refining margins. China Petroleum & Chemical Corporation, as Sinopec is officially known, said on Thursday that its profit attributable to the shareholders of the company surged by 63.6% on the year to $2 billion (13.6 billion Chinese yuan) for the third quarter. Revenues rose by 9.3% to $115 billion (769.7 billion yuan). For the first nine months…",
-   "date": "Thu, 29 Oct 2026 11:30:00 -0500",
+   "title": "TotalEnergies Now Sees Oil Demand Peaking Between 2035 and 2040",
+   "link": "https://oilprice.com/Latest-Energy-News/World-News/TotalEnergies-Now-Sees-Oil-Demand-Peaking-Between-2035-and-2040.html",
+   "desc": "A year after forecasting that oil demand would keep rising until 2040, TotalEnergies has moved its peak forward to between 2035 and 2040, and says the Iran war could accelerate the energy transition. The company’s annual energy outlook, released on Monday, projects demand for petroleum products plateauing through the 2030s before a slow decline. Chief sustainability officer Aurélien Hamelle told reporters that demand could fall faster if EV sales keep growing. In November 2025, TotalEnergies forecast oil demand rising nearly 5% to…",
+   "date": "Mon, 02 Nov 2026 11:30:00 -0600",
    "source": "OilPrice.com",
    "source_id": "oilprice",
    "topics": [
@@ -276,18 +188,74 @@
    "score_detail": [
     "主题匹配+25（石油）",
     "标题含品种+15",
-    "重要性词+6（opec,surge,price）",
+    "重要性词+6（war,demand,forecast）",
     "摘要详实+10",
     "24h内+5"
    ],
-   "id": "2727629efb74",
-   "title_zh": "中石化三季度利润大增64%受油价上涨推动",
-   "desc_zh": "油价上涨推动中石化三季度利润同比增长64%，但中国最大炼油商未能充分受益于全球炼油利润率创纪录高位。",
-   "event": "油价上涨驱动中石化三季度利润大增",
-   "data_note": "中石化利润同比+64%；WTI原油102.558 +0.55%；A股中国石化5.62 +2.55%",
-   "impact": "A股炼化板块盈利改善，偏多",
+   "id": "16ccbd755636",
+   "title_zh": "TotalEnergies将石油需求峰值预期提前至2035-2040年",
+   "desc_zh": "TotalEnergies将石油需求达峰预测从2040年提前至2035-2040年，并称伊朗战争可能加速能源转型，年度展望预计石油产品需求趋于平稳。",
+   "event": "石油巨头下调需求达峰预期",
+   "data_note": "TotalEnergies将达峰预测提前至2035-2040年",
+   "impact": "长期利空原油需求预期，短期影响有限",
+   "certainty": "中",
+   "age_hours": 8.9
+  },
+  {
+   "title": "Oil Prices Plunge 7% as U.S. and Iran Signal Room for Diplomacy",
+   "link": "https://oilprice.com/Latest-Energy-News/World-News/Oil-Prices-Plunge-7-as-US-and-Iran-Signal-Room-for-Diplomacy.html",
+   "desc": "Oil prices plunged nearly 7% on Monday after Washington and Tehran both signaled they would give diplomacy a chance, wiping out part of the war premium that lifted crude through October. Brent traded at $105.60 per barrel, down $7.85, and WTI fell $7.20 to $96.92. Iranian President Masoud Pezeshkian said on Monday that the Supreme Leader has granted the government “certain authorities” over peace talks and that Tehran “will try to resolve the problem with dialogue,” state media reported. Foreign Minister Abbas…",
+   "date": "Mon, 02 Nov 2026 10:36:00 -0600",
+   "source": "OilPrice.com",
+   "source_id": "oilprice",
+   "topics": [
+    "石油"
+   ],
+   "score": 61,
+   "score_detail": [
+    "主题匹配+25（石油）",
+    "标题含品种+15",
+    "重要性词+6（war,plunge,price）",
+    "摘要详实+10",
+    "24h内+5"
+   ],
+   "id": "0198447f28e2",
+   "title_zh": "美伊释放外交信号 油价暴跌7%",
+   "desc_zh": "华盛顿与德黑兰均表示愿给外交一次机会，油价周一暴跌近7%，部分抹去战争溢价。Brent报105.60美元/桶跌7.85美元，WTI跌7.20美元至96.92美元。",
+   "event": "美伊外交信号令油价暴跌",
+   "data_note": "Brent报105.60美元跌7.85美元，WTI跌7.20至96.92",
+   "impact": "国际原油战争溢价回吐，能化板块承压",
    "certainty": "高",
-   "age_hours": 8.5
+   "age_hours": 9.8
+  },
+  {
+   "title": "Chile copper outlook worsens as price forecast rises",
+   "link": "https://www.mining.com/chile-copper-outlook-worsens-as-price-forecast-rises/",
+   "desc": "The projected surplus of refined metal leaves little room for further supply disruptions.",
+   "date": "Mon, 02 Nov 2026 20:19:00 +0000",
+   "source": "Mining.com",
+   "source_id": "mining",
+   "topics": [
+    "石油",
+    "工业金属"
+   ],
+   "score": 61,
+   "score_detail": [
+    "主题匹配+25（石油/工业金属）",
+    "多主题+10",
+    "标题含品种+15",
+    "重要性词+3（forecast,outlook,price）",
+    "摘要简短+3",
+    "24h内+5"
+   ],
+   "id": "d8e1c93e62d3",
+   "title_zh": "智利铜前景恶化但价格预测上调",
+   "desc_zh": "精炼铜预计过剩，供应进一步中断的空间有限。",
+   "event": "智利铜供应过剩预期升温",
+   "data_note": "精炼铜预计过剩，供应中断空间有限",
+   "impact": "利空国际铜价，LME铜跌1.09%印证",
+   "certainty": "中",
+   "age_hours": 6.1
   },
   {
    "title": "Public companies produce most U.S. crude oil and natural gas",
@@ -309,72 +277,18 @@
    ],
    "id": "3c77b518b3b5",
    "title_zh": "上市公司贡献美国大部分原油和天然气产量",
-   "desc_zh": "上市公司仅占美国约1.2万家油气生产商的2%，却占美国产量的大部分。2025年数据显示其产量占比极高。",
+   "desc_zh": "上市公司仅占美国约1.2万家油气生产商的2%，却占美国产量的大部分。",
    "event": "上市公司主导美国油气产量",
-   "data_note": "上市公司占美生产商2%但产量占比极高，WTI原油102.558 +0.55%",
-   "impact": "美国油气供给集中度提升，原油国际期货影响中性",
-   "certainty": "中",
-   "age_hours": 899.0
+   "data_note": "占约1.2万家生产商2%却贡献大部分产量",
+   "impact": "行业集中度信息，对价格影响中性",
+   "certainty": "低",
+   "age_hours": 996.4
   },
   {
-   "title": "Mexico’s Richest Man Sells $1.15 Billion in Oil Stocks",
-   "link": "https://oilprice.com/Latest-Energy-News/World-News/Mexicos-Richest-Man-Sells-115-Billion-in-Oil-Stocks.html",
-   "desc": "Carlos Slim has sold more than $1.15 billion of U.S. oil stocks this year as the Iran war sends crude prices and energy shares higher. The Mexican billionaire has cut his stakes in PBF Energy and Talos Energy roughly in half, yet the shares he still owns are worth about $1.4 billion—roughly what his holdings were worth in January. Much of his estimated $124 billion fortune is tied to telecommunications giant América Móvil. Slim, the richest man in Mexico, collected around $820 million selling PBF shares over more than 100 trading…",
-   "date": "Thu, 29 Oct 2026 12:30:00 -0500",
-   "source": "OilPrice.com",
-   "source_id": "oilprice",
-   "topics": [
-    "石油"
-   ],
-   "score": 59,
-   "score_detail": [
-    "主题匹配+25（石油）",
-    "标题含品种+15",
-    "重要性词+4（war,price）",
-    "摘要详实+10",
-    "24h内+5"
-   ],
-   "id": "f74f5a945dc4",
-   "title_zh": "墨西哥首富抛售11.5亿美元石油股",
-   "desc_zh": "卡洛斯·斯利姆今年已出售逾11.5亿美元美国石油股，因伊朗战争推高油价和能源股。其PBF Energy和Talos Energy持股减半，剩余持股价值约14亿美元。",
-   "event": "斯利姆减持逾11亿美元石油股",
-   "data_note": "出售11.5亿美元石油股，PBF与Talos持股减半；WTI原油102.558 +0.55%",
-   "impact": "油价高位下能源股遭减持，国际原油情绪偏空",
-   "certainty": "中",
-   "age_hours": 7.5
-  },
-  {
-   "title": "Europe to Release 42 Million Barrels of Oil",
-   "link": "https://oilprice.com/Latest-Energy-News/World-News/Europe-to-Release-42-Million-Barrels-of-Oil.html",
-   "desc": "Europe will release 42 million barrels of emergency oil stocks over the next three months, half of it diesel, as governments try to bring down fuel prices before winter, French Economy Minister Roland Lescure said Thursday. France's share includes 10 million barrels of diesel, which Lescure said will begin reaching the market in the coming days. The fuel will be supplied at cost, with Lescure forecasting a reduction of 12 to 18 cents per liter. He expects prices to respond as early as next week. The broader European release averages roughly 460,000…",
-   "date": "Thu, 29 Oct 2026 12:30:00 -0500",
-   "source": "OilPrice.com",
-   "source_id": "oilprice",
-   "topics": [
-    "石油"
-   ],
-   "score": 58,
-   "score_detail": [
-    "主题匹配+25（石油）",
-    "标题含品种+15",
-    "重要性词+3（forecast,price,market）",
-    "摘要详实+10",
-    "24h内+5"
-   ],
-   "id": "af05b5fc2f49",
-   "title_zh": "欧洲将释放4200万桶石油储备",
-   "desc_zh": "法国经济部长表示，欧洲将在未来三个月释放4200万桶紧急石油储备，其中一半为柴油，以在冬季前压低燃料价格。法国份额包括1000万桶柴油。",
-   "event": "欧洲释放紧急石油储备",
-   "data_note": "欧洲未来三个月释放4200万桶，半数为柴油",
-   "impact": "增加原油供给，WTI与布伦特承压",
-   "certainty": "高",
-   "age_hours": 7.5
-  },
-  {
-   "title": "FireFly finds copper-gold system near idle mill",
-   "link": "https://www.mining.com/firefly-finds-copper-gold-system-near-idle-mill/",
-   "desc": "The discovery gives FireFly another target to test alongside its proposed Ming restart and expansion.",
-   "date": "Tue, 27 Oct 2026 16:59:33 +0000",
+   "title": "Eldorado drops as Skouries setbacks cut gold outlook 18%",
+   "link": "https://www.mining.com/eldorado-drops-as-skouries-setbacks-cut-gold-outlook-18/",
+   "desc": "The miner slashed its 2026 gold forecast by 18% and raised spending due to delays at its Skouries copper-gold operation in Greece.",
+   "date": "Thu, 29 Oct 2026 14:56:43 +0000",
    "source": "Mining.com",
    "source_id": "mining",
    "topics": [
@@ -386,79 +300,182 @@
     "主题匹配+25（贵金属/工业金属）",
     "多主题+10",
     "标题含品种+15",
-    "摘要有内容+6",
-    "3天内+2"
+    "重要性词+2（forecast,outlook）",
+    "摘要有内容+6"
    ],
-   "id": "5f17a917d54d",
-   "title_zh": "FireFly在闲置选矿厂附近发现铜金矿系统",
-   "desc_zh": "FireFly在闲置选矿厂附近发现铜金矿系统，为其Ming项目重启及扩建增添新勘探目标。",
-   "event": "FireFly发现铜金矿系统",
-   "data_note": "闲置选矿厂附近新增勘探目标，无具体储量数据",
-   "impact": "铜金勘探预期升温，暂无该品种数据",
-   "certainty": "低",
-   "age_hours": 56.0
-  },
-  {
-   "title": "Teck profit surges as copper prices hit record highs",
-   "link": "https://www.mining.com/teck-profit-surges-as-copper-prices-hit-record-highs/",
-   "desc": "The Canadian miner reported stronger earnings and production as a labour dispute and Chinese scrutiny cloud its merger outlook.",
-   "date": "Thu, 29 Oct 2026 10:46:00 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "工业金属"
-   ],
-   "score": 57,
-   "score_detail": [
-    "主题匹配+25（工业金属）",
-    "标题含品种+15",
-    "重要性词+6（record high,surge,outlook）",
-    "摘要有内容+6",
-    "24h内+5"
-   ],
-   "id": "58eb1f6fcfad",
-   "title_zh": "Teck利润激增，铜价创历史新高",
-   "desc_zh": "加拿大矿商Teck因铜价创纪录而利润大增，但劳资纠纷和中国审查令其合并前景蒙阴。",
-   "event": "Teck因铜价创纪录利润大增",
-   "data_note": "铜价创纪录，但劳资纠纷与中国审查存不确定性",
-   "impact": "LME铜14346.08跌0.07%，A股江西铜业跌8.21%背离",
+   "id": "5d09f8580ffc",
+   "title_zh": "Eldorado因Skouries项目受挫下调黄金展望18%股价下跌",
+   "desc_zh": "该矿企将2026年黄金产量预测下调18%，并因希腊Skouries铜金项目延期而增加支出。",
+   "event": "金矿企下调黄金产量指引",
+   "data_note": "2026年黄金产量预测下调18%，项目延期增支",
+   "impact": "利空该矿企，对金价影响有限",
    "certainty": "中",
-   "age_hours": 14.2
+   "age_hours": 107.5
   },
   {
-   "title": "LNG imports make up increasing share of Colombia's natural gas supply",
-   "link": "https://www.eia.gov/todayinenergy/detail.php?id=68364",
-   "desc": "Colombia is importing more liquefied natural gas (LNG) as domestic production continues to fall. A potential drought this fall and winter could limit the availability of hydroelectric generation and boost the country's demand for natural gas power generation. Colombia's government has declared a national disaster in anticipation of a drought resulting from an expected strong El Ni�o.",
-   "date": "Thu, 29 Oct 2026 09:00:00 EST",
-   "source": "EIA Today in Energy",
-   "source_id": "eia",
+   "title": "How Iran Just Broke the U.S. Oil Shield In Saudi Arabia Yet Again",
+   "link": "https://oilprice.com/Energy/Energy-General/How-Iran-Just-Broke-the-US-Oil-Shield-In-Saudi-Arabia-Yet-Again.html",
+   "desc": "The attacks last week in Saudi Arabia’s largest oil refinery, Ras Tanura (again), by the Iran-backed Houthis (again), which pushed oil prices up (again), once more underlined the powerlessness of the region to properly defend itself from Iran and its network of proxies and the redundancy of the billions of dollars’ worth of defence equipment the region’s countries bought from the U.S. to do precisely this. Aside from reminding Washington and its allies that Tehran can strike wherever and whenever it chooses to in the region, the…",
+   "date": "Mon, 02 Nov 2026 10:00:00 -0600",
+   "source": "OilPrice.com",
+   "source_id": "oilprice",
    "topics": [
-    "天然气"
+    "石油"
    ],
    "score": 56,
    "score_detail": [
-    "主题匹配+25（天然气）",
+    "主题匹配+25（石油）",
     "标题含品种+15",
-    "重要性词+1（demand）",
+    "重要性词+1（price）",
     "摘要详实+10",
     "24h内+5"
    ],
-   "id": "2fcad4fd9521",
-   "title_zh": "LNG进口占哥伦比亚天然气供应比重上升",
-   "desc_zh": "哥伦比亚国内产量持续下降，LNG进口占比上升；秋冬潜在干旱或抑制水电并推高天然气发电需求。",
-   "event": "哥伦比亚LNG进口占比上升",
-   "data_note": "国内产量持续下降，秋冬干旱或推高气电需求",
-   "impact": "增加LNG需求，国际天然气3.353跌1.15%背离",
+   "id": "3c7a87f4dc12",
+   "title_zh": "伊朗再度突破沙特境内美国石油防线",
+   "desc_zh": "伊朗支持的胡塞武装再次袭击沙特最大炼油厂Ras Tanura，油价再度上涨，凸显该地区无力防御伊朗及其代理网络。",
+   "event": "胡塞武装再袭沙特最大炼油厂",
+   "data_note": "布伦特原油104.662 -0.10%，WTI原油96.494 +0.04%",
+   "impact": "国际原油获地缘溢价支撑，但盘面反应平淡，上行空间待观察",
    "certainty": "中",
-   "age_hours": 11.0
+   "age_hours": 10.4
   },
   {
-   "title": "China’s Battery Factories May Sit Atop Lithium Resources",
-   "link": "https://oilprice.com/Energy/Energy-General/Chinas-Battery-Factories-May-Sit-Atop-Lithium-Resources.html",
-   "desc": "The world’s largest battery maker and user, the country that dominates all alternative energy technology, is about to find out whether it could also boost its already dominant presence in a critical battery metal: lithium. China, according to a new study, could have significant, untapped resources of lithium right underneath its battery factories. The possibility was detailed in a recent study that argued lithium deposits resulting from ancient volcanic activity could be located in East and South China, where most of the country’s battery…",
-   "date": "Thu, 29 Oct 2026 17:00:00 -0500",
+   "title": "Questions Mount Over Venezuela’s Biggest Oil Deal",
+   "link": "https://oilprice.com/Energy/Crude-Oil/Questions-Mount-Over-Venezuelas-Biggest-Oil-Deal.html",
+   "desc": "“The biggest oil deal in world history” between the Trump Administration and North American Blue Energy Partners may not live up to the hype as the privately held and previously little-known company could face steep challenges in developing Venezuela’s huge oil resources, Reuters reported, citing more than a dozen oil workers, contractors, and experts from the industry. Following the capture of Nicolas Maduro by U.S. forces in January, the U.S.-backed interim Venezuelan government has made changes to the legal, regulatory, and…",
+   "date": "Mon, 02 Nov 2026 19:00:00 -0600",
    "source": "OilPrice.com",
    "source_id": "oilprice",
+   "topics": [
+    "石油"
+   ],
+   "score": 55,
+   "score_detail": [
+    "主题匹配+25（石油）",
+    "标题含品种+15",
+    "摘要详实+10",
+    "24h内+5"
+   ],
+   "id": "576afa6e4e77",
+   "title_zh": "委内瑞拉最大石油交易引发质疑",
+   "desc_zh": "路透社报道，特朗普政府与北美Blue Energy Partners所称“世界史上最大石油交易”恐难达预期，这家鲜为人知的私营公司在开发委内瑞拉庞大石油资源方面面临严峻挑战。",
+   "event": "委内瑞拉最大石油交易遭质疑",
+   "data_note": "路透报道交易恐难达预期，暂无该品种数据",
+   "impact": "委内瑞拉增产预期降温，中长期利空国际原油供给宽松逻辑",
+   "certainty": "中",
+   "age_hours": 1.4
+  },
+  {
+   "title": "Africa Launches Its Own Oil Bank as Western Lenders Retreat",
+   "link": "https://oilprice.com/Energy/Energy-General/Africa-Launches-Its-Own-Oil-Bank-as-Western-Lenders-Retreat.html",
+   "desc": "Africa now has a bank built to finance the oil and gas projects Western banks and development lenders have dropped under their climate commitments. Afreximbank and the African Petroleum Producers’ Organization (APPO) formally established the Africa Energy Bank (AEB) at its inaugural general meeting in Abuja on October 31. That was more than four years after the two institutions began work on it and some 20 months behind schedule. Abuja beat bids from six countries, including Ghana, Algeria, South Africa and Benin, to host the bank.…",
+   "date": "Mon, 02 Nov 2026 17:00:00 -0600",
+   "source": "OilPrice.com",
+   "source_id": "oilprice",
+   "topics": [
+    "石油"
+   ],
+   "score": 55,
+   "score_detail": [
+    "主题匹配+25（石油）",
+    "标题含品种+15",
+    "摘要详实+10",
+    "24h内+5"
+   ],
+   "id": "8cad0e082900",
+   "title_zh": "非洲推出自有石油银行，西方贷款机构退缩",
+   "desc_zh": "Afreximbank与非洲石油生产国组织（APPO）正式成立非洲能源银行（AEB），为西方银行因气候承诺而放弃的油气项目提供融资。",
+   "event": "非洲成立能源银行资助油气项目",
+   "data_note": "Afreximbank与APPO正式成立AEB，暂无该品种数据",
+   "impact": "非洲油气开发融资渠道拓宽，长期利空国际原油供给端",
+   "certainty": "中",
+   "age_hours": 3.4
+  },
+  {
+   "title": "Trump’s Trillion-Dollar Oil Play: A Trap For Big Oil?",
+   "link": "https://oilprice.com/Energy/Crude-Oil/Trumps-Trillion-Dollar-Oil-Play-A-Trap-For-Big-Oil.html",
+   "desc": "U.S. President Donald Trump’s core vision of the future of global oil and gas is to have as much of that supply as possible coming from his self-proclaimed ‘Americas’ region, which is directly in the U.S.’s sphere of influence. Venezuela is one of the key countries from which this increased production is designated to flow, which is why Washington is focusing so much of its efforts on encouraging heavy investment from American oil and gas giants into the country. It is in this context that very recent changes to Venezuela’s…",
+   "date": "Mon, 02 Nov 2026 15:00:00 -0600",
+   "source": "OilPrice.com",
+   "source_id": "oilprice",
+   "topics": [
+    "石油"
+   ],
+   "score": 55,
+   "score_detail": [
+    "主题匹配+25（石油）",
+    "标题含品种+15",
+    "摘要详实+10",
+    "24h内+5"
+   ],
+   "id": "b23f06e78e78",
+   "title_zh": "特朗普万亿美元石油战略：大型石油公司的陷阱？",
+   "desc_zh": "特朗普设想全球油气供应尽可能来自其所谓“美洲”地区，委内瑞拉是增产关键国家之一，但该战略对大型石油公司而言可能暗藏风险。",
+   "event": "特朗普“美洲油气”战略或存风险",
+   "data_note": "委内瑞拉为增产关键国，暂无该品种数据",
+   "impact": "美洲供给扩张预期扰动国际原油，大型油企承压",
+   "certainty": "低",
+   "age_hours": 5.4
+  },
+  {
+   "title": "U.S.-Backed Consortium Proposes $4.4 Billion LNG Terminal in Pakistan",
+   "link": "https://oilprice.com/Latest-Energy-News/World-News/US-Backed-Consortium-Proposes-44-Billion-LNG-Terminal-in-Pakistan.html",
+   "desc": "A group of U.S. companies is proposing to build and operate a $4.4-billion LNG import and storage terminal in Pakistan, local media reported on Monday, as Pakistan faces high gas import costs with disrupted Qatari LNG flows. The companies, supported by the Trump Administration, include Global Vision Energy Partners (GVEP) and Khanjee Holdings, plus international strategic partners and Luxembourg-based General Mediterranean Holding, according to the reports. The integrated LNG project in Pakistan envisages imports, storage, re-gasification,…",
+   "date": "Mon, 02 Nov 2026 10:30:00 -0600",
+   "source": "OilPrice.com",
+   "source_id": "oilprice",
+   "topics": [
+    "天然气"
+   ],
+   "score": 55,
+   "score_detail": [
+    "主题匹配+25（天然气）",
+    "标题含品种+15",
+    "摘要详实+10",
+    "24h内+5"
+   ],
+   "id": "0eb0ee3b9510",
+   "title_zh": "美国支持的财团拟在巴基斯坦建设44亿美元LNG终端",
+   "desc_zh": "多家美国公司在特朗普政府支持下拟在巴基斯坦建设并运营44亿美元LNG进口储存终端，以应对卡塔尔LNG供应中断导致的高昂天然气进口成本。",
+   "event": "美企拟在巴基斯坦建44亿美元LNG终端",
+   "data_note": "项目金额44亿美元，天然气3.371 +0.69%",
+   "impact": "巴基斯坦LNG进口需求预期增强，利好国际天然气价格",
+   "certainty": "中",
+   "age_hours": 9.9
+  },
+  {
+   "title": "Ukraine Has Hit Three Russian Refineries Since Friday",
+   "link": "https://oilprice.com/Latest-Energy-News/World-News/Ukraine-Has-Hit-Three-Russian-Refineries-Since-Friday.html",
+   "desc": "A major oil hub in Russia’s Volga region appears to have caught fire after an attack, Bloomberg reported on Monday, citing satellite images from NASA’s Fire Information for Resource Management System. An image taken on Monday showed a relatively fresh heat anomaly, which could mean fires at the Samara crude oil pumping station, according to the imagery Bloomberg has analyzed. The potential attack, reports of which emerged in Ukrainian media today, could be another hit at an oil asset in Russia after Ukraine resumed late last week attacks…",
+   "date": "Mon, 02 Nov 2026 09:30:00 -0600",
+   "source": "OilPrice.com",
+   "source_id": "oilprice",
+   "topics": [
+    "石油"
+   ],
+   "score": 55,
+   "score_detail": [
+    "主题匹配+25（石油）",
+    "标题含品种+15",
+    "摘要详实+10",
+    "24h内+5"
+   ],
+   "id": "7d34d578a875",
+   "title_zh": "乌克兰自周五以来已袭击三座俄罗斯炼油厂",
+   "desc_zh": "彭博社援引NASA卫星图像报道，俄罗斯伏尔加地区一主要石油枢纽遭袭后似发生火灾，周一图像显示Samara地区存在较新的热异常。",
+   "event": "乌袭击俄三座炼油厂",
+   "data_note": "布伦特104.662 -0.10%，WTI 96.494 +0.04%",
+   "impact": "俄油品出口受阻，短期利多原油，但国际期货反应平淡",
+   "certainty": "中",
+   "age_hours": 10.9
+  },
+  {
+   "title": "Citi slashes lithium price forecast by 40% on lower demand",
+   "link": "https://www.mining.com/citi-slashes-lithium-price-forecast-by-40-on-lower-demand/",
+   "desc": "The bank cut its estimates for the battery ingredient through the end of 2028, expecting the market to reach a surplus.",
+   "date": "Mon, 02 Nov 2026 16:03:32 +0000",
+   "source": "Mining.com",
+   "source_id": "mining",
    "topics": [
     "锂/电池金属"
    ],
@@ -466,96 +483,45 @@
    "score_detail": [
     "主题匹配+25（锂/电池金属）",
     "标题含品种+15",
-    "摘要详实+10",
-    "24h内+5"
-   ],
-   "id": "a1305ddaa6c1",
-   "title_zh": "中国电池工厂或坐拥锂资源",
-   "desc_zh": "研究显示中国可能有大量未开发锂资源，全球最大电池生产国或进一步增强其在关键电池金属锂的主导地位。",
-   "event": "中国或有大量未开发锂资源",
-   "data_note": "研究显示中国可能存在大量未开发锂资源",
-   "impact": "长期利空锂矿供给格局，A股天齐锂业跌3.62%",
-   "certainty": "低",
-   "age_hours": 3.0
-  },
-  {
-   "title": "Trump's Russian Diesel Is a Legal Hot Potato With a Five-Year Fuse",
-   "link": "https://oilprice.com/Energy/Energy-General/Trumps-Russian-Diesel-Is-a-Legal-Hot-Potato-With-a-Five-Year-Fuse.html",
-   "desc": "A Malta-flagged tanker called the Agioi Fanendes left the Russian port of Primorsk on Oct. 22 carrying nearly 40,000 metric tons of ultra-low-sulfur diesel, and ship-tracking data has it arriving at the Port of New York and New Jersey on Nov. 7, four days after the midterm elections. Nobody has publicly said who bought the fuel, and Sen. Richard Blumenthal, D-Conn., has asked the ship’s owner to identify the buyer and everyone else involved by Oct. 31. The cargo is the first visible piece of the deal President Donald Trump announced Oct.…",
-   "date": "Thu, 29 Oct 2026 16:00:00 -0500",
-   "source": "OilPrice.com",
-   "source_id": "oilprice",
-   "topics": [
-    "石油"
-   ],
-   "score": 55,
-   "score_detail": [
-    "主题匹配+25（石油）",
-    "标题含品种+15",
-    "摘要详实+10",
-    "24h内+5"
-   ],
-   "id": "cb82d56a2417",
-   "title_zh": "特朗普的俄罗斯柴油是带五年引信的法律烫手山芋",
-   "desc_zh": "一艘马耳他籍油轮载近4万吨俄罗斯超低硫柴油驶往纽约港，法律风险悬而未决。",
-   "event": "俄柴油经马耳他油轮输美涉法律风险",
-   "data_note": "WTI原油102.558 +0.55%，布伦特111.178 +0.34%",
-   "impact": "国际原油价格获支撑，柴油套利流向存不确定性",
-   "certainty": "中",
-   "age_hours": 4.0
-  },
-  {
-   "title": "UK Budget Signals Wave of New North Sea Oil and Gas Drilling",
-   "link": "https://oilprice.com/Energy/Energy-General/UK-Budget-Signals-Wave-of-New-North-Sea-Oil-and-Gas-Drilling.html",
-   "desc": "John Healey’s Budget has assumed the government will approve North Sea discovery drilling projects that produce in excess of a billion barrels of oil and gas, in the clearest sign yet that ministers plan to rubber-stamp a wave of new drilling after Jackdaw and Rosebank. In its scorecard for the Chancellor’s maiden fiscal event, the Office for Budget Responsibility accounted for a boost in tax receipts from the “development of new fields” that not only include the controversial Rosebank oil field but also other “future…",
-   "date": "Thu, 29 Oct 2026 11:00:00 -0500",
-   "source": "OilPrice.com",
-   "source_id": "oilprice",
-   "topics": [
-    "石油"
-   ],
-   "score": 55,
-   "score_detail": [
-    "主题匹配+25（石油）",
-    "标题含品种+15",
-    "摘要详实+10",
-    "24h内+5"
-   ],
-   "id": "7d3db903984d",
-   "title_zh": "英国预算释放北海油气钻探新浪潮信号",
-   "desc_zh": "英国预算假设政府将批准北海超十亿桶油气发现钻探项目，暗示部长们计划放行新一波钻探。",
-   "event": "英国预算暗示放行北海新钻探",
-   "data_note": "新闻称超十亿桶油气发现项目或获批",
-   "impact": "国际油气远期供应预期增加，利空长期气价",
-   "certainty": "中",
-   "age_hours": 9.0
-  },
-  {
-   "title": "US copper stockpiles conceal growing global supply crunch",
-   "link": "https://www.mining.com/us-copper-stockpiles-conceal-growing-global-supply-crunch/",
-   "desc": "Chinese premiums and African risks highlight a disconnect between copper inventories and physical market conditions.",
-   "date": "Thu, 29 Oct 2026 12:58:08 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "工业金属"
-   ],
-   "score": 54,
-   "score_detail": [
-    "主题匹配+25（工业金属）",
-    "标题含品种+15",
-    "重要性词+3（inventor,market）",
+    "重要性词+4（demand,forecast,price）",
     "摘要有内容+6",
     "24h内+5"
    ],
-   "id": "b87a9512bf8c",
-   "title_zh": "美国铜库存掩盖全球供应紧张加剧",
-   "desc_zh": "中国溢价与非洲风险凸显铜库存与现货市场脱节，供应紧张或支撑铜价。",
-   "event": "铜库存与现货脱节凸显供应紧张",
-   "data_note": "LME铜14346.08 -0.07%，江西铜业A股-8.21%",
-   "impact": "国际铜价获基本面支撑，但A股铜股背离走弱",
+   "id": "59951ae14d57",
+   "title_zh": "花旗因需求下降大幅下调锂价预测40%",
+   "desc_zh": "花旗将2028年底前的锂价预估下调40%，预计市场将出现供应过剩，锂价承压。",
+   "event": "花旗下调锂价预估40%",
+   "data_note": "天齐锂业A股35.93 +3.07%，新闻与行情背离",
+   "impact": "锂矿股短期承压，但A股锂板块逆势上涨需警惕",
    "certainty": "中",
-   "age_hours": 12.0
+   "age_hours": 10.4
+  },
+  {
+   "title": "Gold Fields clears major hurdle for Quebec’s Windfall gold mine",
+   "link": "https://www.mining.com/gold-fields-clears-major-hurdle-for-quebecs-windfall-gold-mine/",
+   "desc": "Quebec grants environmental approval for Windfall, advancing a high-grade project toward a 2027 investment decision.",
+   "date": "Mon, 02 Nov 2026 10:44:00 +0000",
+   "source": "Mining.com",
+   "source_id": "mining",
+   "topics": [
+    "贵金属"
+   ],
+   "score": 54,
+   "score_detail": [
+    "主题匹配+25（贵金属）",
+    "标题含品种+15",
+    "重要性词+3（war）",
+    "摘要有内容+6",
+    "24h内+5"
+   ],
+   "id": "a16e239110c5",
+   "title_zh": "Gold Fields获批魁北克Windfall金矿环保许可",
+   "desc_zh": "魁北克政府批准Windfall金矿环保许可，推进该高品位项目迈向2027年投资决策。",
+   "event": "魁北克批准Windfall金矿环评",
+   "data_note": "COMEX黄金3953.659 -0.40%，山东黄金A股23.76 +4.16%",
+   "impact": "金矿供给预期增加，长期利空金价，A股黄金股背离",
+   "certainty": "中",
+   "age_hours": 15.7
   },
   {
    "title": "EIA expects a drop in global oil demand will limit price increases from Hormuz disruptions",
@@ -576,12 +542,12 @@
    ],
    "id": "5f0eef750f95",
    "title_zh": "EIA预计全球石油需求下降将限制霍尔木兹中断引发的价格上涨",
-   "desc_zh": "EIA下调2026年全球石油需求预期，高油价与供应受限抑制消费，需求走弱将限制供应中断带来的价格上行空间。",
-   "event": "EIA下调石油需求预期限制油价上行",
-   "data_note": "WTI原油102.558 +0.55%，布伦特111.178 +0.34%",
-   "impact": "国际原油上行空间受需求走弱制约",
+   "desc_zh": "EIA发布6月短期能源展望，下调2026年全球石油需求预期。高油价、燃料供应减少及政府措施抑制消费，尤其亚洲，从而限制价格上行空间。",
+   "event": "EIA下调石油需求预期",
+   "data_note": "布伦特104.662 -0.10%，中国石油A股13.43 -4.21%",
+   "impact": "需求疲软限制油价上行，利空原油及石油股",
    "certainty": "高",
-   "age_hours": 3416.0
+   "age_hours": 3513.4
   },
   {
    "title": "EIA raises natural gas price forecast following increased heating demand amid severe winter weather",
@@ -601,19 +567,19 @@
     "摘要详实+10"
    ],
    "id": "c62039bc42b0",
-   "title_zh": "EIA在严冬取暖需求增加后上调天然气价格预测",
-   "desc_zh": "1月天然气均价升至7.72美元/百万英热单位，寒潮推升取暖需求、产量下降且库存创纪录提取，价格获支撑。",
-   "event": "EIA上调气价预期因寒潮取暖需求",
-   "data_note": "1月气价7.72美元/百万英热，天然气3.353 -1.15%",
-   "impact": "国际天然气价获支撑，但期货盘面背离下跌",
-   "certainty": "中",
-   "age_hours": 6272.0
+   "title_zh": "EIA上调天然气价格预测，严寒天气推升供暖需求",
+   "desc_zh": "1月天然气均价升至7.72美元/MMBtu，寒潮Fern推高供暖需求、产量下降，储气创纪录提取，价格大幅上涨。",
+   "event": "EIA上调天然气价格预估",
+   "data_note": "国际天然气3.371 +0.69%，新奥股份A股20.77 +1.56%",
+   "impact": "寒潮推升供暖需求，利多天然气价格及城燃股",
+   "certainty": "高",
+   "age_hours": 6369.4
   },
   {
-   "title": "Green Manganese trials deliver high recovery rates alongside zinc extraction",
-   "link": "https://www.mining.com/green-manganese-trials-deliver-high-recovery-rates-alongside-zinc-extraction/",
-   "desc": "The company said results address two connected challenges for smelters: treating hazardous industrial residues and recovering valuable metals that would otherwise remain in sludge settling ponds or be lost to disposal.",
-   "date": "Wed, 28 Oct 2026 22:06:46 +0000",
+   "title": "Teck profit surges as copper prices hit record highs",
+   "link": "https://www.mining.com/teck-profit-surges-as-copper-prices-hit-record-highs/",
+   "desc": "The Canadian miner reported stronger earnings and production as a labour dispute and Chinese scrutiny cloud its merger outlook.",
+   "date": "Thu, 29 Oct 2026 10:46:00 +0000",
    "source": "Mining.com",
    "source_id": "mining",
    "topics": [
@@ -623,17 +589,17 @@
    "score_detail": [
     "主题匹配+25（工业金属）",
     "标题含品种+15",
-    "摘要详实+10",
-    "3天内+2"
+    "重要性词+6（record high,surge,outlook）",
+    "摘要有内容+6"
    ],
-   "id": "3fe5ecdb247f",
-   "title_zh": "Green Manganese试验实现高回收率并同步提取锌",
-   "desc_zh": "公司称结果可解决冶炼厂处理危险废渣与回收有价值金属两大难题，或提升项目经济性。",
-   "event": "锰矿回收试验兼顾锌提取",
-   "data_note": "无锰锌具体行情数据，新闻未披露回收率数值",
-   "impact": "或提升锰锌项目经济性，暂无对应品种行情验证",
-   "certainty": "低",
-   "age_hours": 26.8
+   "id": "58eb1f6fcfad",
+   "title_zh": "Teck利润激增，铜价创历史新高",
+   "desc_zh": "加拿大矿企Teck earnings and production增强，但劳资纠纷和中国审查令合并前景蒙阴。",
+   "event": "铜价创纪录推升Teck利润",
+   "data_note": "LME铜14188.05 -1.09%，紫金矿业A股+2.57%",
+   "impact": "铜矿股与铜价背离，关注铜品种回调风险",
+   "certainty": "中",
+   "age_hours": 111.7
   },
   {
    "title": "Henry Hub natural gas prices this summer were 6% lower than last summer",
@@ -653,13 +619,13 @@
     "摘要详实+10"
    ],
    "id": "de82781982f0",
-   "title_zh": "Henry Hub今夏天然气价格较去年低6%",
-   "desc_zh": "6至8月均价2.93美元/百万英热单位，尽管高温推升空调电力需求，价格仍同比下降，供应充裕压制价格。",
+   "title_zh": "Henry Hub今夏天然气价格同比低6%",
+   "desc_zh": "6至8月Henry Hub现货均价2.93美元/MMBtu，同比低6%。尽管酷热推升空调用电需求，价格仍走低。",
    "event": "美夏季气价同比降6%",
-   "data_note": "6-8月均价2.93美元/百万英热，国际期货天然气3.353 -1.15%",
-   "impact": "供应充裕压制国际气价，A股燃气股分化",
+   "data_note": "Henry Hub现货均价2.93美元/MMBtu，同比低6%",
+   "impact": "天然气价格承压，利空国际期货天然气",
    "certainty": "高",
-   "age_hours": 827.0
+   "age_hours": 924.4
   },
   {
    "title": "United States on track for record crude oil production in 2026",
@@ -680,12 +646,12 @@
    ],
    "id": "358160eda336",
    "title_zh": "美国2026年原油产量有望创纪录",
-   "desc_zh": "EIA预测2026年美国原油日均产量达1380万桶，超过2025年1370万桶的纪录，供应增加或压制油价。",
-   "event": "美2026原油产量预创新高",
+   "desc_zh": "EIA预测2026年美国原油日均产量达1380万桶，超过2025年1370万桶的前纪录。",
+   "event": "美2026年原油产量将创纪录",
    "data_note": "EIA预测日均1380万桶，超2025年1370万桶",
-   "impact": "供应增加压制国际油价，WTI 102.558 +0.55%存背离",
-   "certainty": "中",
-   "age_hours": 1187.0
+   "impact": "原油供给增加，利空国际期货原油",
+   "certainty": "高",
+   "age_hours": 1284.4
   },
   {
    "title": "Elevated crack spreads and crude oil prices contribute to higher prices at the pump",
@@ -706,12 +672,12 @@
    ],
    "id": "b82d8348d8bf",
    "title_zh": "裂解价差与原油价格高企推高加油站油价",
-   "desc_zh": "裂解价差反映炼油利润，是原油加工成汽油柴油的盈利指标。当前裂解价差与原油价格双双走高，直接推升零售燃油价格。",
-   "event": "裂解价差与油价双高推升零售燃油",
-   "data_note": "新闻未披露价差具体数值，WTI 102.558 +0.55%",
-   "impact": "炼油利润走高，支撑成品油及炼化环节",
+   "desc_zh": "裂解价差反映炼油利润，当前原油价格与裂解价差均处高位，推高汽油和柴油零售价格。",
+   "event": "高裂解价差与高油价推升成品油零售价",
+   "data_note": "原油与裂解价差均处高位，暂无具体价差数据",
+   "impact": "炼油利润高企，支撑成品油价格",
    "certainty": "中",
-   "age_hours": 1331.0
+   "age_hours": 1428.4
   },
   {
    "title": "EIA expects highest natural gas inventories in a decade heading into winter",
@@ -731,149 +697,19 @@
     "摘要详实+10"
    ],
    "id": "2c37f4bbc8ee",
-   "title_zh": "EIA预计入冬前天然气库存创十年新高",
-   "desc_zh": "美国能源信息署预计10月天然气库存将增至3985亿立方英尺，为2016年以来入冬前最高水平，供应充裕或压制气价。",
-   "event": "美入冬前天然气库存十年最高",
-   "data_note": "EIA预计10月库存3985亿立方英尺，为2016年来最高",
-   "impact": "供应充裕压制国际气价，天然气3.353 -1.15%",
+   "title_zh": "EIA预计入冬前天然气库存将创十年新高",
+   "desc_zh": "美国EIA预计10月天然气库存增至3985亿立方英尺，为2016年以来入冬前最高水平，或对气价形成下行压力。",
+   "event": "美入冬前天然气库存创十年新高",
+   "data_note": "EIA预计10月库存3985亿立方英尺，2016年来最高",
+   "impact": "天然气库存高企，利空国际期货天然气",
    "certainty": "高",
-   "age_hours": 1904.0
+   "age_hours": 2001.4
   },
   {
-   "title": "One World Lithium deploys DLCE equipment to UCI, UBC labs",
-   "link": "https://www.mining.com/one-world-lithium-deploys-dlce-equipment-to-uci-ubc-labs-for-rd/",
-   "desc": "The deployment of on-site equipment expands upon the successful lab work that yielded two patent-pending applications, the company said.",
-   "date": "Fri, 30 Oct 2026 00:05:40 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "锂/电池金属"
-   ],
-   "score": 51,
-   "score_detail": [
-    "主题匹配+25（锂/电池金属）",
-    "标题含品种+15",
-    "摘要有内容+6",
-    "24h内+5"
-   ],
-   "id": "c59945b202d7",
-   "title_zh": "One World Lithium向UCI和UBC实验室部署DLCE设备",
-   "desc_zh": "公司称在实验室成功研究基础上部署现场设备，已产生两项待批专利申请，推进锂提取技术商业化。",
-   "event": "锂提取技术商业化推进",
-   "data_note": "暂无锂品种行情数据；新闻称已产生两项待批专利",
-   "impact": "锂提取技术预期升温，长期或影响锂供应格局",
-   "certainty": "低",
-   "age_hours": 0.9
-  },
-  {
-   "title": "Rio Tinto pumps $1.4 billion into lithium projects in Argentina",
-   "link": "https://www.mining.com/rio-tinto-pumps-1-4b-into-lithium-projects-in-argentina/",
-   "desc": "Two new operations add 25,000 tonnes of annual capacity as the mining giant pursues ambitious growth targets in battery metals.",
-   "date": "Thu, 29 Oct 2026 15:10:00 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "锂/电池金属"
-   ],
-   "score": 51,
-   "score_detail": [
-    "主题匹配+25（锂/电池金属）",
-    "标题含品种+15",
-    "摘要有内容+6",
-    "24h内+5"
-   ],
-   "id": "6ad70da843bb",
-   "title_zh": "Rio Tinto向阿根廷锂项目注资14亿美元",
-   "desc_zh": "两座新矿每年新增2.5万吨产能，矿业巨头加速布局电池金属以实现雄心增长目标，或增加长期锂供应。",
-   "event": "力拓14亿美元投阿根廷锂矿",
-   "data_note": "新闻称两矿年增2.5万吨产能；暂无锂品种行情数据",
-   "impact": "长期锂供应增加预期，或压制锂价远期曲线",
-   "certainty": "中",
-   "age_hours": 9.8
-  },
-  {
-   "title": "Alamos delays Island Gold shaft as costs rise",
-   "link": "https://www.mining.com/alamos-delays-island-gold-shaft-as-costs-rise/",
-   "desc": "The shaft is meant to replace truck haulage with hoisting ore and waste to surface, allowing Alamos to mine more tonnes at lower costs.",
-   "date": "Thu, 29 Oct 2026 13:40:45 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "贵金属"
-   ],
-   "score": 51,
-   "score_detail": [
-    "主题匹配+25（贵金属）",
-    "标题含品种+15",
-    "摘要有内容+6",
-    "24h内+5"
-   ],
-   "id": "8b379070e443",
-   "title_zh": "Alamos因成本上升推迟Island Gold竖井项目",
-   "desc_zh": "该竖井旨在以提升方式替代卡车运输矿石和废石，实现更低成本开采更多吨位，延期或推高短期成本。",
-   "event": "Alamos金矿竖井延期成本上升",
-   "data_note": "暂无金矿个股数据；COMEX黄金4018.212 -0.33%",
-   "impact": "短期成本上升，黄金股情绪偏空但金价微跌背离",
-   "certainty": "中",
-   "age_hours": 11.3
-  },
-  {
-   "title": "Two workers die after Kinross Gold accidents",
-   "link": "https://www.mining.com/two-workers-die-after-kinross-gold-accidents/",
-   "desc": "The safety disclosure came as Kinross reported a 59% year-on-year decline in attributable free cash flow for the third quarter.",
-   "date": "Thu, 29 Oct 2026 13:26:12 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "贵金属"
-   ],
-   "score": 51,
-   "score_detail": [
-    "主题匹配+25（贵金属）",
-    "标题含品种+15",
-    "摘要有内容+6",
-    "24h内+5"
-   ],
-   "id": "0962876f667b",
-   "title_zh": "Kinross Gold事故致两名工人死亡",
-   "desc_zh": "公司披露安全事故，同时报告第三季度应占自由现金流同比下降59%，安全与现金流双重压力或影响股价。",
-   "event": "Kinross金矿事故致两死",
-   "data_note": "新闻称Q3自由现金流同比降59%；COMEX黄金4018.212 -0.33%",
-   "impact": "安全与现金流双压，黄金矿商股价情绪偏空",
-   "certainty": "高",
-   "age_hours": 11.5
-  },
-  {
-   "title": "Glencore cobalt output sinks 52% under DRC quotas",
-   "link": "https://www.mining.com/glencore-cobalt-output-sinks-52-under-drc-quotas/",
-   "desc": "Export curbs have left the miner holding the battery metal in solution, deferring processing costs while protecting future sales.",
-   "date": "Thu, 29 Oct 2026 13:18:00 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "锂/电池金属"
-   ],
-   "score": 51,
-   "score_detail": [
-    "主题匹配+25（锂/电池金属）",
-    "标题含品种+15",
-    "摘要有内容+6",
-    "24h内+5"
-   ],
-   "id": "cb2dc1d9f6d2",
-   "title_zh": "Glencore钴产量在刚果（金）配额下骤降52%",
-   "desc_zh": "出口限制使该矿商将电池金属以溶液形式持有，推迟加工成本并保护未来销售。",
-   "event": "嘉能可钴产量因刚果配额降52%",
-   "data_note": "暂无钴品种行情数据；新闻称产量降52%",
-   "impact": "钴供应收缩预期，或支撑钴价及电池金属",
-   "certainty": "高",
-   "age_hours": 11.7
-  },
-  {
-   "title": "Glencore, CNGR back $380M Brazil nickel mine with $40M",
-   "link": "https://www.mining.com/glencore-cngr-back-380m-brazil-nickel-mine-with-40m/",
-   "desc": "Centaurus Metals has secured buyers for Jaguar's first five years of output as strategic funding advances the project toward approval.",
-   "date": "Wed, 28 Oct 2026 16:08:00 +0000",
+   "title": "Hudbay leads $49.8M investment in Pecoy Copper",
+   "link": "https://www.mining.com/hudbay-leads-49-8m-investment-in-pecoy-copper/",
+   "desc": "The investment provides funding for drilling and studies needed to better define the deposit and assess how to recover its metals.",
+   "date": "Mon, 02 Nov 2026 15:39:07 +0000",
    "source": "Mining.com",
    "source_id": "mining",
    "topics": [
@@ -883,18 +719,69 @@
    "score_detail": [
     "主题匹配+25（工业金属）",
     "标题含品种+15",
-    "重要性词+3（war）",
     "摘要有内容+6",
-    "3天内+2"
+    "24h内+5"
    ],
-   "id": "5a0deab7f59b",
-   "title_zh": "Glencore、CNGR以4000万美元支持巴西3.8亿美元镍矿",
-   "desc_zh": "Centaurus Metals已锁定Jaguar前五年产量买家，战略融资推动项目迈向审批。",
-   "event": "嘉能可与中伟支持巴西镍矿项目",
-   "data_note": "战略融资4000万美元，项目总投资3.8亿美元",
-   "impact": "利好镍矿供应预期，镍价承压",
+   "id": "e2dbaf10fcc5",
+   "title_zh": "Hudbay牵头向Pecoy Copper投资4980万美元",
+   "desc_zh": "资金用于钻探和研究，以更好界定矿床并评估金属回收方式，利好项目推进。",
+   "event": "铜矿项目获投资推进勘探",
+   "data_note": "Hudbay领投4980万美元，用于钻探研究",
+   "impact": "铜矿远期供应预期改善，LME铜偏空",
    "certainty": "中",
-   "age_hours": 32.8
+   "age_hours": 10.8
+  },
+  {
+   "title": "Ontario fast-tracks Mayfair’s Fenn-Gib gold project",
+   "link": "https://www.mining.com/ontario-fast-tracks-mayfairs-fenn-gib-gold-project/",
+   "desc": "The Fenn-Gib gold project is the fourth chosen under the province's One Project, One Process framework.",
+   "date": "Mon, 02 Nov 2026 13:06:35 +0000",
+   "source": "Mining.com",
+   "source_id": "mining",
+   "topics": [
+    "贵金属"
+   ],
+   "score": 51,
+   "score_detail": [
+    "主题匹配+25（贵金属）",
+    "标题含品种+15",
+    "摘要有内容+6",
+    "24h内+5"
+   ],
+   "id": "0dce3dc9ebdf",
+   "title_zh": "安大略省快速审批Mayfair的Fenn-Gib金矿项目",
+   "desc_zh": "该项目成为该省“一项目一流程”框架下第四个入选项目，审批提速利好开发进度。",
+   "event": "金矿项目审批获快速通道",
+   "data_note": "安大略省\"一项目一流程\"第四个入选项目",
+   "impact": "金矿开发提速预期，COMEX黄金偏空",
+   "certainty": "中",
+   "age_hours": 13.3
+  },
+  {
+   "title": "LNG imports make up increasing share of Colombia's natural gas supply",
+   "link": "https://www.eia.gov/todayinenergy/detail.php?id=68364",
+   "desc": "Colombia is importing more liquefied natural gas (LNG) as domestic production continues to fall. A potential drought this fall and winter could limit the availability of hydroelectric generation and boost the country's demand for natural gas power generation. Colombia's government has declared a national disaster in anticipation of a drought resulting from an expected strong El Ni�o.",
+   "date": "Thu, 29 Oct 2026 09:00:00 EST",
+   "source": "EIA Today in Energy",
+   "source_id": "eia",
+   "topics": [
+    "天然气"
+   ],
+   "score": 51,
+   "score_detail": [
+    "主题匹配+25（天然气）",
+    "标题含品种+15",
+    "重要性词+1（demand）",
+    "摘要详实+10"
+   ],
+   "id": "2fcad4fd9521",
+   "title_zh": "LNG进口占哥伦比亚天然气供应比重上升",
+   "desc_zh": "国内产量持续下降推动LNG进口增加；秋冬潜在干旱或限制水电出力，进一步推升天然气发电需求。",
+   "event": "哥伦比亚LNG进口占比上升",
+   "data_note": "国内产量持续下降，秋冬干旱或推升气电需求",
+   "impact": "天然气需求预期增加，国际天然气偏多",
+   "certainty": "中",
+   "age_hours": 108.4
   },
   {
    "title": "What goes into diesel prices?",
@@ -915,12 +802,12 @@
    ],
    "id": "a6d465a665ff",
    "title_zh": "柴油价格由哪些因素决定？",
-   "desc_zh": "柴油价格受原油价格、零售利润、分销成本、税收和裂解价差驱动；全球馏分油供应紧张及原油价格高企推高价格。",
-   "event": "柴油价格受原油及馏分油供应紧张驱动",
-   "data_note": "原油价格高企，全球馏分油供应紧张",
-   "impact": "支撑柴油裂解价差，利好炼油利润",
+   "desc_zh": "柴油价格受原油价格、零售利润、分销成本、税费和裂解价差驱动；全球馏分油供应紧张与原油高价共同推高价格。",
+   "event": "柴油价格受多因素驱动",
+   "data_note": "原油价格、税费、裂解价差共同推高柴油价格",
+   "impact": "馏分油供应紧张，WTI原油偏多",
    "certainty": "中",
-   "age_hours": 995.0
+   "age_hours": 1092.4
   },
   {
    "title": "New England natural gas prices have been trading near record discounts to Henry Hub",
@@ -940,13 +827,13 @@
     "摘要详实+10"
    ],
    "id": "530d178710b9",
-   "title_zh": "新英格兰天然气价格对Henry Hub折价接近纪录水平",
-   "desc_zh": "低成本阿巴拉契亚和加拿大天然气供应叠加区域消费低于往常，推动新英格兰主要定价枢纽气价对Henry Hub大幅折价。",
+   "title_zh": "新英格兰天然气价格对Henry Hub的折价接近历史纪录",
+   "desc_zh": "阿巴拉契亚和加拿大低成本天然气供应叠加区域消费低于往常，推动新英格兰主要定价枢纽气价近期对Henry Hub大幅折价。",
    "event": "新英格兰气价对Henry Hub大幅折价",
-   "data_note": "低成本供应叠加消费低于往常，折价近纪录",
-   "impact": "区域气价承压，Henry Hub相对偏强",
+   "data_note": "阿巴拉契亚与加拿大低成本供应叠加消费低迷",
+   "impact": "区域气价承压，国际天然气影响有限",
    "certainty": "中",
-   "age_hours": 1211.0
+   "age_hours": 1308.4
   },
   {
    "title": "U.S. LNG exports rose 23% in the first half of 2026 because of higher capacity",
@@ -967,39 +854,12 @@
    ],
    "id": "51038b0bb762",
    "title_zh": "美国2026年上半年LNG出口增长23%",
-   "desc_zh": "产能提升推动美国LNG出口上半年均值达174亿立方英尺/日，同比增长23%；EIA预计全年均值173亿立方英尺/日。",
-   "event": "美国上半年LNG出口同比增23%",
-   "data_note": "出口均值174亿立方英尺/日，全年预计173亿",
-   "impact": "增加全球LNG供应，气价承压",
+   "desc_zh": "产能提升推动美国LNG出口上半年均值达174亿立方英尺/日，同比增长23%，最新展望预计全年均值173亿立方英尺/日。",
+   "event": "美国LNG出口上半年同比增23%",
+   "data_note": "出口均值174亿立方英尺/日，全年展望173亿",
+   "impact": "利空国际天然气价格预期，A股新奥股份等LNG贸易商承压",
    "certainty": "高",
-   "age_hours": 1403.0
-  },
-  {
-   "title": "World Bank lifts copper price outlook by 18%",
-   "link": "https://www.mining.com/world-bank-lifts-copper-price-outlook-by-18/",
-   "desc": "The bank’s upward revisions extend beyond copper.",
-   "date": "Wed, 28 Oct 2026 21:00:00 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "工业金属"
-   ],
-   "score": 50,
-   "score_detail": [
-    "主题匹配+25（工业金属）",
-    "标题含品种+15",
-    "重要性词+5（war,outlook,price）",
-    "摘要简短+3",
-    "3天内+2"
-   ],
-   "id": "a40e72d6e604",
-   "title_zh": "世界银行上调铜价预测18%",
-   "desc_zh": "世界银行大幅上调铜价展望，且上调范围不仅限于铜。",
-   "event": "世界银行上调铜价展望18%",
-   "data_note": "铜价展望上调18%，范围不限于铜",
-   "impact": "利好铜价预期，但LME铜跌0.07%存背离",
-   "certainty": "中",
-   "age_hours": 28.0
+   "age_hours": 1500.4
   },
   {
    "title": "U.S. refineries have been running at very high rates in 2026",
@@ -1018,13 +878,13 @@
     "摘要详实+10"
    ],
    "id": "8d7477b54e40",
-   "title_zh": "美国炼油厂2026年开工率维持高位",
-   "desc_zh": "美国炼厂今年开工率高于正常水平，5月至9月产能利用率平均超95%，为1998年以来同期最高。全球成品油供应紧张提振石油产品利润率，尤其是燃料油。",
+   "title_zh": "美国炼厂2026年开工率维持极高水平",
+   "desc_zh": "5月至9月炼厂产能利用率均值超95%，为1998年以来同期最高；全球成品油供应偏紧提振炼油利润。",
    "event": "美国炼厂开工率创1998年来同期最高",
-   "data_note": "5-9月产能利用率均超95%，燃料油利润率获提振",
-   "impact": "利好原油及燃料油，支撑炼厂利润",
-   "certainty": "高",
-   "age_hours": 179.0
+   "data_note": "5-9月产能利用率均值超95%",
+   "impact": "支撑WTI原油需求端，但A股中国石油跌4.21%存背离",
+   "certainty": "中",
+   "age_hours": 276.4
   },
   {
    "title": "Corpus Christi LNG expansion makes facility the second-largest in the United States",
@@ -1043,72 +903,73 @@
     "摘要详实+10"
    ],
    "id": "ec3b9561fdea",
-   "title_zh": "Corpus Christi LNG扩建使该设施成为美国第二大LNG基地",
-   "desc_zh": "2026年8月28日，Cheniere Energy完成德克萨斯州Corpus Christi液化三期项目，接管该项目第七列也是最后一列LNG液化装置。",
-   "event": "Cheniere完成Corpus Christi三期扩产",
-   "data_note": "8月28日接管第七列装置，成美国第二大LNG设施",
-   "impact": "增加LNG供应预期，天然气价格承压",
+   "title_zh": "Corpus Christi LNG扩建后成为美国第二大LNG设施",
+   "desc_zh": "Cheniere Energy于2026年8月28日完成CCL Stage 3项目，接管该项目第七列也是最后一列LNG生产线。",
+   "event": "Cheniere完成CCL Stage 3扩产项目",
+   "data_note": "2026年8月28日接管第七列生产线",
+   "impact": "增加美国LNG供给预期，利空国际天然气价格",
    "certainty": "高",
-   "age_hours": 1067.0
+   "age_hours": 1164.4
   },
   {
-   "title": "Gold dip draws Asian buyers as North American funds lose cash",
-   "link": "https://www.mining.com/gold-dip-draws-asian-buyers-as-north-american-funds-lose-cash/",
-   "desc": "Lower gold prices boost Indian premiums to $15/oz and increase Chinese trading as North American investors pull out.",
-   "date": "Wed, 28 Oct 2026 14:38:59 +0000",
+   "title": "$712 billion wiped off world’s biggest mining companies since start of Iran war",
+   "link": "https://www.mining.com/712-billion-wiped-off-worlds-biggest-mining-companies-since-the-start-of-the-iran-war/",
+   "desc": "Gold's worst October since 2008 and a turn in copper sentiment drop world's 50 most valuable mining stocks near one-year lows after losing 26% since the February peak.",
+   "date": "Mon, 02 Nov 2026 18:39:25 +0000",
    "source": "Mining.com",
    "source_id": "mining",
    "topics": [
-    "贵金属"
+    "贵金属",
+    "工业金属"
    ],
    "score": 49,
    "score_detail": [
-    "主题匹配+25（贵金属）",
-    "标题含品种+15",
-    "重要性词+1（price）",
+    "主题匹配+25（贵金属/工业金属）",
+    "多主题+10",
+    "重要性词+3（war）",
     "摘要有内容+6",
-    "3天内+2"
+    "24h内+5"
    ],
-   "id": "7845bc7f76da",
-   "title_zh": "金价下跌吸引亚洲买家，北美基金撤离",
-   "desc_zh": "金价走低推动印度溢价升至15美元/盎司，中国交易量增加，而北美投资者正在撤出。",
-   "event": "金价走低亚洲买盘承接北美资金撤离",
-   "data_note": "印度溢价升至15美元/盎司，中国交易量增加",
-   "impact": "COMEX黄金跌0.33%，亚洲实物需求托底",
+   "id": "53d2bb3f0612",
+   "title_zh": "伊朗战争以来全球最大矿企市值蒸发7120亿美元",
+   "desc_zh": "黄金创2008年以来最差10月表现、铜市情绪逆转，全球50大矿业股较2月峰值跌26%，逼近一年低点。",
+   "event": "伊朗战争以来全球矿业股市值蒸发7120亿美元",
+   "data_note": "50大矿业股较2月峰值跌26%，黄金创2008年来最差10月",
+   "impact": "A股紫金矿业+2.57%、山东黄金+4.16%与国际金价-0.40%背离",
    "certainty": "中",
-   "age_hours": 34.3
+   "age_hours": 7.8
   },
   {
-   "title": "Copper, nickel at risk due to El Niño’s disruptions",
-   "link": "https://www.mining.com/copper-nickel-at-risk-due-to-el-ninos-disruptions/",
-   "desc": "El Niño could disrupt copper and nickel production through early 2027, BMI reports.",
-   "date": "Thu, 29 Oct 2026 17:05:28 +0000",
+   "title": "US copper stockpiles conceal growing global supply crunch",
+   "link": "https://www.mining.com/us-copper-stockpiles-conceal-growing-global-supply-crunch/",
+   "desc": "Chinese premiums and African risks highlight a disconnect between copper inventories and physical market conditions.",
+   "date": "Thu, 29 Oct 2026 12:58:08 +0000",
    "source": "Mining.com",
    "source_id": "mining",
    "topics": [
     "工业金属"
    ],
-   "score": 48,
+   "score": 49,
    "score_detail": [
     "主题匹配+25（工业金属）",
     "标题含品种+15",
-    "摘要简短+3",
-    "24h内+5"
+    "重要性词+3（inventor,market）",
+    "摘要有内容+6"
    ],
-   "id": "346e538652a1",
-   "title_zh": "厄尔尼诺扰动或危及铜、镍供应",
-   "desc_zh": "BMI报告称，厄尔尼诺可能扰乱铜和镍生产直至2027年初。",
-   "event": "厄尔尼诺或扰乱铜镍生产至2027年初",
-   "data_note": "BMI报告预警，LME铜跌0.07%、铝跌0.29%",
-   "impact": "铜镍供应扰动预期，价格存上行风险",
+   "id": "b87a9512bf8c",
+   "title_zh": "美国铜库存掩盖全球供应日益紧张",
+   "desc_zh": "中国溢价与非洲风险凸显铜库存与现货市场基本面之间的脱节。",
+   "event": "美国铜库存掩盖全球铜供应紧张",
+   "data_note": "中国溢价与非洲风险凸显库存与现货脱节",
+   "impact": "LME铜-1.09%但A股江西铜业+1.31%，铜价方向存分歧",
    "certainty": "中",
-   "age_hours": 7.9
+   "age_hours": 109.4
   },
   {
-   "title": "HyProMag USA PFS outlines $2.1B upside from rare earth magnet platform expansion",
-   "link": "https://www.mining.com/hypromag-usa-pfs-outlines-2-1b-upside-from-rare-earth-magnet-platform-expansion/",
-   "desc": "Company eyes expanding beyond its first plant in Northlake, Texas, which is in detailed engineering.",
-   "date": "Wed, 28 Oct 2026 23:19:58 +0000",
+   "title": "Nouveau Monde Graphite marks key regulatory milestone in Quebec",
+   "link": "https://www.mining.com/nouveau-monde-graphite-marks-key-regulatory-milestone-in-quebec/",
+   "desc": "The company said the lease follows several years of environmental, social and regulatory work.",
+   "date": "Mon, 02 Nov 2026 16:30:13 +0000",
    "source": "Mining.com",
    "source_id": "mining",
    "topics": [
@@ -1118,23 +979,23 @@
    "score_detail": [
     "主题匹配+25（锂/电池金属）",
     "标题含品种+15",
-    "摘要有内容+6",
-    "3天内+2"
+    "摘要简短+3",
+    "24h内+5"
    ],
-   "id": "1ee0ab7be387",
-   "title_zh": "HyProMag USA PFS显示稀土磁体平台扩建带来21亿美元上行空间",
-   "desc_zh": "公司计划在德克萨斯州Northlake首家工厂之外扩张，该工厂正处于详细工程设计阶段。",
-   "event": "HyProMag拟扩产稀土磁材平台",
-   "data_note": "PFS显示扩张带来21亿美元上行空间",
-   "impact": "稀土磁材供应预期增加，北方稀土跌0.62%",
-   "certainty": "低",
-   "age_hours": 25.6
+   "id": "5ef9eb00cceb",
+   "title_zh": "Nouveau Monde Graphite在魁北克取得关键监管里程碑",
+   "desc_zh": "公司表示该租约是在多年环境、社会和监管工作后获批的。",
+   "event": "石墨项目获监管租约批准",
+   "data_note": "暂无该品种数据",
+   "impact": "石墨供给预期增加，利空石墨价格",
+   "certainty": "中",
+   "age_hours": 9.9
   },
   {
-   "title": "Mule Canyon gold resource advances restart plans",
-   "link": "https://www.mining.com/mule-canyon-gold-resource-advances-restart-plans/",
-   "desc": "The next steps include upgrading inferred material, establishing the economics and securing restart permits.",
-   "date": "Wed, 28 Oct 2026 19:41:09 +0000",
+   "title": "Endeavour halts Burkina gold underground as ramp sinks",
+   "link": "https://www.mining.com/endeavour-halts-burkina-gold-underground-as-ramp-sinks/",
+   "desc": "The Oct. 28 incident is another setback for an operation set to miss its annual production target.",
+   "date": "Mon, 02 Nov 2026 14:22:18 +0000",
    "source": "Mining.com",
    "source_id": "mining",
    "topics": [
@@ -1144,25 +1005,52 @@
    "score_detail": [
     "主题匹配+25（贵金属）",
     "标题含品种+15",
-    "摘要有内容+6",
-    "3天内+2"
+    "摘要简短+3",
+    "24h内+5"
    ],
-   "id": "480630ac1b95",
-   "title_zh": "Mule Canyon金矿资源推进重启计划",
-   "desc_zh": "下一步包括升级推断资源量、确立经济性并取得重启许可。",
-   "event": "金矿项目推进重启审批",
-   "data_note": "COMEX黄金4018.212 -0.33%，A股山东黄金24.13 -3.44%",
-   "impact": "黄金供给预期微增，金价短期承压",
+   "id": "d9176e8c0bed",
+   "title_zh": "Endeavour因坡道下沉暂停布基纳法索金矿地下作业",
+   "desc_zh": "10月28日事故令该矿再受打击，该矿预计将无法完成年度产量目标。",
+   "event": "金矿地下开采因事故暂停",
+   "data_note": "暂无该品种数据；COMEX黄金3953.659 -0.40%",
+   "impact": "金矿供给收缩，利多黄金价格",
    "certainty": "中",
-   "age_hours": 29.3
+   "age_hours": 12.0
   },
   {
-   "title": "Oil exploration opens door to Brazil offshore potash",
-   "link": "https://www.mining.com/oil-exploration-opens-door-to-brazil-offshore-potash/",
-   "desc": "South Atlantic Potash plans to tap deposits beneath the Sergipe coast, a region historically used for oil extraction.",
-   "date": "Wed, 28 Oct 2026 18:02:17 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
+   "title": "Mixed outlook for energy expenditures this winter",
+   "link": "https://www.eia.gov/todayinenergy/detail.php?id=68264",
+   "desc": "We expect energy expenditures this winter to vary because of diverging trends in energy prices among fuels and regional variation in forecast temperatures. We expect that lower prices for natural gas and propane will drive decreases in expenditures this year for the half of U.S. households heating with those fuels. Higher prices for electricity and heating oil drive increased expenditures for households heating with those fuels in our forecast.",
+   "date": "Wed, 07 Oct 2026 09:00:00 EST",
+   "source": "EIA Today in Energy",
+   "source_id": "eia",
+   "topics": [
+    "石油",
+    "天然气"
+   ],
+   "score": 48,
+   "score_detail": [
+    "主题匹配+25（石油/天然气）",
+    "多主题+10",
+    "重要性词+3（forecast,outlook,price）",
+    "摘要详实+10"
+   ],
+   "id": "2c293dec4533",
+   "title_zh": "今年冬季能源支出前景分化",
+   "desc_zh": "预计今冬能源支出因各燃料价格走势分化和地区气温预测差异而不同，天然气和丙烷价格下降将推动半数美国家庭取暖支出减少。",
+   "event": "冬季能源支出因气价下跌分化",
+   "data_note": "国际期货天然气3.371 +0.69%",
+   "impact": "取暖成本下降，天然气需求端偏空",
+   "certainty": "中",
+   "age_hours": 636.4
+  },
+  {
+   "title": "Crude oil prices and refinery margins generally increased throughout the third quarter",
+   "link": "https://www.eia.gov/todayinenergy/detail.php?id=68245",
+   "desc": "Petroleum markets in the third quarter of 2026 (3Q26) were characterized by increasing prices for crude oil and petroleum products amid persistent conflict in the Middle East.",
+   "date": "Mon, 05 Oct 2026 09:00:00 EST",
+   "source": "EIA Today in Energy",
+   "source_id": "eia",
    "topics": [
     "石油"
    ],
@@ -1170,95 +1058,172 @@
    "score_detail": [
     "主题匹配+25（石油）",
     "标题含品种+15",
-    "摘要有内容+6",
-    "3天内+2"
+    "重要性词+2（price,market）",
+    "摘要有内容+6"
    ],
-   "id": "f82c56487de1",
-   "title_zh": "石油勘探为巴西海上钾盐开发打开大门",
-   "desc_zh": "South Atlantic Potash计划开发Sergipe海岸下钾盐矿床，该地区历史上用于石油开采。",
-   "event": "石油区发现钾盐矿床开发计划",
-   "data_note": "WTI原油102.558 +0.55%，A股中国石油13.69 +3.24%",
-   "impact": "钾肥供给预期增加，对钾肥品种偏空",
-   "certainty": "低",
-   "age_hours": 30.9
-  },
-  {
-   "title": "Anfield Energy secures draft State approvals for Utah uranium mill",
-   "link": "https://www.mining.com/anfield-energy-secures-draft-state-approvals-for-utah-uranium-mill/",
-   "desc": "The Shootaring Canyon Mill in Garfield County is one of only three licensed, permitted, and constructed conventional uranium mills in the US.",
-   "date": "Tue, 27 Oct 2026 21:44:51 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "铀"
-   ],
-   "score": 48,
-   "score_detail": [
-    "主题匹配+25（铀）",
-    "标题含品种+15",
-    "摘要有内容+6",
-    "3天内+2"
-   ],
-   "id": "d8abe3828b51",
-   "title_zh": "Anfield Energy获得犹他州铀矿厂初步州级批准",
-   "desc_zh": "Garfield县Shootaring Canyon Mill是美国仅有的三座持证、获批并建成的常规铀矿厂之一。",
-   "event": "美铀矿厂获州级初步批准",
-   "data_note": "暂无铀品种数据",
-   "impact": "铀矿供给预期增加，对铀价偏空",
+   "id": "703423173e9d",
+   "title_zh": "第三季度原油价格和炼油利润率普遍上升",
+   "desc_zh": "2026年第三季度石油市场特征为中东冲突持续背景下原油和石油产品价格上涨。",
+   "event": "三季度原油及炼油利润上涨",
+   "data_note": "国际期货WTI原油96.494 +0.04%；布伦特104.662 -0.10%",
+   "impact": "炼油利润改善，利多炼化板块",
    "certainty": "中",
-   "age_hours": 51.2
+   "age_hours": 684.4
   },
   {
-   "title": "Labour shortage hurts West Lake Gold output",
-   "link": "https://www.mining.com/labour-shortage-hurts-west-lake-gold-output/",
-   "desc": "The company cut its annual production target by 25% due to labor shortages and slowdowns at its Madsen gold mine.",
-   "date": "Tue, 27 Oct 2026 16:35:44 +0000",
+   "title": "U.S. natural gas production reached a record high in July 2026",
+   "link": "https://www.eia.gov/todayinenergy/detail.php?id=68225",
+   "desc": "U.S. natural gas production hit an all-time high in July 2026, driven primarily by increased output in the Permian Basin, according to our latest Natural Gas Monthly.",
+   "date": "Fri, 02 Oct 2026 09:00:00 EST",
+   "source": "EIA Today in Energy",
+   "source_id": "eia",
+   "topics": [
+    "天然气"
+   ],
+   "score": 48,
+   "score_detail": [
+    "主题匹配+25（天然气）",
+    "标题含品种+15",
+    "重要性词+2（record high）",
+    "摘要有内容+6"
+   ],
+   "id": "feb5ec00bb1a",
+   "title_zh": "美国2026年7月天然气产量创历史新高",
+   "desc_zh": "据最新《天然气月报》，美国2026年7月天然气产量创历史新高，主要受Permian Basin产量增长推动。",
+   "event": "美国7月天然气产量创历史新高",
+   "data_note": "国际期货天然气3.371 +0.69%",
+   "impact": "天然气供给增加，利空气价",
+   "certainty": "高",
+   "age_hours": 756.4
+  },
+  {
+   "title": "EIA increases global oil production forecast after the opening of the Strait of Hormuz",
+   "link": "/pressroom/releases/press590.php",
+   "desc": "The U.S. Energy Information Administration published its July Short-Term Energy Outlook (STEO), increasing its expectations for global oil production.",
+   "date": "Tue, 7 Jul 2026 12:00:00 EST",
+   "source": "EIA Press Releases",
+   "source_id": "eia_press",
+   "topics": [
+    "石油"
+   ],
+   "score": 48,
+   "score_detail": [
+    "主题匹配+25（石油）",
+    "标题含品种+15",
+    "重要性词+2（forecast,outlook）",
+    "摘要有内容+6"
+   ],
+   "id": "409ed9239014",
+   "title_zh": "EIA在霍尔木兹海峡开放后上调全球石油产量预测",
+   "desc_zh": "美国能源信息署发布7月短期能源展望，上调全球石油产量预期。",
+   "event": "EIA上调全球石油产量预期",
+   "data_note": "EIA发布7月短期能源展望上调产量预期；WTI原油96.494 +0.04%，布伦特104.662 -0.10%",
+   "impact": "国际原油期货供给预期宽松，对油价形成下行压力；A股中国石油-4.21%、中国石化-3.56%、中国海油-5.05%同步走弱",
+   "certainty": "高",
+   "age_hours": 2841.4
+  },
+  {
+   "title": "Gold price slumps to one-year low, silver price breaks $50 as mining stocks tank",
+   "link": "https://www.mining.com/gold-price-slumps-to-one-year-low-silver-price-breaks-50-as-mining-stocks-tank/",
+   "desc": "Bullion is headed for its worst October since 2008, dragging down gold and silver producers as much as 8% on Friday.",
+   "date": "Fri, 30 Oct 2026 16:31:19 +0000",
    "source": "Mining.com",
    "source_id": "mining",
    "topics": [
     "贵金属"
    ],
-   "score": 48,
+   "score": 47,
    "score_detail": [
     "主题匹配+25（贵金属）",
     "标题含品种+15",
-    "摘要有内容+6",
-    "3天内+2"
+    "重要性词+1（price）",
+    "摘要有内容+6"
    ],
-   "id": "a1657cefaf7e",
-   "title_zh": "劳动力短缺影响West Lake Gold产量",
-   "desc_zh": "因劳动力短缺及Madsen金矿进度放缓，公司将年度产量目标下调25%。",
-   "event": "西湖金矿因缺工下调产量25%",
-   "data_note": "COMEX黄金4018.212 -0.33%，A股山东黄金24.13 -3.44%",
-   "impact": "黄金供给减少，对金价偏多",
-   "certainty": "高",
-   "age_hours": 56.4
+   "id": "929b4d9959df",
+   "title_zh": "金价跌至一年低点，银价突破50美元，矿业股重挫",
+   "desc_zh": "金价料创2008年以来最差10月表现，周五拖累金银生产商股价下跌多达8%。",
+   "event": "金价跌至一年低点银价破50美元",
+   "data_note": "金价料创2008年以来最差10月表现，矿商股跌多达8%；COMEX黄金3953.659 -0.40%，白银50.271 -1.21%",
+   "impact": "国际贵金属期货承压；但A股山东黄金+4.16%、中金黄金+4.00%背离走强，需警惕方向不一致",
+   "certainty": "中",
+   "age_hours": 81.9
   },
   {
-   "title": "China Gold restarts CSH mine after five-month shutdown",
-   "link": "https://www.mining.com/china-gold-restarts-csh-mine-after-five-month-shutdown/",
-   "desc": "Open-pit operations resumed in early October following the completion of remediation work on the site.",
-   "date": "Tue, 27 Oct 2026 16:18:20 +0000",
+   "title": "The top 50 biggest mining companies in the world",
+   "link": "https://www.mining.com/top-50-biggest-mining-companies/",
+   "desc": "Gold's worst October since 2008 and a turn in copper sentiment drop world's 50 most valuable mining stocks near one-year lows after losing 26% since the February peak.",
+   "date": "Mon, 02 Nov 2026 07:01:00 +0000",
+   "source": "Mining.com",
+   "source_id": "mining",
+   "topics": [
+    "贵金属",
+    "工业金属"
+   ],
+   "score": 46,
+   "score_detail": [
+    "主题匹配+25（贵金属/工业金属）",
+    "多主题+10",
+    "摘要有内容+6",
+    "24h内+5"
+   ],
+   "id": "f226b4611d51",
+   "title_zh": "全球50大矿业公司",
+   "desc_zh": "金价创2008年以来最差10月表现，铜市情绪转向，全球50大最有价值矿业股较2月峰值下跌26%，逼近一年低点。",
+   "event": "全球50大矿业股较峰值跌26%",
+   "data_note": "金价创2008年以来最差10月，铜市情绪转向，50大矿业股较2月峰值跌26%；LME铜14188.05 -1.09%",
+   "impact": "国际铜期货及全球矿业股情绪偏空；A股紫金矿业+2.57%、江西铜业+1.31%背离，影响方向存疑",
+   "certainty": "中",
+   "age_hours": 19.4
+  },
+  {
+   "title": "Perseus Mining secures backup power for Nyanzaga gold project",
+   "link": "https://www.mining.com/perseus-mining-secures-backup-power-for-nyanzaga-gold-project/",
+   "desc": "A 28-generator system aims to keep operations running safely as the Tanzanian project targets first production in 2027.",
+   "date": "Fri, 30 Oct 2026 16:22:09 +0000",
    "source": "Mining.com",
    "source_id": "mining",
    "topics": [
     "贵金属"
    ],
-   "score": 48,
+   "score": 46,
    "score_detail": [
     "主题匹配+25（贵金属）",
     "标题含品种+15",
-    "摘要有内容+6",
-    "3天内+2"
+    "摘要有内容+6"
    ],
-   "id": "22dcde23378c",
-   "title_zh": "China Gold重启停产五个月的CSH矿",
-   "desc_zh": "现场修复工作完成后，露天开采于10月初恢复。",
-   "event": "中国黄金CSH矿停产五月后复产",
-   "data_note": "COMEX黄金4018.212 -0.33%，A股中金黄金19.89 -0.60%",
-   "impact": "黄金供给恢复，对金价偏空",
-   "certainty": "高",
-   "age_hours": 56.6
+   "id": "30f5f3ffd3bd",
+   "title_zh": "Perseus Mining为Nyanzaga金矿项目落实备用电力",
+   "desc_zh": "28台发电机组系统旨在保障坦桑尼亚项目安全运营，目标2027年首次投产。",
+   "event": "Perseus为金矿项目落实备用电力",
+   "data_note": "28台发电机组保障坦桑尼亚Nyanzaga项目，目标2027年首次投产；COMEX黄金3953.659 -0.40%",
+   "impact": "黄金项目远期供给预期微增，对国际金价影响有限；暂无A股直接对应品种数据",
+   "certainty": "低",
+   "age_hours": 82.0
+  },
+  {
+   "title": "One World Lithium deploys DLCE equipment to UCI, UBC labs",
+   "link": "https://www.mining.com/one-world-lithium-deploys-dlce-equipment-to-uci-ubc-labs-for-rd/",
+   "desc": "The deployment of on-site equipment expands upon the successful lab work that yielded two patent-pending applications, the company said.",
+   "date": "Fri, 30 Oct 2026 00:05:40 +0000",
+   "source": "Mining.com",
+   "source_id": "mining",
+   "topics": [
+    "锂/电池金属"
+   ],
+   "score": 46,
+   "score_detail": [
+    "主题匹配+25（锂/电池金属）",
+    "标题含品种+15",
+    "摘要有内容+6"
+   ],
+   "id": "c59945b202d7",
+   "title_zh": "One World Lithium向UCI、UBC实验室部署DLCE设备",
+   "desc_zh": "公司称，现场设备部署扩展了此前成功完成的实验室工作，该工作已产生两项待批专利申请。",
+   "event": "One World Lithium部署提锂设备至实验室",
+   "data_note": "设备部署扩展前期实验室工作，已产生两项待批专利申请；暂无该品种数据",
+   "impact": "锂资源技术进展属远期供给预期，对锂价影响尚不明确；A股天齐锂业+3.07%暂无直接关联验证",
+   "certainty": "低",
+   "age_hours": 98.3
   }
  ]
 }
