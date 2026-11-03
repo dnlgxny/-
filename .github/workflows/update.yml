@@ -65,16 +65,32 @@ jobs:
           fi
           cd 金融要闻
           python run_daily.py
+          SN=0
           cd ..
           echo "── 要闻数据 ──"
-          python -c "
-          import json
-          d=json.load(open('金融要闻/_data/news.json'))
-          print(f\"  新闻 {d['total']} 条｜行情 A股{len(d['market']['stocks'])} 商品{len(d['market']['commodities'])}\" )
-          has_data=sum(1 for it in d['items'] if it.get('data_note'))
-          print(f'  含数据佐证 {has_data}/{d[\"total\"]} 条')
-          "
-        continue-on-error: true     # 要闻失败不阻塞指数数据部署
+          python - <<'PY' || SN=1
+          import json, sys, datetime
+          d = json.load(open('金融要闻/_data/news.json'))
+          items = d.get('items', [])
+          zh = sum(1 for x in items if x.get('title_zh'))
+          ai = sum(1 for x in items if x.get('event'))
+          dn = sum(1 for x in items if x.get('data_note'))
+          print(f"  新闻 {d['total']} 条｜中文 {zh}｜AI 事件 {ai}｜数据佐证 {dn}")
+          print(f"  生成时间 {d['generatedAt']}")
+          print(f"  行情 A股 {len(d['market']['stocks'])} / 商品 {len(d['market']['commodities'])}")
+          # ⚠️ 云端强制校验：AI 必须真的跑通，不能只看步骤 success
+          age_h = (datetime.datetime.now() - datetime.datetime.strptime(d['generatedAt'], '%Y-%m-%d %H:%M')).total_seconds()/3600
+          bad = []
+          if zh < d['total']: bad.append(f"中文仅 {zh}/{d['total']}")
+          if ai < d['total']: bad.append(f"AI 事件仅 {ai}/{d['total']}")
+          if age_h > 6:       bad.append(f"生成时间过旧（{age_h:.1f}h 前）")
+          if bad:
+              print(f"❌ 要闻数据未真正更新：{'；'.join(bad)}")
+              sys.exit(1)
+          print("✅ 要闻数据校验通过（中文/AI 均完整且新鲜）")
+          PY
+          echo "SN=$SN" >> $GITHUB_ENV
+        # 不阻塞指数数据部署（用 step 输出标记，最后统一判定）
 
       - name: 生成页面与发布包
         run: |
@@ -127,6 +143,13 @@ jobs:
             git commit -m "自动更新数据 $(date -u '+%Y-%m-%d %H:%M UTC')"
             git push
           fi
+
+      - name: 要闻失败则整体失败（避免静默）
+        if: env.SN == '1'
+        run: |
+          echo "❌ 金融要闻未真正更新（见上一步输出）"
+          echo "   常见原因：DEEPSEEK_API_KEY 未配置或无效、API 余额不足、数据源失败"
+          exit 1
 
       - name: 上传 Pages 产物
         if: steps.diff.outputs.changed == 'true' || github.event_name != 'schedule'

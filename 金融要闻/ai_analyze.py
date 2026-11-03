@@ -2,36 +2,59 @@
 import os, json, time, urllib.request, ssl, re
 
 def get_key():
+    """读取 DeepSeek API Key。
+    优先环境变量（GitHub Actions 用 secrets 注入），回退本地凭据文件。
+    """
+    k = os.environ.get('DEEPSEEK_API_KEY', '').strip()
+    if k:
+        return k
     p = os.path.expanduser('~/.dsh/.credentials.yaml')
-    for line in open(p, encoding='utf-8'):
-        if 'DEEPSEEK_API_KEY' in line:
-            return line.split(':',1)[1].strip().strip('"').strip("'")
+    if not os.path.exists(p):
+        return None
+    try:
+        for line in open(p, encoding='utf-8'):
+            if 'DEEPSEEK_API_KEY' in line:
+                return line.split(':', 1)[1].strip().strip('"').strip("'")
+    except Exception:
+        pass
     return None
 
-KEY = get_key()
 
-def call(prompt, max_tokens=2000, retries=2):
+KEY = get_key()   # 惰性也可；模块级取值即可
+
+def call(prompt, max_tokens=800, retries=5, retry_sleep=4):
+    """调用 DeepSeek。遇到 503/超时会指数退避重试。"""
     if not KEY: raise RuntimeError('无 DEEPSEEK_API_KEY')
     body = json.dumps({
         'model': 'deepseek-chat',
         'messages': [{'role':'user','content':prompt}],
-        'temperature': 0.3,
+        'temperature': 0.2,
         'max_tokens': max_tokens,
     }).encode()
     ctx = ssl.create_default_context()
     op = urllib.request.build_opener(urllib.request.HTTPSHandler(context=ctx),
                                      urllib.request.ProxyHandler({}))
-    for i in range(retries+1):
+    last = None
+    for i in range(retries + 1):
         try:
             req = urllib.request.Request('https://api.deepseek.com/chat/completions',
                 data=body, headers={'Content-Type':'application/json',
                                     'Authorization': f'Bearer {KEY}'})
-            with op.open(req, timeout=120) as r:
+            with op.open(req, timeout=90) as r:
                 d = json.loads(r.read().decode())
-            return d['choices'][0]['message']['content'].strip(), d.get('usage',{})
+            return d['choices'][0]['message']['content'].strip()
         except Exception as e:
-            if i == retries: raise
-            time.sleep(4)
+            last = e
+            code = getattr(e, 'code', None)
+            # 503/502/429 = 服务端忙或限流，值得重试；401/402 不重试
+            retryable = code in (503, 502, 504, 429) or isinstance(
+                e, (ssl.SSLError, TimeoutError)) or 'timed out' in str(e).lower()
+            if i == retries or not retryable:
+                raise
+            wait = retry_sleep * (2 ** i)
+            print(f'      [重试 {i+1}/{retries}] {type(e).__name__}({code}) 等待 {wait}s', flush=True)
+            time.sleep(wait)
+    raise last
 
 PROMPT_TMPL = '''你是资深大宗商品分析师。请为下面每条新闻生成【事件说明】，**必须结合我给出的实际行情数据**。
 
