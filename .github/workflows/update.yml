@@ -22,6 +22,11 @@ on:
     - cron: '30 1 * * 1-5'    # 北京 09:30（主）
     - cron: '30 3 * * 1-5'    # 北京 11:30（补跑）
     - cron: '30 6 * * 1-5'    # 北京 14:30（再补）
+    # ⚠️ 2026-11-07 新增：美股收盘后补最新一根
+    #   美股 16:00 ET = 21:00 UTC = 北京次日 05:00；周二~周六的 05:30 跑，
+    #   正好把那根「美股收盘 K 线」抓进来。原先只在工作日北京 09:30~14:30 跑，
+    #   导致周五美股那根要拖到下周一才补上 → 周末看页面就是「纳指好几天没更新」。
+    - cron: '30 21 * * 1-5'   # 北京 05:30（周二~周六）
   workflow_dispatch:        # 支持手动触发
 
 permissions:
@@ -152,7 +157,8 @@ jobs:
           exit 1
 
       - name: 上传 Pages 产物
-        if: steps.diff.outputs.changed == 'true' || github.event_name != 'schedule'
+        # ⚠️ 2026-11-07：加 always()，否则「要闻失败」那步 exit 1 之后 Pages 部署被整体跳过
+        if: always() && (steps.diff.outputs.changed == 'true' || github.event_name != 'schedule')
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
@@ -160,7 +166,7 @@ jobs:
 
       - name: 部署到 GitHub Pages
         id: deploy
-        if: steps.diff.outputs.changed == 'true' || github.event_name != 'schedule'
+        if: always() && (steps.diff.outputs.changed == 'true' || github.event_name != 'schedule')
         uses: actions/deploy-pages@v4
         continue-on-error: true
 
