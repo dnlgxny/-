@@ -69,13 +69,21 @@ jobs:
             exit 0
           fi
           cd 金融要闻
-          python run_daily.py
-          SN=0
+          echo "── run_daily.py 开始（完整输出）──"
+          set +e
+          python -u run_daily.py 2>&1 | tee /tmp/news_run.log
+          RC=${PIPESTATUS[0]}
+          set -e
+          echo "── run_daily.py 退出码: $RC ──"
           cd ..
+          SN=0
           echo "── 要闻数据 ──"
           python - <<'PY' || SN=1
           import json, sys, datetime
+          import os
           d = json.load(open('金融要闻/_data/news.json'))
+          rc = os.environ.get('NEWS_RC', '0')
+          print(f"  run_daily 退出码 {rc}")
           items = d.get('items', [])
           zh = sum(1 for x in items if x.get('title_zh'))
           ai = sum(1 for x in items if x.get('event'))
@@ -95,6 +103,7 @@ jobs:
           print("✅ 要闻数据校验通过（中文/AI 均完整且新鲜）")
           PY
           echo "SN=$SN" >> $GITHUB_ENV
+          echo "NEWS_RC=$RC" >> $GITHUB_ENV
         # 不阻塞指数数据部署（用 step 输出标记，最后统一判定）
 
       - name: 生成页面与发布包

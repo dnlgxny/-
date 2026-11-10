@@ -1,7 +1,9 @@
 """金融要闻 · 每日更新主流程"""
 import sys, os, json, datetime
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from fetch_news import fetch, parse_rss, classify, score
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+NEWS_DIR = os.path.join(HERE, '_data')
+from fetch_news import fetch, parse_rss, classify, score, ai_commodity_link
 from sources import SOURCES
 from translate import translate_batch
 from ai_analyze import analyze_batch
@@ -27,11 +29,14 @@ def main():
     import hashlib
     for it in all_items:
         it['topics'] = classify(it['title'], it['desc'])
+        it['ai_links'] = ai_commodity_link(it['title'], it['desc'])
         it['score'], it['score_detail'] = score(it, it['topics'])
         it['id'] = hashlib.md5(it['link'].encode()).hexdigest()[:12]
 
-    relevant = [x for x in all_items if x['topics']]
-    print(f'    实物物资相关: {len(relevant)}/{len(all_items)} 条')
+    # 保留规则：有物资主题，或 AI 与物资有交叉关联
+    relevant = [x for x in all_items if x['topics'] or x['ai_links']]
+    n_ai = sum(1 for x in relevant if x['ai_links'])
+    print(f'    物资相关: {len(relevant)}/{len(all_items)} 条（其中 AI×物资 {n_ai} 条）')
 
     # 去重
     seen=set(); uniq=[]
@@ -84,7 +89,7 @@ def main():
     zh_ok = sum(1 for it in keep if it.get('title_zh'))
     ai_ok = sum(1 for it in keep if it.get('event'))
     if zh_ok == 0 and ai_ok == 0:
-        old_path = '_data/news.json'
+        old_path = os.path.join(NEWS_DIR, 'news.json')
         if os.path.exists(old_path):
             try:
                 prev = json.load(open(old_path, encoding='utf-8'))
@@ -110,8 +115,9 @@ def main():
         'marketTime': now_str,
         'items': keep,
     }
-    os.makedirs('_data', exist_ok=True)
-    json.dump(out, open('_data/news.json','w'), ensure_ascii=False, indent=1)
+    os.makedirs(NEWS_DIR, exist_ok=True)
+    out_path = os.path.join(NEWS_DIR, 'news.json')
+    json.dump(out, open(out_path,'w'), ensure_ascii=False, indent=1)
 
     # 摘要打印
     print()

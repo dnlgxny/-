@@ -20,11 +20,14 @@ def get_key():
     return None
 
 
-KEY = get_key()   # 惰性也可；模块级取值即可
+def _key():
+    """惰性取 key（避免模块导入时机过早导致 None）"""
+    return os.environ.get('DEEPSEEK_API_KEY','').strip() or get_key()
 
 def call(prompt, max_tokens=800, retries=5, retry_sleep=4):
     """调用 DeepSeek。遇到 503/超时会指数退避重试。"""
-    if not KEY: raise RuntimeError('无 DEEPSEEK_API_KEY')
+    K = _key()
+    if not K: raise RuntimeError('无 DEEPSEEK_API_KEY')
     body = json.dumps({
         'model': 'deepseek-chat',
         'messages': [{'role':'user','content':prompt}],
@@ -39,7 +42,7 @@ def call(prompt, max_tokens=800, retries=5, retry_sleep=4):
         try:
             req = urllib.request.Request('https://api.deepseek.com/chat/completions',
                 data=body, headers={'Content-Type':'application/json',
-                                    'Authorization': f'Bearer {KEY}'})
+                                    'Authorization': f'Bearer {K}'})
             with op.open(req, timeout=90) as r:
                 d = json.loads(r.read().decode())
             return d['choices'][0]['message']['content'].strip()
@@ -111,7 +114,7 @@ def analyze_batch(items, batch_size=5, market_ctx=None, data_time=''):
             elif it.get('desc'): lines.append(f"[{k}] 摘要: {it['desc'][:200]}")
         prompt = PROMPT_TMPL.format(items='\n'.join(lines), market_data=md_text, data_time=data_time or '实时')
         try:
-            res, usage = call(prompt, max_tokens=1600)
+            res = call(prompt, max_tokens=1600)
             for line in res.split('\n'):
                 line=line.strip()
                 if not line or '|' not in line: continue
@@ -126,7 +129,7 @@ def analyze_batch(items, batch_size=5, market_ctx=None, data_time=''):
                     batch[idx]['certainty'] = p[4] if len(p)>4 and p[4] in ('高','中','低') else '中'
             ok=sum(1 for x in batch if x.get('event'))
             done+=ok
-            print(f'    批次 {bi//batch_size+1}: {ok}/{len(batch)} 条 ({usage.get("total_tokens",0)} tokens)')
+            print(f'    批次 {bi//batch_size+1}: {ok}/{len(batch)} 条')
         except Exception as e:
             print(f'    批次 {bi//batch_size+1} 失败: {type(e).__name__}: {str(e)[:60]}')
         time.sleep(0.8)

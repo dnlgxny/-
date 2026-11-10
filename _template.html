@@ -152,7 +152,7 @@
   .nitem:hover{border-color:var(--info);box-shadow:0 2px 10px rgba(37,99,235,.08)}
   .nitem .ntop{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px}
   .nitem .ntitle{font-size:14.5px;font-weight:600;line-height:1.5;flex:1;color:#111827}
-  .nitem .nscore{flex:0 0 auto;font-size:13px;font-weight:700;padding:2px 9px;border-radius:6px;
+  .nitem .nscore{flex:0 0 auto;font-size:15px;font-weight:700;padding:2px 8px;border-radius:6px;
                  font-variant-numeric:tabular-nums}
   .sc-hi{background:#fee2e2;color:#b91c1c}
   .sc-mid{background:#fef3c7;color:#b45309}
@@ -188,6 +188,9 @@
   .ct-lo{background:#fee2e2;color:#b91c1c}
   /* 时效标记 */
   .nfresh{font-size:10.5px;padding:1px 6px;border-radius:4px;background:#f1f5f9;color:#64748b}
+  .nf-ai{border-color:#a855f7;color:#7e22ce}
+  .nf-ai.on{background:#7e22ce;border-color:#7e22ce;color:#fff}
+  .ntag-ai{background:#f3e8ff;color:#7e22ce;font-weight:500}
   .nf-hot{background:#fee2e2;color:#b91c1c;font-weight:600}
   .nf-new{background:#dbeafe;color:#1d4ed8}
   .nf-old{opacity:.65}
@@ -312,7 +315,7 @@
 </div>
 
 <div id="viewNews" style="display:none">
-  <div class="sec">金融要闻 <span class="tag" id="newsMeta"></span></div>
+  <div class="sec">金融要闻 <span class="tag" id="newsMeta"></span><span class="tag" style="margin-left:6px" title="1-10 分：8-10 重大｜6-7 重要｜1-5 一般">评分为 1-10 分</span></div>
   <div class="newsbar">
     <span class="nf on" data-f="all" onclick="filterNews('all',this)">全部</span>
     <span class="nf" data-f="石油" onclick="filterNews('石油',this)">石油</span>
@@ -323,6 +326,8 @@
     <span class="nf" data-f="铀" onclick="filterNews('铀',this)">铀</span>
     <span class="nf" data-f="煤炭" onclick="filterNews('煤炭',this)">煤炭</span>
     <span class="nf" data-f="农产品" onclick="filterNews('农产品',this)">农产品</span>
+    <span class="nf" data-f="AI/算力" onclick="filterNews('AI/算力',this)">AI/算力</span>
+    <span class="nf nf-ai" data-f="__ai_link__" onclick="filterNews('__ai_link__',this)">AI×物资</span>
     <span style="flex:1"></span>
     <span class="nsort" onclick="toggleSort()" id="sortBtn">排序：评分↓</span>
   </div>
@@ -1480,7 +1485,8 @@ function renderNews(){
   }
 
   let list = N.slice();
-  if(newsFilter!=='all') list = list.filter(x=>(x.topics||[]).includes(newsFilter));
+  if(newsFilter==='__ai_link__') list = list.filter(x=>(x.ai_links||[]).length>0);
+  else if(newsFilter!=='all') list = list.filter(x=>(x.topics||[]).includes(newsFilter));
   list.sort((a,b)=> newsSortDesc ? b.score-a.score : a.score-b.score);
 
   if(!list.length){
@@ -1490,10 +1496,14 @@ function renderNews(){
 
   const CERT={'高':'ct-hi','中':'ct-mid','低':'ct-lo'};
   box.innerHTML = list.map(it=>{
-    const sc = it.score>=58 ? 'sc-hi' : (it.score>=52 ? 'sc-mid' : 'sc-lo');
+    const sc = it.score>=8 ? 'sc-hi' : (it.score>=6 ? 'sc-mid' : 'sc-lo');
     const title = it.title_zh || it.title;
     const desc = it.desc_zh || it.desc || '';
     const topics = (it.topics||[]).map(t=>'<span class="ntag">'+t+'</span>').join('');
+    // AI×物资 交叉标记
+    const aiTag = (it.ai_links&&it.ai_links.length)
+      ? '<span class="ntag ntag-ai" title="AI 算力扩张对实物物资需求的传导">AI→'+it.ai_links.join('／')+'</span>'
+      : '';
     // 时效标签
     let fresh='';
     if(it.age_hours!=null){
@@ -1519,10 +1529,10 @@ function renderNews(){
         + it.title + '</div>' : '';
     return '<div class="nitem">'
       + '<div class="ntop"><div class="ntitle">'+title+'</div>'
-      +   '<span class="nscore '+sc+'">'+it.score+'</span></div>'
+      +   '<span class="nscore '+sc+'">'+it.score+'<span style="font-size:10px;opacity:.65">/10</span></span></div>'
       + evt
       + (desc ? '<div class="ndesc">'+desc+'</div>' : '')
-      + '<div class="nfoot">'+topics+cert+fresh
+      + '<div class="nfoot">'+topics+aiTag+cert+fresh
       +   '<span style="margin-left:auto">'+it.source+'</span>'
       +   '<a class="nlink" style="margin-left:8px" href="'+it.link+'" target="_blank" rel="noopener">原文 →</a></div>'
       + orig + '</div>';

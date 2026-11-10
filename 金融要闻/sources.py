@@ -33,6 +33,19 @@ SOURCES = [
         'ua': 'Mozilla/5.0',
         'desc': '市场快讯（含商品相关）',
     },
+    # ── AI 内容（2026-11-10 新增）──
+    {
+        'id': 'tc_ai', 'name': 'TechCrunch AI', 'lang': 'en',
+        'url': 'https://techcrunch.com/category/artificial-intelligence/feed/',
+        'ua': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/131 Safari/537.36',
+        'desc': 'AI 产业新闻（融资/模型/芯片）',
+    },
+    {
+        'id': 'ieee_ai', 'name': 'IEEE Spectrum AI', 'lang': 'en',
+        'url': 'https://spectrum.ieee.org/feeds/topic/artificial-intelligence.rss',
+        'ua': 'Mozilla/5.0',
+        'desc': 'AI 技术深度（IEEE 官方）',
+    },
 ]
 
 # 实物物资关键词（用于过滤 + 评分）
@@ -46,6 +59,11 @@ TOPIC_KEYWORDS = {
     '农产品': ['wheat', 'corn', 'soybean', 'coffee', 'sugar', 'cocoa', 'cotton'],
     '煤炭': ['coal', 'thermal coal', 'coking coal'],
     '铀': ['uranium', 'nuclear fuel'],
+    # ── AI 相关（2026-11-10 新增）──
+    # 注意：AI 本身不是实物物资，但 AI 算力扩张直接拉动电力/铜/天然气需求
+    'AI/算力': ['artificial intelligence', ' ai ', 'ai-', 'llm', 'large language model',
+                'data center', 'datacenter', 'gpu', 'nvidia', 'openai', 'anthropic',
+                'machine learning', 'inference', 'hyperscaler', 'compute capacity'],
 }
 
 # 重要性权重（用于评分）

@@ -20,11 +20,14 @@ def get_key():
     return None
 
 
-KEY = get_key()   # 惰性也可；模块级取值即可
+def _key():
+    """惰性取 key（避免模块导入时机过早导致 None）"""
+    return os.environ.get('DEEPSEEK_API_KEY','').strip() or get_key()
 
 def call(prompt, max_tokens=800, retries=5, retry_sleep=4):
     """调用 DeepSeek。遇到 503/超时会指数退避重试。"""
-    if not KEY: raise RuntimeError('无 DEEPSEEK_API_KEY')
+    K = _key()
+    if not K: raise RuntimeError('无 DEEPSEEK_API_KEY')
     body = json.dumps({
         'model': 'deepseek-chat',
         'messages': [{'role':'user','content':prompt}],
@@ -39,7 +42,7 @@ def call(prompt, max_tokens=800, retries=5, retry_sleep=4):
         try:
             req = urllib.request.Request('https://api.deepseek.com/chat/completions',
                 data=body, headers={'Content-Type':'application/json',
-                                    'Authorization': f'Bearer {KEY}'})
+                                    'Authorization': f'Bearer {K}'})
             with op.open(req, timeout=90) as r:
                 d = json.loads(r.read().decode())
             return d['choices'][0]['message']['content'].strip()
