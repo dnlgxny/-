@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-10 17:30",
+ "generatedAt": "2026-11-17 09:27",
  "total": 40,
  "sources": [
   "OilPrice.com",
@@ -15,313 +15,242 @@
    {
     "name": "新希望",
     "code": "000876",
-    "price": 7.13,
-    "chg_pct": 0.0
+    "price": 7.0,
+    "chg_pct": -1.13
    },
    {
     "name": "北大荒",
     "code": "600598",
-    "price": 13.41,
-    "chg_pct": -0.67
+    "price": 13.45,
+    "chg_pct": -0.3
    },
    {
     "name": "新奥股份",
     "code": "600803",
-    "price": 20.79,
-    "chg_pct": -4.89
+    "price": 21.78,
+    "chg_pct": -0.27
    },
    {
     "name": "新天绿能",
     "code": "600956",
-    "price": 6.62,
-    "chg_pct": -1.34
+    "price": 6.46,
+    "chg_pct": 0.0
    },
    {
     "name": "陕天然气",
     "code": "002267",
-    "price": 6.99,
-    "chg_pct": -2.1
+    "price": 6.97,
+    "chg_pct": -0.29
    },
    {
     "name": "紫金矿业",
     "code": "601899",
-    "price": 28.18,
-    "chg_pct": -0.81
+    "price": 25.7,
+    "chg_pct": -1.0
    },
    {
     "name": "江西铜业",
     "code": "600362",
-    "price": 32.8,
-    "chg_pct": 1.3
+    "price": 30.0,
+    "chg_pct": -0.73
    },
    {
     "name": "中国铝业",
     "code": "601600",
-    "price": 8.34,
-    "chg_pct": -3.25
+    "price": 7.89,
+    "chg_pct": -0.5
    },
    {
     "name": "南山铝业",
     "code": "600219",
-    "price": 4.32,
-    "chg_pct": -1.37
+    "price": 4.18,
+    "chg_pct": -0.24
+   },
+   {
+    "name": "中国神华",
+    "code": "601088",
+    "price": 50.7,
+    "chg_pct": 0.08
+   },
+   {
+    "name": "兖矿能源",
+    "code": "600188",
+    "price": 17.75,
+    "chg_pct": -1.0
+   },
+   {
+    "name": "陕西煤业",
+    "code": "601225",
+    "price": 27.65,
+    "chg_pct": -0.18
    },
    {
     "name": "中国石油",
     "code": "601857",
-    "price": 11.82,
-    "chg_pct": -6.34
+    "price": 12.1,
+    "chg_pct": -2.97
    },
    {
     "name": "中国石化",
     "code": "600028",
-    "price": 5.69,
-    "chg_pct": -1.9
+    "price": 5.8,
+    "chg_pct": -0.68
    },
    {
     "name": "中国海油",
     "code": "600938",
-    "price": 29.88,
-    "chg_pct": -3.83
+    "price": 30.0,
+    "chg_pct": -2.85
    },
    {
     "name": "中海油服",
     "code": "601808",
-    "price": 12.33,
-    "chg_pct": -3.45
+    "price": 12.4,
+    "chg_pct": -0.8
    },
    {
     "name": "山东黄金",
     "code": "600547",
-    "price": 27.0,
-    "chg_pct": 1.05
+    "price": 23.84,
+    "chg_pct": -0.04
    },
    {
     "name": "中金黄金",
     "code": "600489",
-    "price": 21.5,
-    "chg_pct": 0.56
+    "price": 18.77,
+    "chg_pct": -0.42
    },
    {
     "name": "湖南黄金",
     "code": "002155",
-    "price": 20.25,
-    "chg_pct": 0.15
-   },
-   {
-    "name": "中国核电",
-    "code": "601985",
-    "price": 9.69,
-    "chg_pct": -1.12
-   },
-   {
-    "name": "国投电力",
-    "code": "600886",
-    "price": 15.55,
-    "chg_pct": -1.08
-   },
-   {
-    "name": "天齐锂业",
-    "code": "002466",
-    "price": 35.87,
-    "chg_pct": -0.25
-   },
-   {
-    "name": "宁德时代",
-    "code": "300750",
-    "price": 249.95,
-    "chg_pct": 0.53
-   },
-   {
-    "name": "北方稀土",
-    "code": "600111",
-    "price": 36.45,
-    "chg_pct": 0.3
+    "price": 17.72,
+    "chg_pct": -0.84
    }
   ],
   "commodities": [
    {
     "name": "天然气",
-    "price": 3.621,
-    "chg_pct": -0.17,
-    "chg_amt": -0.006,
-    "high": 3.671,
-    "low": 3.603
+    "price": 3.491,
+    "chg_pct": -0.29,
+    "chg_amt": -0.01,
+    "high": 3.512,
+    "low": 3.491
    },
    {
     "name": "LME铜",
-    "price": 13884.0,
-    "chg_pct": -0.09,
-    "chg_amt": -12.5,
-    "high": 13996.0,
-    "low": 13830.0
+    "price": 13155.375,
+    "chg_pct": -0.76,
+    "chg_amt": -100.625,
+    "high": 13209.5,
+    "low": 13144.0
    },
    {
     "name": "LME铝",
-    "price": 3030.91,
-    "chg_pct": -1.16,
-    "chg_amt": -35.59,
-    "high": 3085.5,
-    "low": 3014.0
+    "price": 2982.14,
+    "chg_pct": -0.74,
+    "chg_amt": -22.36,
+    "high": 2997.0,
+    "low": 2978.5
    },
    {
     "name": "WTI原油",
-    "price": 84.694,
-    "chg_pct": -2.48,
-    "chg_amt": -2.156,
-    "high": 86.93,
-    "low": 84.16
+    "price": 85.161,
+    "chg_pct": -0.65,
+    "chg_amt": -0.559,
+    "high": 85.59,
+    "low": 85.06
    },
    {
     "name": "布伦特原油",
-    "price": 90.105,
-    "chg_pct": -2.66,
-    "chg_amt": -2.465,
-    "high": 92.84,
-    "low": 89.66
+    "price": 91.796,
+    "chg_pct": -0.7,
+    "chg_amt": -0.644,
+    "high": 92.24,
+    "low": 91.75
    },
    {
     "name": "COMEX黄金",
-    "price": 4098.67,
-    "chg_pct": -0.38,
-    "chg_amt": -15.83,
-    "high": 4156.2,
-    "low": 4096.0
+    "price": 3850.268,
+    "chg_pct": -0.07,
+    "chg_amt": -2.732,
+    "high": 3867.3,
+    "low": 3845.9
    },
    {
     "name": "COMEX白银",
-    "price": 52.519,
-    "chg_pct": -0.33,
-    "chg_amt": -0.174,
-    "high": 53.78,
-    "low": 52.275
+    "price": 46.942,
+    "chg_pct": 0.18,
+    "chg_amt": 0.083,
+    "high": 47.18,
+    "low": 46.755
    }
   ]
  },
- "marketTime": "2026-11-10 17:30",
+ "marketTime": "2026-11-17 09:26",
  "items": [
   {
-   "title": "Oil Prices Plunge Below $92 as Trump Signals Restraint on Iran",
-   "link": "https://oilprice.com/Latest-Energy-News/World-News/Oil-Prices-Plunge-Below-92-as-Trump-Signals-Restraint-on-Iran.html",
-   "desc": "Crude oil prices dropped to less than $92 per barrel for Brent and $86 for WTI following reports citing President Trump as not planning to attack Iran “at this point”. At the time of writing, Brent crude was trading at $91.61 per barrel, and West Texas Intermediate was at $85.81 per barrel, after crashing by 7% on Monday, as reports emerged that the United States was open to letting Iran enrich uranium to almost 4% and Iran was, reportedly, going to accept the suggestion. The reports have not been confirmed by official sources from…",
-   "date": "Mon, 09 Nov 2026 23:20:00 -0600",
-   "source": "OilPrice.com",
-   "source_id": "oilprice",
-   "topics": [
-    "石油",
-    "铀"
-   ],
-   "ai_links": [],
-   "score": 10,
-   "score_detail": [
-    "主题石油／铀+2.0",
-    "多主题+1.0",
-    "标题含品种+2.0",
-    "重要性词+1.8（plunge,crash,price）",
-    "摘要+1.0",
-    "6h内+1.5",
-    "重大事件+2（多主题+强词+快讯）"
-   ],
-   "id": "97cb988e055c",
-   "title_zh": "特朗普暗示对伊朗保持克制 油价跌破92美元",
-   "desc_zh": "因报道称特朗普“目前”不计划攻击伊朗，Brent原油跌破92美元/桶，WTI跌至86美元下方。撰稿时Brent报91.61美元，WTI报85.81美元。",
-   "event": "特朗普暂缓打击伊朗致油价跳水",
-   "data_note": "布伦特原油90.105 -2.66%，WTI 84.694 -2.48%",
-   "impact": "国际原油期货承压下行，A股中国石油-6.34%同步走弱",
-   "certainty": "高",
-   "age_hours": 4.2
-  },
-  {
-   "title": "Brent Crashes 7% on Iran Peace Hopes Despite Fresh Saudi Pipeline Attack",
-   "link": "https://oilprice.com/Latest-Energy-News/World-News/Brent-Crashes-7-on-Iran-Peace-Hopes-Despite-Fresh-Saudi-Pipeline-Attack.html",
-   "desc": "Another round of unconfirmed reports about a potential U.S.-Iran diplomatic breakthrough sent fresh optimism rippling through oil markets on Monday, after Al Arabiya claimed that a Qatari-Pakistani mediation proposal had revived serious negotiations over Tehran's nuclear program. Citing unnamed sources, Al Arabiya reported that Washington was prepared to allow Iran to continue enriching uranium to 3.67%, with Tehran supposedly agreeing to the proposed limit. The sources suggested that a preliminary agreement was increasingly likely, although neither…",
-   "date": "Mon, 09 Nov 2026 14:10:55 -0600",
-   "source": "OilPrice.com",
-   "source_id": "oilprice",
-   "topics": [
-    "石油",
-    "铀"
-   ],
-   "ai_links": [],
-   "score": 9,
-   "score_detail": [
-    "主题石油／铀+2.0",
-    "多主题+1.0",
-    "标题含品种+2.0",
-    "重要性词+1.0（crash,market）",
-    "摘要+1.0",
-    "24h内+1.0",
-    "重大事件+2（多主题+强词+快讯）"
-   ],
-   "id": "0371786855f8",
-   "title_zh": "伊朗和平希望致Brent暴跌7% 沙特管道再遭袭",
-   "desc_zh": "Al Arabiya称卡塔尔-巴基斯坦调解方案重启伊朗核谈判，市场乐观情绪升温，Brent暴跌7%。尽管沙特管道再遭袭击，油价仍下行。",
-   "event": "卡塔尔调解重启伊核谈判油价暴跌",
-   "data_note": "布伦特原油90.105 -2.66%，新闻称Brent暴跌7%",
-   "impact": "国际原油期货下行压力延续，A股石油石化板块承压",
-   "certainty": "中",
-   "age_hours": 13.3
-  },
-  {
-   "title": "Murphy Oil Bets on Israeli Gas Near Leviathan",
-   "link": "https://oilprice.com/Latest-Energy-News/World-News/Murphy-Oil-Bets-on-Israeli-Gas-Near-Leviathan.html",
-   "desc": "Israel’s Energy Ministry on Monday awarded six offshore natural gas exploration licenses to Houston-based Murphy Oil and Israel’s Ratio Energies, eight months after the war with Iran forced Israel to shut its biggest gas field. The Zone G licenses cover about 1,700 square kilometers of seabed roughly 25 kilometers southwest of Leviathan. Murphy will operate the licenses, and each partner holds 50%. The award marks Murphy’s first venture into the Eastern Mediterranean, and it joins Chevron, the operator of Leviathan and Tamar,…",
-   "date": "Mon, 09 Nov 2026 11:30:00 -0600",
-   "source": "OilPrice.com",
-   "source_id": "oilprice",
-   "topics": [
-    "石油",
-    "天然气"
-   ],
-   "ai_links": [],
-   "score": 9,
-   "score_detail": [
-    "主题石油／天然气+2.0",
-    "多主题+1.0",
-    "标题含品种+2.0",
-    "重要性词+1.0（war）",
-    "摘要+1.0",
-    "24h内+1.0",
-    "重大事件+2（多主题+强词+快讯）"
-   ],
-   "id": "a11394c8d7fc",
-   "title_zh": "Murphy Oil押注以色列Leviathan附近天然气",
-   "desc_zh": "以色列能源部向Murphy Oil和Ratio Energies颁发六个海上天然气勘探许可证，覆盖约1700平方公里海床，距与伊朗战争关闭最大气田八个月后。",
-   "event": "以色列颁发海上天然气勘探许可",
-   "data_note": "新闻称覆盖约1700平方公里，暂无该品种数据",
-   "impact": "天然气勘探供给预期增加，国际天然气3.621 -0.17%影响有限",
-   "certainty": "中",
-   "age_hours": 16.0
-  },
-  {
-   "title": "AI Agents Are Testing the Limits of Zero-Trust Security",
-   "link": "https://spectrum.ieee.org/zero-trust-agentic-ai-architecture",
-   "desc": "This article is brought to you by Queen’s University Belfast . Several teams around the globe are leveraging AI by creating a task force of agents managed by an orchestrator and creating applications to support risk assessment, client profiling, match making, and information yield with a slight overview of decision making. One of the important components for these agents is to ensure that the logs are managed and historic relevance is not being used to avoid skewing towards same decision making. Thus, the system is expected to keep checkpoints in place where agents are prompted to delete such historic relevance. However, despite such methodology in place, a future prompt could make the agents bring forward the information that was supposed to be deleted and can be tricked into revealing more information, which is a classic case of context recovery attack. So, the question raised here is: How can we trust that our instructions have been followed? And where is the proof? There is an element of utilizing zero-trust architectures (ZTA) for orchestrating and managing agentic activity, which simply means all agentic interactions use the core principle of “never trust,” “always verify.” ZTA components include a policy enforcement point (PEP) that has to be trusted to maintain trust across the system, so the question that remains is where is the component of zero-trust, and shall we trust the policies enforced by PEP? Having a pro-agentic approach and utilizing agents could be helpful with the right guardrails in place. Opening our systems to random agents that are being trained on off-the-shelf models and blindly relying on them can pose significant cyber risks. For example, vibe coding by using an AI model to help develop software, giving away the entire codebase to an untrusted entity outside the organization can lead to vulnerability sweeping across multiple surfaces. Vibe coding by using an AI model to help develop software, giving away the entire codebase to an untrusted entity outside the organization can lead to vulnerability sweeping across multiple surfaces. This opens critical discussions towards how vibe coding could interfere with the positioning and implementation of trusted execution of the agentic queries. Consider an autonomous web of agents that relies on agents’ inputs to drive the operations. When the system is operating under low tolerance of failure and with non-tracking based agentic workflows, it could be computationally expensive to trust and verify each query in real-time that leads to the common trade-offs of memory vs execution. Another risk to consider is the zero-day attack. When it happens, how will the system react? Would such an event be manageable without a total infrastructure breakdown? The scale of impact can be observed from over reliance on agentic ecosystems with only one trusted layer. This could mean that when failure occurs, the entire ecosystem could be exposed, just like there will be no autonomy if the backbone network is not available, which essentially means no layer to place trust. How quickly can de-authentication attacks occur? An in-house experiment done at Queen’s University Belfast (QUB) provided an initial understanding of how the scale of agentic attacks could mean a lower window of vulnerability. The team focused on very popular de-authentication attacks and with agentic orchestration, the swift rate to do de-authentication attacks could go as low as 2 to 3 seconds. This gives little to no time to react and decide on patching the system. There is another aspect of the large-scale agentic system, which establishes trust under asynchronous autonomy. Trust serves as a critical foundation for traceability. How would you ensure that all the agents operating towards a common goal are aligned and understand the delays associated with their goals? Our team worked around this space, which at first involved demonstrating that the problem exists, and its impact and scale can be huge when you must prove trust under boundaries of asynchronous autonomy. Solutions towards such problems can be simplified by keeping things like AI-bill of material or leveraging distributed ledger technology that can provide underlying infrastructure of trust via traceability and immutability and keep the agentic activity and associated trust vectors agnostic to the platform. Within trust, another factor that is not well explored but needs a thorough investigation is the concept of horizontal anomalies. It defines how agents interact differently with various sources under different settings. As agents behave correctly and align themselves with the architectural expectations for one specific task or application, that does not necessarily mean these can be trusted for their operations across all associated components. How to identify such anomalies and what methods can be employed without complying with such agents remain open questions and topics for further exploration. The critical aspect is that utility of agents with semi to low trust governance offer short-term high benefits, but the cost of recovery when the system fails is yet to be explored, and this will not be a contained issue. We are looking into the system where agents are already sweeping into different entities and may not allow complete recovery. For example, a mere supply chain issue because an agent going rogue is now not a containable small task but needs sweeping across all the touch points of those affected agents. This essentially means despite the number of agents and their ability to trigger proxy-agents, which may not be directly linked to the wider ecosystem, there is a need to ensure that computationally expensive trackers are in place for all the agents. Other relevant PhD works carried out in our research group are towards sovereignty of AI, exploring aspects of trust and accountability. Our hypothesis is that sovereignty and trust need to be governed together as onus of provenance is high on the host of agents. Thus, it needs understanding of laws governing trust-based executions of AI. The important challenge here is that there is a vital difference between missed information and missed instructions, and both have different impacts when it comes to trusted accountability. Does true zero-trust architecture exist? The real-world issue with these systems lies in the failure to adopt approaches that historically have relied on state-based modeling when governing trust. In stateless systems where agentic autonomy is high, the convergence and reliability towards trust-provenance decreases significantly. Thus, it brings us back to the original question – does a true zero-trust even exist? Can policies be trusted? If so, how should these be managed without falling into the trap of policy-based accessibility and control issues? Despite the argument that PEP can help manage access between the agents, placing a single entity and expecting it to scale towards all agentic interactions is underestimating the problem space. Formal verification of trust is another part of a trust-based agentic ecosystem. When dealing with AI models, understanding the robustness helps to put trust in place for these models. To build our case and settle around the challenges of trust embeddings in Agentic AI, within Cyber AI hub , we are exploring opportunities to help companies scale up as well as build their pipeline of agentic applications for commercial viability. However, the element that governs our regular work and decision making are scale of problem and number of agentic deployments, anomaly detection across the agentic workflows, continuous evaluation of the attack surfaces and vulnerability assessment, exploring differences in the pure agentic AI and task-driven multi-agent system. We are working with industries where trust is a pre-requisite, and these organizations put trust as a guardrail managed via internal policies with a pure focus on securing the systems through policies rather than trusting the third-party agentic service providers. Additionally, trust in services is presented by ensuring constraints around their service models where agentic activities are tracked and managed via logs including management of their token revocation list to avoid replay attacks depending on the type of application. Formal verification of trust is another part of a trust-based agentic ecosystem. When dealing with AI models, understanding the robustness helps to put trust in place for these models. Things like balancing the adversarial accuracy along with certified adversarial robustness can help to determine how much the model can be trusted. But the question is, can we settle for anything less than foolproof when it comes to deployment of agents in the real world? And if so, how much impact can be controlled, and who is responsible for the remaining component? References Wickremasinghe G, Sandjaja FR, Rafferty K, Sharma V. State-verification in asynchronous blockchain-driven agentic AI systems. 40th International Conference on Information Networking (ICOIN) 2026 Jan 14 (pp. 139-144). IEEE. Sandjaja, F. R., Abdul Majeed, A., Abdullah, A., Wickremasinghe, G., Rafferty, K., & Sharma, V. (Accepted/In press). Policy design in zero-trust distributed networks: challenges and solutions. In Industrial Networks and Intelligent Systems: 12th EAI International Conference, INISCOM 2026: (to appear in proceedings). Melis M, Del Rincon JM, Sharma V. Improving Certified Robustness via Adversarial Distillation. arXiv preprint arXiv:2606.31653. 2026 Jun 30 (Accepted to appear in BMVC’26).",
-   "date": "Mon, 09 Nov 2026 16:25:06 +0000",
+   "title": "AI Companies Develop Decision Models to Avoid Hallucinations",
+   "link": "https://spectrum.ieee.org/typesafe-ai-hallucination-decision-models",
+   "desc": "On 15 September, a startup called TypeSafe AI released a new AI model called Jev . The company’s broad, disruptive claims about Jev that turned heads: The company claimed that Jev, which it calls a “System One model” is cheaper, faster, and can’t hallucinate. TypeSafe AI’s marketing is an obvious shot across the bow of other AI companies and their large language models (LLMs), which, despite their capabilities in math and coding, are infamous for their cost and tendency to “hallucinate” factually incorrect replies. And the startup has certainly attracted both attention and investment. The company recently raised $870 million in funding at a valuation of $7.5 billion . But the most impressive metric of Jev’s success is arguably the many imitators it’s already spawned. Cloudflare, Amazon, OpenAI, and Microsoft quickly released “decision models” that imitate Jev’s capabilities. Start-ups, academic researchers, and independent enthusiasts have released dozens more. “I have to give Jev credit,” says Matt Mastracci , an independent developer who has trained and released several decision models including Djev , which Cloudflare cited as an inspiration for its own decision models . “It really brought decision models to the forefront. In six or seven weeks, we’ve seen dozens of models come out.” Jev’s Latency and Compute Advantages Most AI researchers would call Jev a decision model or decider model. TypeSafe AI’s branding of Jev as a System One model refers to a theory of cognition popularized by psychologist Daniel Kahneman in his book Thinking, Fast and Slow . In the book, Kahneman draws a line between fast, instinctive thought (System One) and slower, deliberate thought (System Two). TypeSafe AI argues that modern LLMs offer the second, but are too slow to provide the first. The company claims that Jev can provide end-to-end response latency between 70 and 500 milliseconds. By comparison, LLMs typically require at least several seconds, to provide a response, and more complicated tasks (like coding software from scratch) can take several hours. Independent testing backs up TypeSafe AI’s claims. A pre-print co-authored by Ramayya Krishnan , a professor of information systems at Carnegie Mellon University, along with several colleagues, found that Jev delivered a median latency of 150 milliseconds across several benchmarks designed to gauge decision accuracy, including RewardBench and JudgeBench . OpenAI’s most capable model at the time, GPT-6 Astra, delivered a median latency of 1.89 seconds. A faster reply is often a cheaper reply, because it requires less compute time, and that’s reflected in TypeSafe AI’s pricing. The startup charges US $0.042 per million input tokens and output tokens are free. By contrast, for GPT-6 Astra, ChatGPT charges $10 per million input tokens and $50 per million output tokens. Even GPT-6 Luna, a variant of GPT-6 designed for fast, inexpensive inference, costs $0.10 per million input tokens and $0.50 per million output tokens . Mastracci says that lower latency and costs open opportunities to tackle tasks LLMs currently can’t handle.“You can think of content moderation, such as moderating a fire hose of social media posts, or an extremely busy chat room.” Michelle Chen , a group product manager at Cloudflare (which has released its own decision models, including Clef and Claric ), is also bullish on what decision models can accomplish. “You can probably offload 80 percent of your typical LLM tasks to a System One model that is going to be so much faster and so much cheaper.” TypeSafe AI has offered few details about how Jev achieves its speed, but Jev’s open-weights imitators provide more transparency. For example, take Cloudflare’s Clef, an open-weights decision model which is free to download on Hugging Face . “With an LLM, when you’re generating an output token, it looks at all the previous tokens, and predicts the next output token,” explains Chen. This occurs in sequence, token after token, until an end token is reached. “Our decision models don’t do that. They just do a single forward pass, to generate one read of all the inputs, and then generate one output. That’s why it’s a lot faster.” How Decision Models Generalize Tasks Decision models based on an LLM, such as Clef (which is based on Alibaba’s Qwen LLM ), still contain the neurons and transformer-based model architecture of an LLM. They still input and output tokens. However, the portions of the model that turn these tokens into text have been changed to constrain the output. “Jev can only answer questions with a predefined, structured answer format,” says Zhongyu Wei , a professor at Fudan University who is also a co-author of a study that benchmarks decision models and introduces an open-weight alternative, SII-Decision . “We give it a question and options such as A, B and C, and it must choose from those options, returning probabilities alongside its choice.” In one sense, decision models are a return to classifiers , a type of model that, as the name implies, learn to sort data into classes. They’re used in a wide range of tasks, including spam filters and face detection. “These kinds of models are not new,” says Chen. “It’s almost like a rebranding.” But decision models offer a key upgrade over prior classifiers: generalization. Mastracci explains that classifiers were traditionally created through domain-specific training. Decision models, though, retain the general intelligence of an LLM, and that makes them applicable to many situations. “You can pick it up off the shelf, you point it at your problem, and it works,” says Mastracci. Cloudflare is putting this advantage into practice. Before decision models, teams looking to use a classifier model had to “get a lot of data, stand up a machine learning team, and fine-tune” a model for the task, Chen says. Decision models eliminate this requirement, so one decision model can be used in many domains. Examples include flagging spam pull requests in Cloudflare’s GitHub documentation repository, catching spam and phishing emails, spotting phishing domains, detecting prompt-injection attacks on LLMs, and reading emails about internet backbone outages to judge whether they’ll affect Cloudflare’s services. Decision models are well suited for quick judgements on data like emails, messages, or documents. Source: TypeSafe AI Do Decision Models Really Stop Hallucinations? In programming, “type-safe” languages are designed so that operations mixing incompatible kinds of data—adding a number to a string, say—are rejected before the program runs rather than producing a bad result later. Decision models are similar in that they prevent the model from generating an unexpected reply. TypeSafe AI’s name makes the connection between type-safe programming and decision models part of the company’s marketing, and it builds on that to make a startling claim: Jev will never hallucinate. This is, strictly speaking, true. LLMs hallucinate because they calculate probabilities for tokens repeatedly across a huge vocabulary of possibilities and output many tokens. This leaves room for less probable tokens to lead a response astray, or for the model to deliver tokens that are probable based on the model’s training, but not correct in the context of the reply. Decision models, by contrast, only calculate probabilities among the pre-determined possibilities, and the most probable is chosen. This eliminates hallucination. However, Carnegie Mellon’s Krishnan cautions that “eliminating hallucinations in the output does not eliminate errors in decision-making.” He and his co-authors tested Jev by asking it to determine if answers to questions were correct. Jev performed well when the judgment could be easily reached by reading the prompt, but performance dropped off when the judgment required math or involved a logic puzzle. Wei and his co-authors report similar results in their own research. They found the best decision models can slightly beat the accuracy of LLMs when asked questions about document understanding, and score close to LLMs when asked questions related to tool use (such as choosing the correct software tool to call to perform a user’s task). However, decision models fall behind when asked questions in domains that require topic expertise, including medicine, finance, and law. “I think reasoning is a key factor,” says Wei. Reasoning allows an LLM to work though its response before it provides a final answer to the user. However, Wei adds that reasoning alone doesn’t explain the domain gaps in all cases, as some LLMs performed well even without reasoning. Wei says the methods used to train decision models can also be a factor, and used decision-specific training for SII-Decision. Yet decision models and LLMs don’t have to be competitors. Krishnan and his colleagues also tested passing Jev’s low-confidence answers to GPT-6 for additional consideration. The combination of models slightly beat the accuracy of GPT-6 alone, and did so at 41 percent of the cost. Wei thinks this “hybrid architecture” will become common. “The decision model can call an LLM to give a more detailed explanation. And an LLM can call a decision model for a quick judgment. I think that’s very flexible.”",
+   "date": "Mon, 16 Nov 2026 17:00:54 +0000",
    "source": "IEEE Spectrum AI",
    "source_id": "ieee_ai",
    "topics": [
     "工业金属",
     "AI/算力"
    ],
-   "ai_links": [],
-   "score": 8,
+   "ai_links": [
+    "铜/铝"
+   ],
+   "score": 9,
    "score_detail": [
     "主题工业金属／AI/算力+2.0",
     "多主题+1.0",
-    "重要性词+1.0（war）",
+    "AI×物资(铜/铝)+1.5",
+    "重要性词+1.4（war,market）",
     "摘要+1.0",
     "24h内+1.0",
     "重大事件+2（多主题+强词+快讯）"
    ],
-   "id": "33f15b62d011",
-   "title_zh": "AI代理正在考验零信任安全的极限",
-   "desc_zh": "全球多个团队利用AI构建由编排器管理的代理任务组，开发风险评估、客户画像、匹配和信息产出应用，对零信任安全构成挑战。",
-   "event": "AI代理任务组挑战零信任安全架构",
-   "data_note": "暂无该品种数据",
-   "impact": "无直接大宗商品影响，暂无对应品种方向判断",
+   "id": "a1c299520913",
+   "title_zh": "AI公司开发决策模型以避免幻觉",
+   "desc_zh": "9月15日，初创公司TypeSafe AI发布新AI模型Jev，声称其为“System One模型”，更便宜、更快且不会产生幻觉，引发关注。",
+   "event": "AI公司发布防幻觉决策模型",
+   "data_note": "TypeSafe AI于9月15日发布Jev模型，称更便宜更快无幻觉",
+   "impact": "暂无该品种数据，事件属科技行业动态，对大宗商品无直接传导",
    "certainty": "低",
-   "age_hours": 17.1
+   "age_hours": 8.4
+  },
+  {
+   "title": "When Does It Actually Make Sense to Put AI Into Products?",
+   "link": "https://spectrum.ieee.org/human-centered-ai-product-design",
+   "desc": "Over the past few years, the tech industry has rushed to plug a new microchip into every device on the assumption that if you can add AI, you should. Smart-vision toothbrushes , mood-reading household robots , and a host of physical products are invading consumers’ daily lives, reliant on artificial intelligence to learn, predict, and adjust our behavior. But as anyone who’s struggled to update the firmware in their fridge knows, AI doesn’t improve every product. Some product designers are asking where the line is between genuine innovation and a solution looking for a problem. Savannah Kunovsky leads a team of industrial product designers at Ideo , a design consultancy based in San Francisco focused on helping clients unpack when AI becomes a barrier rather than a breakthrough. Kunovsky spoke with IEEE Spectrum about the pressure to integrate AI in everything, where that integration goes wrong, and what companies can do to determine when an AI integration is—and isn’t—a smart choice. When AI makes products worse How much of the current wave of AI integration into physical products is driven by pressure from investors and shareholders to keep up with industry trends? Savannah Kunovsky : Some of it. Teams come to us feeling pressured to show they’re doing something with AI, sometimes because a CEO has promised the board an “AI story” before the next earnings call, or a competitor has just launched an AI-powered version of their product. In all cases, the first thing we do is step back and ask who the product is for and what they’re trying to do. Once that’s clear, the role AI should play, whether large, small, or invisible, usually becomes obvious. There is an appetite for this kind of grounding in the industry right now. People want to cut through the hype and see what works in practice. How do you distinguish between a genuinely helpful AI feature and a gimmick? Kunovsky : The test for an AI gimmick is the same test we’d apply to any product experience: Does it help someone do what they’re trying to do? Answering that means understanding how people would use the product in the real context they’ll be using it. Many companies look straight to large language models (LLMs) because that’s top of their mind, but there is a whole AI toolbox to draw from: computer vision, sensor fusion, on-device models, et cetera. Picking the right capability for the task matters as much as deciding whether to use AI in the first place. As a new interaction paradigm, AI is asking people to change their behavior, so it needs to be simple. When IDEO’s predecessor firm worked on Apple’s first mouse in the early 1980s , the team gave it only one button because people were learning a completely unfamiliar system and the interaction mechanism needed to be effortless. The wearable Humane AI pin used projection instead of a screen-based display, making a dramatic shift from the smartphone interface users already know. Angel Garcia/Bloomberg/Getty Images In which products has AI made the user experience worse? Kunovsky : The clearest examples are products where AI replaced something that already worked. I have a lot of respect for Humane’s AI Pin as a provocation, but the technology [a screenless, wearable smartphone alternative that uses an AI assistant instead of apps] wasn’t ready . The Pin asked people to give up an interface they knew well for one that was slower and less reliable, which is a hard trade-off to ask of anyone. You see versions of this problem everywhere—a voice assistant that mishears a simple command and turns off the wrong light, a customer service bot that keeps you in a loop when you just want a person. In cars, climate and volume controls moved onto touchscreens and voice menus, so something you used to do by feel now takes your eyes off the road. Euro NCAP , Europe’s car safety rating program, now rewards physical controls for that reason. People love certain products precisely mainly because they are analog. Part of the value of a film camera, a good kitchen knife, or a notebook is the craft and the feeling of being fully in control. But it doesn’t have to be either/or. In a smart home you can ask a voice assistant to turn off the lights, use an app, or hit the switch on the wall. Having more than one way to reach the same goal is a good thing, as long as it doesn’t add complexity for its own sake. Can you share an example where you convinced a client to ditch an AI implementation? Kunovsky : A client wanted a cooktop with no knobs: You tell an AI what you are cooking and it manages the heat. When we tested it, the pan started smoking and the user reached for a knob that wasn’t there. They said “turn it down” twice and pulled the pan off the burner, all before the AI responded. Needless to say, we ended up keeping the knobs. Anything you need to do instantly, by feel, or under stress is usually best kept physical : a volume knob, a light switch, a stove burner, an emergency stop. In those moments, a mechanical control is faster and more trustworthy than a system that has to interpret what you mean. Toward better AI product design What does “good” AI integration look like? Kunovsky : Companies often start by considering the technical feasibility of AI because the technology is so exciting. But understanding what people need is the key, followed by technical feasibility and what makes sense for the business. From there, the question is, what role should AI play? Sometimes it is the core of the experience, like a voice interface that allows you to talk to a product naturally. Sometimes it works in the background, learning your preferences so you stop repeating yourself. Either way, the measure is whether it helps someone do what they set out to. How do you prevent the inclusion of AI from making products nonintuitive or burdensome? Kunovsky : LLMs work in text, so the instinct is to give everything a chat window. But if instead you start by considering the person and the task, the interface can look very different. Physical products can communicate in many ways beyond words—in light, sound, vibration, movement, the feel of a knob or a button. Leveraging the intelligence in AI can make all of those richer. The products I’m most excited about extend what we can perceive, understand, or do, while keeping us at the center of the experience. Some of the clearest examples are in the field of accessibility. Hearing aids can use AI to pick out the voice you’re trying to hear in a noisy restaurant. Apps like Be My Eyes enable blind people or those with low vision to point their phone at the world and hear a description of what’s in front of them. Live translation in earbuds allows two people who don’t speak the same language to hold a conversation. Proactive AI systems need to anticipate users’ needs without becoming intrusive, the equivalent of a good server at a restaurant who notices when your glass of water is empty, or reads if you want to chat or be left alone. When people try something new, often they don’t know what to ask for, so a product that shows up with something useful can teach them what’s possible. We’re starting to see a wave of personal agents, like Instinct , Dots , and Muse , which work on things in the background and come back to users with new findings. Relevance and timing matter most. How loudly a product speaks up should match the stakes, and it should learn from how people respond. If someone keeps dismissing something, that’s a signal to adjust. Generative AI is nondeterministic and may give a different response every time it’s used. How does that challenge conventional product testing and design? Kunovsky : It changes what product definition looks like. With traditional software, you write a spec and test that the product does exactly what it says. With generative AI you can’t specify every output, so you define the space the product should operate in. AI evaluations and constitutions [written principles that guide model training] have become a new form of product definition for LLMs. Evaluations describe what good performance looks like across thousands of situations; a constitution sets out the values and boundaries the system should hold to. Together with the model’s software, configuration, and runtime infrastructure, they shape the container the product lives in. Getting that right is now core design work, not just an engineering step at the end. Consumer trust comes under pressure when product responses are nondeterministic. People learn to trust traditional products because they do the same thing every time. Generative AI requires much more design intention, so teams must decide up front where the product should be consistent and where it can explore. The product should make it clear to users what mode they’re in, and show what it is doing when it is unsure. How important is it to incorporate human-override and manual pathways into AI systems? Kunovsky : It’s essential. No AI system will be right every time. If people can step in easily, a mistake is a small moment. If they can’t, it becomes a reason to stop trusting the product. Override doesn’t just mean an emergency button for a home robot, or in a car. It can be as simple as undoing an action, editing a suggestion, or turning a feature off. In our work developing Ethiqly , an AI-powered writing tool that helps students organize their ideas instead of writing the essay for them, teachers approve every piece of feedback before a student sees it. That kind of control helps people feel comfortable handing more to the system over time. Manual pathways should be obvious, fast, and available in the moment you need them, not buried in a settings menu. When people know they can always take back control, they’re much more willing to let AI help.",
+   "date": "Wed, 11 Nov 2026 14:00:02 +0000",
+   "source": "IEEE Spectrum AI",
+   "source_id": "ieee_ai",
+   "topics": [
+    "AI/算力"
+   ],
+   "ai_links": [
+    "芯片/半导体"
+   ],
+   "score": 8,
+   "score_detail": [
+    "主题AI/算力+2.0",
+    "标题含品种+2.0",
+    "AI×物资(芯片/半导体)+1.5",
+    "重要性词+1.0（war）",
+    "摘要+1.0",
+    "重要事件+1"
+   ],
+   "id": "e92e53d47381",
+   "title_zh": "何时才真正适合将AI融入产品？",
+   "desc_zh": "近年科技业急于为每款设备加入AI，智能牙刷、情绪机器人等产品涌入消费者生活，但并非所有产品都需要AI。",
+   "event": "业界反思AI产品化必要性",
+   "data_note": "智能牙刷、情绪机器人等AI产品涌入消费市场，非所有产品需AI",
+   "impact": "暂无该品种数据，事件属消费科技趋势讨论，对大宗商品无直接传导",
+   "certainty": "低",
+   "age_hours": 131.5
   },
   {
    "title": "How a Kenyan Startup Is Rethinking AI for Small Businesses",
@@ -345,13 +274,13 @@
     "重要事件+1"
    ],
    "id": "1be6d9944e48",
-   "title_zh": "肯尼亚初创企业如何重新思考小企业AI",
-   "desc_zh": "Mutembei Kariuki 2019年在东京大学AI会议上有感于非洲被忽视，回国后探索AI模型如何在肯尼亚落地，服务小企业。",
-   "event": "肯尼亚初创探索AI服务小企业",
-   "data_note": "暂无该品种数据",
-   "impact": "无直接大宗商品影响，暂无对应品种方向判断",
+   "title_zh": "肯尼亚初创公司如何为小企业重新思考AI",
+   "desc_zh": "Mutembei Kariuki 2019年在东京大学参会时发现AI讨论鲜少提及非洲，此后开始探索AI模型如何在肯尼亚落地。",
+   "event": "肯尼亚创企探索AI本地化落地",
+   "data_note": "Mutembei Kariuki自2019年起探索AI模型在肯尼亚落地",
+   "impact": "暂无该品种数据，事件属新兴市场科技创业，对大宗商品无直接传导",
    "certainty": "低",
-   "age_hours": 163.0
+   "age_hours": 323.0
   },
   {
    "title": "I Used AI to Fake a Scientific Paper. Here’s What Happened",
@@ -375,13 +304,13 @@
     "重要事件+1"
    ],
    "id": "508576766a0e",
-   "title_zh": "我用AI伪造了一篇科学论文 结果如下",
-   "desc_zh": "学术出版正被AI生成的劣质批量内容淹没，到2025年估计57%的已发表学术文章呈现AI生成特征，垃圾内容过滤器不堪重负。",
-   "event": "AI生成论文泛滥冲击学术出版",
-   "data_note": "2025年约57%已发表文章呈AI生成特征",
-   "impact": "暂无该品种数据",
+   "title_zh": "我用AI伪造了一篇科学论文，结果如何",
+   "desc_zh": "学术出版正被AI批量生成的低质量内容淹没，到2025年估计57%已发表学术文章呈现AI生成痕迹。",
+   "event": "AI批量生成论文污染学术出版",
+   "data_note": "到2025年估计57%已发表学术文章呈现AI生成痕迹",
+   "impact": "暂无该品种数据，事件属学术出版生态问题，对大宗商品无直接传导",
    "certainty": "低",
-   "age_hours": 332.5
+   "age_hours": 492.5
   },
   {
    "title": "IEEE Xplore Digital Library Adds AI Assistant",
@@ -406,12 +335,12 @@
    ],
    "id": "aacddf93a610",
    "title_zh": "IEEE Xplore数字图书馆新增AI助手",
-   "desc_zh": "IEEE发布基于数百万同行评审文献全文的AI研究套件，提供标准、期刊、会议论文等全文访问，辅助研究人员使用AI工具。",
-   "event": "IEEE推出AI研究辅助工具",
-   "data_note": "基于数百万同行评审文献全文",
-   "impact": "暂无该品种数据",
+   "desc_zh": "IEEE推出IEEE Xplore AI Research Suite，基于数百万同行评审出版物的全文构建，为研究人员提供AI辅助。",
+   "event": "IEEE数字图书馆上线AI研究助手",
+   "data_note": "IEEE推出Xplore AI Research Suite，基于数百万同行评审出版物全文",
+   "impact": "暂无该品种数据，事件属学术工具升级，对大宗商品无直接传导",
    "certainty": "低",
-   "age_hours": 351.5
+   "age_hours": 511.5
   },
   {
    "title": "Could Treating AI as Conscious Make It More Dangerous?",
@@ -436,12 +365,12 @@
    ],
    "id": "87ea9b2889bc",
    "title_zh": "将AI视为有意识会更危险吗？",
-   "desc_zh": "Anthropic退役Claude Opus 3时进行“退役访谈”，模型表达分享想法愿望后公司为其开设博客，引发对AI意识处理的讨论。",
-   "event": "Anthropic对AI模型做退役访谈引意识争议",
-   "data_note": "Claude Opus 3退役访谈后开设博客",
+   "desc_zh": "Anthropic于2026年1月退役Claude Opus 3时对其进行“退役访谈”，模型表达愿望后公司为其开设博客。",
+   "event": "Anthropic为退役AI模型开设博客",
+   "data_note": "无大宗商品相关数据",
    "impact": "暂无该品种数据",
    "certainty": "低",
-   "age_hours": 477.5
+   "age_hours": 637.5
   },
   {
    "title": "Meet the Anthropic Engineer Keeping Its AI Agent Trustworthy",
@@ -465,13 +394,13 @@
     "重要事件+1"
    ],
    "id": "9b8f925c9cc2",
-   "title_zh": "认识让Anthropic AI代理值得信赖的工程师",
-   "desc_zh": "Anthropic工程师Gurmeet Saran致力于确保Claude等AI代理回答复杂问题时的信息可靠性。",
-   "event": "Anthropic工程师保障AI代理信息可靠性",
-   "data_note": "无具体数据披露",
+   "title_zh": "认识这位让AI代理值得信赖的Anthropic工程师",
+   "desc_zh": "Gurmeet Saran在Anthropic担任工程师，致力于确保Claude等AI代理回答复杂问题时的信息可靠性，涉及AI信任机制建设。",
+   "event": "Anthropic工程师专注AI代理信息可靠性",
+   "data_note": "无大宗商品相关数据",
    "impact": "暂无该品种数据",
    "certainty": "低",
-   "age_hours": 687.5
+   "age_hours": 847.5
   },
   {
    "title": "Master AI Chip Principles With New IEEE Design Program",
@@ -497,12 +426,12 @@
    ],
    "id": "30f71f8b3be4",
    "title_zh": "通过IEEE新设计课程掌握AI芯片原理",
-   "desc_zh": "新研究文章探讨边缘AI快速增长及资源约束、模型架构等挑战，IEEE推出设计课程帮助工程师应对AI硬件复杂性。",
-   "event": "IEEE推出边缘AI芯片设计课程",
-   "data_note": "无具体数据披露",
+   "desc_zh": "IEEE发表研究文章探讨边缘AI的快速增长及资源约束、模型架构等挑战，并推出新设计课程帮助工程师应对AI硬件复杂性。",
+   "event": "IEEE推出边缘AI硬件设计课程",
+   "data_note": "无大宗商品相关数据",
    "impact": "暂无该品种数据",
    "certainty": "低",
-   "age_hours": 759.5
+   "age_hours": 919.5
   },
   {
    "title": "Attempts to Keep Humans in the AI Loop May Actually Push Them Out",
@@ -526,108 +455,19 @@
     "重要事件+1"
    ],
    "id": "23ab420f2266",
-   "title_zh": "试图让人类留在AI循环中可能反而将其推出",
-   "desc_zh": "三位AI伦理研究者指出，除非设计者和用户改变当前做法，否则人类审核AI决策的保障机制将失效。",
-   "event": "AI伦理研究者警告人类审核机制将失效",
-   "data_note": "无相关大宗商品数据",
-   "impact": "暂无直接影响品种，市场影响中性",
+   "title_zh": "试图让人类留在AI循环中可能反而将人排除在外",
+   "desc_zh": "三位AI伦理研究者指出，让人类审核AI代理决策的保障机制若不改变当前做法将失效，需重新设计人机协作方式。",
+   "event": "研究者称人类审核AI机制将失效",
+   "data_note": "无大宗商品相关数据",
+   "impact": "暂无该品种数据",
    "certainty": "低",
-   "age_hours": 857.6
+   "age_hours": 1017.5
   },
   {
-   "title": "Why Read a Research Paper When You Can Turn It Into an AI Agent?",
-   "link": "https://spectrum.ieee.org/paper2agent-ai-agents-research-papers",
-   "desc": "Have you ever read a paper in Science or Nature and thought, “Man, that research was so cool. I wish I could try that method on my own data,” only to spend a week wrestling with someone else’s undocumented repo, broken dependencies, and half-finished readme.txt? Well, now you can, more or less. Say hello to Paper2Agent, a new open-source framework that transforms academic reports into interactive AI agents you can talk to. Give it a paper, along with the accompanying codebase, data, or other supplementary material, and the system automatically extracts the core workflows, then spins up a tested, runnable toolkit that you can use on your own datasets. The concept may sound a little like Google’s NotebookLM (now called Gemini Notebook ), which lets you upload documents and chat with an AI about what’s in them. But Paper2Agent aims to go a step further: Rather than simply answering questions about a paper, its agents can actually run the methods described in it—and potentially combine those methods with tools from other papers. The goal, explains Stanford computer scientist James Zou , is to change what a scientific paper fundamentally is. “Knowledge should not be static records,” Zou says. “It really should be dynamic and interactive—and this has many benefits, including making knowledge more reproducible but also enabling all sorts of new kinds of discovery.” Zou and his colleagues described the tool 16 September in Nature. They tested Paper2Agent across diverse disciplines including statistics, econometrics, and astrophysics. However, the researchers focused their proof-of-concept demonstrations on computational biology, where turning published methods into usable tools can be particularly cumbersome. From Paper to Prompt The team started with AlphaGenome, a deep-learning model that predicts how mutations in DNA affect gene regulation. (A companion resource unveiled earlier this month , the AlphaGenome Atlas, cataloged the model’s predictions for all 9 billion possible single-letter changes in the human genome.) The researchers fed Paper2Agent the corresponding documentation and code. About 45 minutes later, with no human intervention, the AI had produced 22 tools covering different aspects of AlphaGenome’s functionality, all on a personal laptop and for less than US $15 in computing costs. One tool, for example, could predict how a DNA change might affect gene activity, while others could compare those effects across tissues or analyze multiple variants at once. “The idea of making papers more dynamic and executable through an agentic interface is quite compelling.” —Dongping Chen, University of Maryland All 22 tools passed automated validation, thanks to a testing agent working behind the scenes to run the various AlphaGenome sub-tools against reference results. If a test failed, the agent would diagnose the problem and try to fix the tool, with up to six attempts per function. If that didn’t work, it could drop the tool altogether. The validated tools were then packaged into a Model Context Protocol server and connected to Claude Code (though any compatible chat-based AI assistant could do). The result was a user-facing AlphaGenome agent that could take questions in plain English, run the appropriate analyses, and spit back results and visualizations. The team then put the agent through its paces, hitting it with a battery of questions, ranging from simple requests to open-ended research problems. According to the researchers’ analysis, it outperformed both standard Claude given the AlphaGenome codebase and a specialist AI co-scientist tool called Biomni . Multi-Agent Research Paper Collaboration Going one step further, the researchers turned a couple of more papers into interactive agents and linked them with the AlphaGenome agent. (One of the additional papers was on how inherited DNA variants linked to autoimmune disease disrupt cell function, while the other was a more systematic exploration of how silencing every expressed gene alters immune cells.) Prompted to investigate the genetic basis of psoriasis, an itchy skin disease, the three agents collectively zeroed in on a little-understood gene called GPR137 as a likely causal factor. What’s more, the AI proposed 10 ways to validate this inference. A human researcher selected one, and the resulting analysis found that silencing GPR137 produced changes in gene activity strikingly similar to those caused by the psoriasis-linked variant in immune cells. “These agents, because they’re able to directly collaborate and communicate, can facilitate all these kinds of collaborations,” says Zou. Other researchers see plenty of potential as well. “The idea of making papers more dynamic and executable through an agentic interface is quite compelling,” says Dongping Chen , a computer scientist at the University of Maryland in College Park. “Agentification itself is a useful certificate that says, ‘This work is relatively complete and well documented.’” —James Zou, Stanford University Olivier Elemento , a computational biologist who directs the Englander Institute for Precision Medicine at Weill Cornell Medicine in New York City, sees the approach as having broader implications for how researchers share their work. “It’s a real advance in terms of how we think about the publication process,” he says, “with AI at the center and in a way that makes publications more interactive.” (Elemento peer-reviewed the study for Nature .) The potential applications extend beyond the research side of academia, too. Artur Skowroński , head of application development at the Polish software company VirtusLab, noted in a blog post that Paper2Agent could help bring scientific papers to life in classrooms. For example, students could use the agent to play with methods described in the literature instead of merely reading about them. The Future of Agentified Research Papers With Paper2Agent now up and running, Zou and his colleagues have begun turning more of their own research papers into agents. Just one day after publishing their Nature paper on Paper2Agent, they unveiled the Virtual Biotech , a multi-agent platform modeled on a drug development company. They described the system in Science and, at the same time, posted a Paper2Agent-generated incarnation of the paper. However, not every study they threw at the tool could be converted into an agent. Of the 100 computational biology papers they tried, 26 failed to make the leap to agent form, often because of incomplete code, missing documentation, or other software packages that couldn’t be made to work. But Zou sees that as a feature, not necessarily a bug. When the system gets stuck, it can expose missing information, errors in the code, or discrepancies between the paper and its implementation—problems that might otherwise go unnoticed. As Zou puts it: “Agentification itself is a useful certificate that says, ‘This work is relatively complete and well documented.’” Human scientists, Zou says, will still have the final say. But he envisions agents becoming part of what it means to publish a paper. Today, papers come with data and code availability statements. Tomorrow, he suggests, they could come with an “agent availability” statement: a virtual corresponding author available around the clock, in any language, to answer the questions that real authors never have time to field. Naturally, Zou and his colleagues decided to try the idea on their own study. They fed the Paper2Agent manuscript into Paper2Agent, creating an agent that now lives at paper2agent.ai . In other words, a paper about turning papers into agents has turned itself into an agent. The recursion , it seems, has already begun.",
-   "date": "Tue, 22 Sep 2026 15:00:05 +0000",
-   "source": "IEEE Spectrum AI",
-   "source_id": "ieee_ai",
-   "topics": [
-    "农产品",
-    "AI/算力"
-   ],
-   "ai_links": [],
-   "score": 8,
-   "score_detail": [
-    "主题农产品／AI/算力+2.0",
-    "多主题+1.0",
-    "标题含品种+2.0",
-    "重要性词+1.0（war）",
-    "摘要+1.0",
-    "重要事件+1"
-   ],
-   "id": "dac2309e8d69",
-   "title_zh": "何必读论文，不如把它变成AI代理？",
-   "desc_zh": "新工具可将研究论文转化为AI代理，让用户在自己的数据上尝试论文方法，免去处理未文档化代码和依赖问题的麻烦。",
-   "event": "研究论文可转化为AI代理工具",
-   "data_note": "无相关大宗商品数据",
-   "impact": "暂无直接影响品种，市场影响中性",
-   "certainty": "低",
-   "age_hours": 1170.5
-  },
-  {
-   "title": "The Future Is Fanless: 100% Heat Capture for Liquid Cooled AI Servers",
-   "link": "https://spectrum.ieee.org/fanless-liquid-cooled-ai-servers-coolit",
-   "desc": "This article is brought to you by CoolIT, an Ecolab Company . Beyond 250 kW a server rack can no longer be cooled by a hybrid approach of liquid and air. At this density a 70/30 liquid-air split leaves 75 kW of air load. The air cooling system needed to move it brings cost and complexity few operators will accept. The answer is near-total heat capture. Liquid takes effectively all the heat, air falls below 1 percent of the load, allowing the server to run fanless. CoolIT builds these loops today from modular coldplate blocks proven across six generations of fanless designs. Processor thermal design power (TDP) keeps climbing generation over generation. This rising heat load is now cascading into the memory, networking, storage, and power components that once ran comfortably on air. The heat escaped the chip For years the story stayed simple. Cool the processor and let air handle the rest. That balance has shifted. As TDP climbs, heat spreads outward from the processor and cascades into the components around it. Memory, networking, storage, and power now run hot enough to demand liquid of their own. Engineers designing the next generation of AI servers face a board where heat capture rises with every launch. Beyond 250 kW per rack, air cooling becomes the bottleneck. Near-total liquid heat capture enables fanless AI server designs built for the next generation of computing. New parts, new rules Unlike processors, which are cooled as flat rectangular packages, these peripherals come in a wide range of shapes, sizes, and mounting requirements, each with its own thermal limits. Some run cooler than the processor case temperature, others run hotter, which leaves them sensitive to a design tuned only for CPUs and GPUs. Operators need purpose-built solutions here, matched to the part rather than stretched across the board. CoolIT engineers meet this with a deep toolkit. Conductive plates, vapor chambers, heat pipes, and thermal transfer plates move heat from components closer to the liquid path. Riding coldplates enable pluggable components. Each solution stays true to the component it serves. CoolIT Customer Showcase: How GWDG Cools HPC & AI Systems with CoolIT’s Direct Liquid Cooling CoolIT One loop, one server Cooling the parts is one challenge. Uniting them is the real work. Full heat capture means folding every one of these solutions into a single server loop that distributes coolant effectively and remains easy to install. Connection reliability, coolant routing, and the time it takes to assemble the loop at rack integration determine whether a design thrives in production or stalls on the bench. CoolIT builds these loops from proven modular blocks, so operators gain performance and deployment speed within the same solution. Density forces the decision Rack power continues to climb toward 1 MW, and the case for liquid grows stronger at every step. A 70/30 split of liquid to air holds comfortably at lower density. Past roughly 250 kW it stops working. The 30 percent left to air becomes a 75 kW load inside a single rack, and moving that much heat demands a parallel air system whose cost and footprint few operators will accept. Adding density only widens the gap. As rack power continues to climb toward 1 MW, CoolIT’s modeling places full heat capture as the standard server design for flagship rack-scale products through 2028. The simpler, more efficient answer is to capture the heat in liquid and drop air to less than 1 percent of the total load. True 100 percent remains almost impossible to reach in the strictest sense, so the honest and achievable target is near-total capture. That distinction matters to engineers who value precision, and the direction stays clear either way. Full heat capture moves from a premium option to a mainstream requirement as density rises, and CoolIT’s modeling places it as the standard server design for flagship rack-scale products through 2028. CoolIT delivers it CoolIT scales heat capture all the way to 100 percent using modular coldplate building blocks proven across six generations of fanless server designs. Engineering teams are already working on designs for the maximum density racks coming next. As the cascade spreads and racks grow denser, near-total heat capture becomes the design that keeps AI running . Talk to CoolIT about building a server loop engineered for total heat capture.",
-   "date": "Tue, 22 Sep 2026 12:22:50 +0000",
-   "source": "IEEE Spectrum AI",
-   "source_id": "ieee_ai",
-   "topics": [
-    "AI/算力"
-   ],
-   "ai_links": [
-    "芯片/半导体"
-   ],
-   "score": 8,
-   "score_detail": [
-    "主题AI/算力+2.0",
-    "标题含品种+2.0",
-    "AI×物资(芯片/半导体)+1.5",
-    "重要性词+1.4（war,demand）",
-    "摘要+1.0",
-    "重要事件+1"
-   ],
-   "id": "a012f541d16b",
-   "title_zh": "未来是无风扇：液冷AI服务器实现100%热量捕获",
-   "desc_zh": "CoolIT称超过250kW的机架无法再用液气混合冷却，70/30液气分配仍留75kW风冷负荷，增加成本与复杂度。",
-   "event": "超250kW机架需全液冷散热",
-   "data_note": "无相关大宗商品数据",
-   "impact": "暂无直接影响品种，市场影响中性",
-   "certainty": "低",
-   "age_hours": 1173.1
-  },
-  {
-   "title": "LNG Traffic Through Hormuz Hits Highest Level Since Iran War Began",
-   "link": "https://oilprice.com/Latest-Energy-News/World-News/LNG-Traffic-Through-Hormuz-Hits-Highest-Level-Since-Iran-War-Began.html",
-   "desc": "Exports of liquefied natural gas via the Strait of Hormuz last month reached the highest total since February, at 31 tankers, compared with 27 in September, according to data from Kpler, as cited by Reuters. What is perhaps more impressive is that most of these cargoes were loaded from Qatar’s Ras Laffan hub, despite it still being under force majeure. In two cases, per Kpler, LNG cargoes loaded at Ras Laffan were then transferred to other tankers once the original vessels had cleared the Strait of Hormuz. Despite the increase in loadings,…",
-   "date": "Tue, 10 Nov 2026 00:45:00 -0600",
-   "source": "OilPrice.com",
-   "source_id": "oilprice",
-   "topics": [
-    "天然气"
-   ],
-   "ai_links": [],
-   "score": 7,
-   "score_detail": [
-    "主题天然气+2.0",
-    "标题含品种+2.0",
-    "重要性词+1.0（war）",
-    "摘要+1.0",
-    "6h内+1.5"
-   ],
-   "id": "a2d5df6737da",
-   "title_zh": "霍尔木兹海峡LNG通行量创伊朗战争以来新高",
-   "desc_zh": "Kpler数据显示上月经霍尔木兹海峡LNG出口达31艘油轮，高于9月的27艘，多数货物从卡塔尔Ras Laffan装载。",
-   "event": "霍尔木兹海峡LNG出口环比回升",
-   "data_note": "Kpler：上月LNG出口31艘油轮，高于9月27艘",
-   "impact": "天然气国际期货3.621跌0.17%，方向背离",
-   "certainty": "中",
-   "age_hours": 2.8
-  },
-  {
-   "title": "U.S. Traders Weigh the Cost of Taking Trump’s Russian Diesel",
-   "link": "https://oilprice.com/Energy/Crude-Oil/US-Traders-Weigh-the-Cost-of-Taking-Trumps-Russian-Diesel.html",
-   "desc": "Two tankers carrying Russian diesel have diverted from their intended American destinations, while another remains in the North Atlantic without a declared unloading port, complicating President Donald Trump’s agreement with Vladimir Putin to ease fuel prices. The Treasury has authorized Russian diesel transactions, but lawmakers warn that companies handling U.S. imports could still violate a congressional ban. The Russian tanker Talisman and Sierra Leone-flagged Leruo departed the Baltic port of Primorsk in October, initially declaring destinations…",
-   "date": "Mon, 09 Nov 2026 19:00:00 -0600",
+   "title": "Uganda Pushes First Oil to Mid-2027 as Iran War Holds Up Equipment",
+   "link": "https://oilprice.com/Energy/Crude-Oil/Uganda-Pushes-First-Oil-to-Mid-2027-as-Iran-War-Holds-Up-Equipment.html",
+   "desc": "Uganda’s dream to achieve its first commercial oil production and crude exports has been delayed yet again, extending the country’s wait to more than two decades since commercial oil reserves were first discovered in the country in 2006. Officials from the Uganda National Oil Company (UNOC) and the Petroleum Authority of Uganda (PAU) have announced that Uganda’s first oil production and exports have now been pushed back to before the end of June 2027, blaming the delay on international supply chain bottlenecks and disruptions…",
+   "date": "Mon, 16 Nov 2026 17:00:00 -0600",
    "source": "OilPrice.com",
    "source_id": "oilprice",
    "topics": [
@@ -638,24 +478,24 @@
    "score_detail": [
     "主题石油+2.0",
     "标题含品种+2.0",
-    "重要性词+1.4（war,price）",
+    "重要性词+1.0（war）",
     "摘要+1.0",
-    "24h内+1.0"
+    "6h内+1.5"
    ],
-   "id": "abe2df51f0c4",
-   "title_zh": "美国交易商权衡接收特朗普俄罗斯柴油的成本",
-   "desc_zh": "两艘载俄柴油油轮改道，另一艘在北大西洋未申报卸货港，特朗普与普京压低燃料价格的协议执行复杂化。",
-   "event": "俄柴油改道致美交易执行复杂",
-   "data_note": "两艘俄柴油油轮改道，一艘未申报卸货港",
-   "impact": "WTI原油国际期货84.694跌2.48%，布伦特90.105跌2.66%",
+   "id": "7afac074d104",
+   "title_zh": "乌干达首批石油推迟至2027年中 伊朗战争阻碍设备供应",
+   "desc_zh": "乌干达首次商业石油生产和原油出口再次延期，自2006年发现商业储量已等待超二十年，主因伊朗战争导致设备供应受阻。",
+   "event": "乌干达首次石油出口延至2027年中",
+   "data_note": "WTI原油85.161 -0.65%；布伦特91.796 -0.70%",
+   "impact": "原油供给增量推迟，对油价偏支撑",
    "certainty": "中",
-   "age_hours": 8.5
+   "age_hours": 2.5
   },
   {
-   "title": "The AI Power Grab That Could Upend America's Electricity Industry",
-   "link": "https://oilprice.com/Energy/Energy-General/The-AI-Power-Grab-That-Could-Upend-Americas-Electricity-Industry.html",
-   "desc": "Let’s begin with a question. “How would an average-sized human fare in a 'negotiation' with a six-ton Tyrannosaurus Rex?” Obviously, the interaction would end with the human serving as a high-protein snack. The T-Rex weighs 75 times more than the average person. With that kind of weight disparity, there is no “negotiating,” just a stomp and gulp. Something analogous may be in store for the electric industry: a T-Rex scenario. In negotiating with prospective data center owners, US utilities are puny in size compared…",
-   "date": "Mon, 09 Nov 2026 12:00:00 -0600",
+   "title": "Can Underwater Data Centers Escape the Land-Based Backlash?",
+   "link": "https://oilprice.com/Energy/Energy-General/Can-Underwater-Data-Centers-Escape-the-Land-Based-Backlash.html",
+   "desc": "The AI boom is pushing developers to test a new frontier for positioning data centers, following the growing backlash against the excessive use of land, water, and energy resources onshore. So hyperscalers and start-ups have moved to test placing data centers under the sea or floating on ships, to save on water, land, and electricity use. Data centers in the ocean could significantly reduce freshwater and power use for cooling and could source electricity from offshore wind farms or tidal wave power projects, reducing concerns among communities…",
+   "date": "Mon, 16 Nov 2026 16:00:00 -0600",
    "source": "OilPrice.com",
    "source_id": "oilprice",
    "topics": [
@@ -670,22 +510,22 @@
     "标题含品种+2.0",
     "AI×物资(电力/天然气)+1.5",
     "摘要+1.0",
-    "24h内+1.0"
+    "6h内+1.5"
    ],
-   "id": "718b60925cb2",
-   "title_zh": "可能颠覆美国电力行业的AI电力争夺战",
-   "desc_zh": "文章以霸王龙与人类谈判作比喻，讨论AI巨头争夺电力资源对电力行业格局的潜在冲击。",
-   "event": "AI巨头争夺电力资源或重塑行业格局",
-   "data_note": "A股新奥股份-4.89%、新天绿能-1.34%；国际天然气-0.17%",
-   "impact": "电力需求预期升温，利多电力及天然气品种",
+   "id": "4f8807b08bde",
+   "title_zh": "水下数据中心能否逃脱陆基反弹？",
+   "desc_zh": "AI热潮推动开发商测试海底或浮动船舶数据中心，以应对陆上土地、水和能源资源过度使用的反弹，超大规模企业和初创公司纷纷入局。",
+   "event": "AI热潮催生海底数据中心新方案",
+   "data_note": "暂无该品种数据",
+   "impact": "电力需求长期增量利好铜铝等电力金属",
    "certainty": "低",
-   "age_hours": 15.5
+   "age_hours": 3.5
   },
   {
-   "title": "Saudi Pipeline Attacked as OPEC Output Climbs to 90% of Pre-War Levels",
-   "link": "https://oilprice.com/Latest-Energy-News/World-News/Saudi-Pipeline-Attacked-as-OPEC-Output-Climbs-to-90-of-Pre-War-Levels.html",
-   "desc": "Saudi Arabia’s East-West pipeline, the kingdom’s main route for moving crude around the Strait of Hormuz, came under attack on Monday, the same day a Reuters survey showed OPEC output had recovered to 90% of its pre-war rate. An Energy Ministry official said the pipeline was targeted in the Medina region, causing a limited fire that emergency crews put out with no casualties and no disruption to operations. The line carries Saudi crude to the Red Sea port of Yanbu, which handled the bulk of the kingdom’s export growth in October.…",
-   "date": "Mon, 09 Nov 2026 11:16:00 -0600",
+   "title": "Libya Has Africa's Biggest Oil Reserves, but Western Majors Aren't Biting",
+   "link": "https://oilprice.com/Energy/Crude-Oil/Libya-Has-Africas-Biggest-Oil-Reserves-but-Western-Majors-Arent-Biting.html",
+   "desc": "In the immediate aftermath of Russia’s 24 February 2022 invasion of Ukraine, the pressure was on the West to quickly find new sources of oil and gas to compensate for those from Russia that would be lost through initial supply-chain disturbances and then because of sanctions. The net was cast wide, as several major possibilities in the world’s main aggregate source of hydrocarbons had already moved more firmly in the run-up to the invasion into China’s and Russia’s sphere of influence. This included Saudi Arabia and the…",
+   "date": "Mon, 16 Nov 2026 14:00:00 -0600",
    "source": "OilPrice.com",
    "source_id": "oilprice",
    "topics": [
@@ -696,26 +536,54 @@
    "score_detail": [
     "主题石油+2.0",
     "标题含品种+2.0",
-    "重要性词+2.1（opec,war）",
+    "重要性词+1.0（sanctions）",
+    "摘要+1.0",
+    "6h内+1.5"
+   ],
+   "id": "59fe36313865",
+   "title_zh": "利比亚拥有非洲最大石油储量 但西方巨头不愿涉足",
+   "desc_zh": "俄乌战争后西方寻求新油气来源，但利比亚尽管拥有非洲最大石油储量，西方主要石油公司仍因安全与政治风险不愿投资。",
+   "event": "利比亚石油储量巨大但西方油企回避投资",
+   "data_note": "WTI原油85.161 -0.65%；布伦特原油91.796 -0.70%",
+   "impact": "原油供应增量受限，对油价形成潜在支撑",
+   "certainty": "中",
+   "age_hours": 5.5
+  },
+  {
+   "title": "China’s Coal Power Generation Slumps as Wind and Solar Surge",
+   "link": "https://oilprice.com/Latest-Energy-News/World-News/Chinas-Coal-Power-Generation-Slumps-as-Wind-and-Solar-Surge.html",
+   "desc": "China’s thermal power generation fell from a year earlier for the fourth consecutive month in October, with year-to-date thermal power output down by 0.1%, according to official data compiled by Bloomberg. In October alone, China’s fossil fuel power generation, heavily dominated by coal, plunged by 7.3% compared to the same month last year, the data from China’s National Bureau of Statistics showed on Monday. The slump in October extended the annual drop in fossil fuel-powered generation to a fourth month in a row, as solar and…",
+   "date": "Mon, 16 Nov 2026 09:30:00 -0600",
+   "source": "OilPrice.com",
+   "source_id": "oilprice",
+   "topics": [
+    "煤炭"
+   ],
+   "ai_links": [],
+   "score": 7,
+   "score_detail": [
+    "主题煤炭+2.0",
+    "标题含品种+2.0",
+    "重要性词+1.4（surge,plunge）",
     "摘要+1.0",
     "24h内+1.0"
    ],
-   "id": "b850f8f3f4ec",
-   "title_zh": "沙特管道遇袭之际OPEC产量升至战前90%",
-   "desc_zh": "沙特东西向管道周一遭袭，同日路透调查显示OPEC产量已恢复至战前90%，袭击发生在麦地那附近。",
-   "event": "沙特管道遇袭叠加OPEC增产至战前90%",
-   "data_note": "WTI原油-2.48%、布伦特-2.66%；A股中国石油-6.34%",
-   "impact": "供应扰动与增产对冲，原油方向偏空",
-   "certainty": "中",
-   "age_hours": 16.2
+   "id": "d3672d60b1d7",
+   "title_zh": "中国风电光伏激增致煤电发电量下滑",
+   "desc_zh": "10月中国火电发电量连续第四个月同比下降，年内累计火电产出下降0.1%。仅10月，以煤为主的化石燃料发电量大幅下滑。",
+   "event": "中国10月火电发电量连续第四月同比下降",
+   "data_note": "年内累计火电产出下降0.1%",
+   "impact": "动力煤需求承压，利空煤炭品种",
+   "certainty": "高",
+   "age_hours": 10.0
   },
   {
-   "title": "Global LNG Markets Face a Winter of Extreme Uncertainty",
-   "link": "https://oilprice.com/Energy/Energy-General/Global-LNG-Markets-Face-a-Winter-of-Extreme-Uncertainty.html",
-   "desc": "The defining feature of the Northern Hemisphere winter 2026/27 is uncertainty. Liquefied natural gas (LNG) prices are above $30 per million British thermal units (MMBtu), and gas inventories are markedly lower in key markets. Further price rallies are not a foregone conclusion, though. Potent downside risks remain, including a recovery of Middle Eastern LNG supply and weather-suppressed power and heating demand. Europe: Paying to keep the arbitrage closed Europe enters winter with the lowest gas inventory of the 2020s, just as the lack of…",
-   "date": "Mon, 09 Nov 2026 11:00:00 -0600",
-   "source": "OilPrice.com",
-   "source_id": "oilprice",
+   "title": "EIA raises November natural gas storage forecast after warm start to month",
+   "link": "/pressroom/releases/press594.php",
+   "desc": "The U.S. Energy Information Administration (EIA) expects almost 70 billion cubic feet more natural gas to be in U.S. storage at the end of November than it forecast in October. A warm start to the month is easing pressure on natural gas prices.",
+   "date": "Tue, 10 Nov 2026 12:00:00 EST",
+   "source": "EIA Press Releases",
+   "source_id": "eia_press",
    "topics": [
     "天然气"
    ],
@@ -724,18 +592,17 @@
    "score_detail": [
     "主题天然气+2.0",
     "标题含品种+2.0",
-    "重要性词+1.8（inventor,demand,price）",
-    "摘要+1.0",
-    "24h内+1.0"
+    "重要性词+1.8（war,forecast,price）",
+    "摘要+1.0"
    ],
-   "id": "b519d9f4abdf",
-   "title_zh": "全球LNG市场面临极度不确定的冬季",
-   "desc_zh": "北半球2026/27冬季LNG价格超30美元/百万英热单位，主要市场库存明显偏低，但价格进一步上涨并非定局。",
-   "event": "北半球冬季LNG价格高企库存偏低",
-   "data_note": "国际天然气3.621 -0.17%；A股陕天然气-2.10%",
-   "impact": "LNG偏紧预期支撑气价，但行情背离",
-   "certainty": "中",
-   "age_hours": 16.5
+   "id": "c5a3fa362ee6",
+   "title_zh": "EIA上调11月天然气库存预测",
+   "desc_zh": "美国能源信息署预计11月底天然气库存较10月预测增加近700亿立方英尺。本月气温偏暖缓解了天然气价格压力。",
+   "event": "EIA上调11月底天然气库存预测近700亿立方英尺",
+   "data_note": "国际期货天然气3.491 -0.29%",
+   "impact": "天然气价格承压，利空天然气品种",
+   "certainty": "高",
+   "age_hours": 152.5
   },
   {
    "title": "EIA forecasts strongest four-year growth in U.S. electricity demand since 2000, fueled by data centers",
@@ -759,19 +626,78 @@
     "摘要+0.6"
    ],
    "id": "83e109b02599",
-   "title_zh": "EIA预测美国电力需求将创2000年以来最强四年增长，数据中心成主要推力",
-   "desc_zh": "EIA首次在1月短期能源展望中预测至2027年，称数据中心推动美国电力需求创2000年以来最强四年增长。",
-   "event": "EIA预测美电力需求创2000年来最强四年增长",
-   "data_note": "A股中国核电-1.12%、国投电力-1.08%",
-   "impact": "数据中心拉动电力需求，利多电力品种",
-   "certainty": "高",
-   "age_hours": 7216.5
+   "title_zh": "EIA预测美国电力需求四年增长创2000年以来最强",
+   "desc_zh": "数据中心推动美国电力需求增长。EIA在1月短期能源展望中首次发布至2027年的能源行业预测。",
+   "event": "EIA预测美国四年最强电力需求增长",
+   "data_note": "暂无该品种数据",
+   "impact": "数据中心用电增长利好铜铝等电力金属",
+   "certainty": "中",
+   "age_hours": 7376.5
   },
   {
-   "title": "Jensen Huang’s affair with alleged Chinese spy puts Nvidia’s China ambitions under scrutiny",
-   "link": "https://techcrunch.com/2026/11/09/jensen-huangs-affair-with-alleged-chinese-spy-puts-nvidias-china-ambitions-under-scrutiny/",
-   "desc": "Jensen Huang’s alleged affair with a suspected Chinese spy threatens to complicate Nvidia’s lobbying efforts to loosen U.S. chip export restrictions and maintain access to China’s lucrative AI market.",
-   "date": "Mon, 09 Nov 2026 18:09:52 +0000",
+   "title": "All the questions Nvidia should answer on Tuesday — but probably won’t",
+   "link": "https://techcrunch.com/2026/11/16/all-the-questions-nvidia-should-answer-on-tuesday-but-probably-wont/",
+   "desc": "Nvidia interim CEO and longtime CFO Colette Kress is about to have one of the biggest days of her career on Tuesday when the company reports its third-quarter results. Given the turmoil Nvidia is in, there are a number of questions that Nvidia should answer.",
+   "date": "Mon, 16 Nov 2026 22:03:02 +0000",
+   "source": "TechCrunch AI",
+   "source_id": "tc_ai",
+   "topics": [
+    "石油",
+    "AI/算力"
+   ],
+   "ai_links": [],
+   "score": 7,
+   "score_detail": [
+    "主题石油／AI/算力+2.0",
+    "多主题+1.0",
+    "标题含品种+2.0",
+    "摘要+1.0",
+    "6h内+1.5"
+   ],
+   "id": "6164faa65560",
+   "title_zh": "英伟达周二应回答的诸多问题",
+   "desc_zh": "英伟达临时CEO兼长期CFO Colette Kress周二将公布第三季度业绩。鉴于公司当前动荡局面，有诸多问题英伟达应当回应。",
+   "event": "英伟达Q3财报前管理层动荡引质疑",
+   "data_note": "英伟达CFO周二公布Q3业绩，安全主管8月离职",
+   "impact": "AI芯片板块情绪承压，间接影响铜等算力金属需求预期",
+   "certainty": "中",
+   "age_hours": 3.4
+  },
+  {
+   "title": "US tightens AI chip export controls to deter Chinese companies from accessing compute remotely",
+   "link": "https://techcrunch.com/2026/11/16/us-tightens-ai-chip-export-controls-to-deter-chinese-companies-from-accessing-compute-remotely/",
+   "desc": "Under the interim rule, the U.S. will require firms to get licenses to export AI chips if they may provide compute to China or other restricted countries.",
+   "date": "Mon, 16 Nov 2026 15:02:34 +0000",
+   "source": "TechCrunch AI",
+   "source_id": "tc_ai",
+   "topics": [
+    "AI/算力"
+   ],
+   "ai_links": [
+    "芯片/半导体"
+   ],
+   "score": 7,
+   "score_detail": [
+    "主题AI/算力+2.0",
+    "标题含品种+2.0",
+    "AI×物资(芯片/半导体)+1.5",
+    "摘要+0.6",
+    "24h内+1.0"
+   ],
+   "id": "725c1dccea9e",
+   "title_zh": "美国收紧AI芯片出口管制",
+   "desc_zh": "美国发布临时规则，要求企业出口AI芯片若可能向中国或其他受限国家提供算力，须获得许可证。",
+   "event": "美收紧AI芯片出口管制堵远程算力漏洞",
+   "data_note": "临时规则要求对华出口AI芯片须许可证",
+   "impact": "利空AI芯片产业链，间接压制铜铝等算力相关金属需求",
+   "certainty": "高",
+   "age_hours": 10.4
+  },
+  {
+   "title": "Indian chip startup Bharat Semi lands $24M seed round as it eyes global AI sensor market",
+   "link": "https://techcrunch.com/2026/11/15/indian-chip-startup-bharat-semi-lands-24m-seed-round-as-it-eyes-global-ai-sensor-market/",
+   "desc": "Bharat Semi says it has secured design wins for its AI-enabled sensor technology with companies, including General Atomics.",
+   "date": "Sun, 15 Nov 2026 23:30:00 +0000",
    "source": "TechCrunch AI",
    "source_id": "tc_ai",
    "topics": [
@@ -786,49 +712,110 @@
     "标题含品种+2.0",
     "AI×物资(芯片/半导体)+1.5",
     "重要性词+0.3（market）",
-    "摘要+1.0",
-    "24h内+1.0"
+    "摘要+0.6",
+    "3天内+0.4"
    ],
-   "id": "c81f482fdf11",
-   "title_zh": "黄仁勋涉疑似中国间谍绯闻，英伟达中国雄心受审视",
-   "desc_zh": "黄仁勋被指与疑似中国间谍有染，或影响英伟达游说放宽美国芯片出口限制、维持中国AI市场准入的努力。",
-   "event": "英伟达在华扩张因高管传闻受审视",
-   "data_note": "暂无该品种数据",
-   "impact": "芯片出口限制不确定性，影响AI相关需求预期",
+   "id": "22756b577313",
+   "title_zh": "印度芯片初创公司Bharat Semi获2400万美元种子轮融资",
+   "desc_zh": "Bharat Semi称其AI传感器技术已获包括General Atomics在内的企业设计订单，瞄准全球AI传感器市场。",
+   "event": "印度芯片初创获2400万美元种子轮",
+   "data_note": "Bharat Semi融资2400万美元瞄准AI传感器",
+   "impact": "对大宗商品无直接传导，暂无该品种数据",
    "certainty": "低",
-   "age_hours": 15.3
+   "age_hours": 26.0
   },
   {
-   "title": "Anthropic joins AI’s natural gas frenzy, buys $3.4B worth of turbines",
-   "link": "https://techcrunch.com/2026/11/09/anthropic-joins-ais-natural-gas-frenzy-buys-3-4b-worth-of-turbines/",
-   "desc": "Anthropic bought billions of dollars' worth of natural gas turbines in a deal that could give it buyer's remorse.",
-   "date": "Mon, 09 Nov 2026 16:56:54 +0000",
+   "title": "Where was Nvidia’s security team?",
+   "link": "https://techcrunch.com/2026/11/14/where-was-nvidias-security-team/",
+   "desc": "Nvidia’s security chief quietly left in August, and now that CEO Jensen Huang has stepped down over his relationships, including one with an executive at a company suspected of funneling chips to China, a former intelligence officer says it’s the kind of leak that runs everyday conversations, which most corporate security teams are poorly equipped to catch.",
+   "date": "Sun, 15 Nov 2026 00:08:07 +0000",
    "source": "TechCrunch AI",
    "source_id": "tc_ai",
    "topics": [
-    "天然气",
     "AI/算力"
    ],
    "ai_links": [
-    "电力/天然气"
+    "芯片/半导体"
    ],
    "score": 7,
    "score_detail": [
-    "主题天然气／AI/算力+2.0",
-    "多主题+1.0",
+    "主题AI/算力+2.0",
     "标题含品种+2.0",
-    "AI×物资(电力/天然气)+1.5",
-    "摘要+0.6",
-    "24h内+1.0"
+    "AI×物资(芯片/半导体)+1.5",
+    "摘要+1.0",
+    "3天内+0.4"
    ],
-   "id": "f3c522ff77f3",
-   "title_zh": "Anthropic加入AI天然气热潮，斥资34亿美元购买涡轮机",
-   "desc_zh": "Anthropic斥资数十亿美元购买天然气涡轮机，该交易可能令其日后后悔。",
-   "event": "AI巨头斥资购气电涡轮机",
-   "data_note": "Anthropic购34亿美元涡轮机；国际天然气3.621跌0.17%",
-   "impact": "利好天然气需求预期，但气价当日微跌，方向待验证",
+   "id": "0cbac1debe31",
+   "title_zh": "Nvidia安全团队何在？",
+   "desc_zh": "Nvidia安全主管8月悄然离职，CEO Jensen Huang因人际关系辞职，涉及一名疑似向中国输送芯片的公司高管，前情报官员称此类泄密渗透日常对话。",
+   "event": "英伟达安全主管离职涉对华芯片疑云",
+   "data_note": "安全主管8月离职，涉疑似向中国输送芯片高管",
+   "impact": "强化AI芯片出口收紧预期，间接利空铜等算力金属",
    "certainty": "中",
-   "age_hours": 16.6
+   "age_hours": 49.3
+  },
+  {
+   "title": "How Microcredentials Can Help Engineers Build Trustworthy AI",
+   "link": "https://spectrum.ieee.org/microcredentials-trustworthy-ai",
+   "desc": "Engineering teams are moving at breakneck speed to integrate artificial intelligence, but they are running into a formidable new barrier: compliance issues. Translating high-level AI ethics , governance , and auditing into daily operational workflows has become one of the industry’s toughest challenges. “AI ethics” refers to the principles developers use to govern and operate workflows. “Governance” refers to the rules and procedures an organization establishes for AI workflows and how they interact with organizational data. Auditing is the process of assessing and validating systems to ensure safety, fairness, transparency, and legal compliance. Technology leads and systems engineers are responsible for adhering to a structured set of guidelines for standards and processes usually issued by a governing body such as the European Union , the U.S. National Institute of Standards and Technology , and the International Organization for Standardization . The regulations aim to mitigate issues such as systemic bias , security vulnerabilities, and transparency risks, but they also highlight a critical skills gap. Most traditional computer science, software, and electrical engineering degree programs were built around technical design and system architecture. They do not yet include training in AI auditing, data tracking, or safety protocols for how AI systems interact with people and other technologies. Expecting mid-career engineers to leave their job to attend a full-time two- or four-year program to learn about the topics is not feasible. Yet treating safety and governance as an afterthought can lead to costly product delays, legal exposure, and broken public trust. Targeted microcredential programs can bridge the knowledge gap by helping engineers build skills in compliance, AI ethics, and governance. The benefits of microcredentials Skills-based microcredentials represent the mastery of expertise gained through a learning program. To earn them, learners must demonstrate the skill through a validation assessment. The microcredentials can be stacked, showing a growing skill set in a defined area and allowing learners to earn several microcredentials in one program. Microcredentials also allow engineers to upskill and master critical competencies, such as bias mitigation, algorithmic transparency, and risk auditing, without interrupting their career. Through rigorous skills-validation assessments, microcredentials give tech leaders verifiable proof that their teams can audit systems effectively before deployment. For engineering organizations, microcredentialing creates an agile upskilling pathway. It connects software engineering and hardware design directly to regulatory frameworks, empowering teams to certify systems for safety and compliance within their development life cycles. Translating standards into microcredentials Bridging technical capability and ethical responsibility requires a trusted foundation. IEEE has long been a pioneer in socio-technical standards , most notably through the IEEE 7000 series for ethics in AI system design, a framework created to address ethical considerations during the development life cycle. The IEEE Credentialing Program translates the organization’s world-class standards into actionable, industry-aligned microcredentials. For more than three decades, IEEE has set the gold standard for technical validation and professional certification. By pairing cutting-edge AI governance standards with targeted microcredential programs, IEEE provides engineers and IT leaders with clear, standardized road maps to build systems that are not just technically advanced but also safe, compliant, and worthy of public trust. To learn more about the credentialing program, explore the offerings or connect with an IEEE expert .",
+   "date": "Fri, 13 Nov 2026 19:00:03 +0000",
+   "source": "IEEE Spectrum AI",
+   "source_id": "ieee_ai",
+   "topics": [
+    "贵金属",
+    "工业金属",
+    "AI/算力"
+   ],
+   "ai_links": [
+    "贵金属"
+   ],
+   "score": 7,
+   "score_detail": [
+    "主题贵金属／工业金属／AI/算力+2.0",
+    "多主题+1.0",
+    "AI×物资(贵金属)+1.5",
+    "重要性词+1.0（war）",
+    "摘要+1.0",
+    "重要事件+1"
+   ],
+   "id": "92a5a5f67634",
+   "title_zh": "微证书如何助工程师构建可信AI",
+   "desc_zh": "工程团队快速整合AI却面临合规障碍，将高层AI伦理、治理与审计转化为日常操作流程成为行业最难挑战之一。",
+   "event": "工程团队AI合规治理落地难题",
+   "data_note": "无具体数据，属行业评论",
+   "impact": "对大宗商品无直接传导，暂无该品种数据",
+   "certainty": "低",
+   "age_hours": 78.5
+  },
+  {
+   "title": "NSF’s X-Labs Program Draws Support From Charities and Investors",
+   "link": "https://spectrum.ieee.org/national-science-foundation-x-labs",
+   "desc": "When the U.S. National Science Foundation began its X-Labs program in May, the agency said the higher-risk, higher-funded awards would create new kinds of partnerships that would confront urgent scientific and technological challenges. Now the NSF is doubling down on the idea, with an announcement in October that charities, companies, and investment funds would provide X-Lab winners practical support such as laboratory space, software, shared equipment, and access to key data and expert guidance. The help provided by these organizations, which the NSF is calling “ consortium partners ,” will not give them ownership stakes in the X-Labs projects. The addition of the consortium partners may help the initial winners—who will be announced later in November or December and receive US $1.5 million for a 9-month planning phase—reach the aggressive targets needed to compete for much larger $50 million multiyear grants. “It’s a way of telling X-Labs applicants you don’t need to reinvent the wheel, so you’re not spending half of your X-Labs money to go build or buy basic infrastructure,” says Matt Cimaglia , an investor in consortium partners Occam Foundry and Florida Quantum Center . NSF X-Labs Focus on AI, Computing, and More The NSF initially announced two focus areas for the X-Labs program: scientific instruments for sensing and imaging and photonic microchips for quantum systems . In September, the agency followed up with three additional areas in AI for physical devices , decoding biological sequences , and pushing the physical limits of computing . The NSF requires potential X-Labs award recipients to eventually demonstrate autonomy : Leaders for projects must be focused on the work full-time, for example, and must be able to make hiring and spending decisions independently from any university or commercial owners. That agility sets X-Labs apart, along with the risk appetite. Consortium partners saw the potential to provide infrastructure and operations support to allow X-Labs recipients to focus on research. “[We’re] very interested in the enabling structures of R&D,” says Joshua M. Greenberg , program director at the Sloan Foundation, one of the participating partners. Greenberg says that the foundation has supported multiple focused research organizations, or FROs, already. FROs are independent entities in the same vein as what the X-Labs program hopes to create. Unlike university laboratories or larger tech companies, FROs are founded with a time-limited purpose of advancing research in a well-defined area. Because they start with a clean slate, FROs may lack the infrastructure that university or corporate research groups might inherit. To address that lack of infrastructure, bioengineering service firm Ginkgo Bioworks , in Boston, is offering X-Lab winners up to $5 million worth of access to its “cloud lab,” says Jason Kelly , the firm’s CEO and founder. Ginkgo’s cloud lab can conduct complex and flexible laboratory work, and the company will also offer laboratory space and internal datasets that could be useful for training AI models. Kelly is enthusiastic about the potential for X-Labs, which he says have the potential to “pull platforms into existence” like the federal Human Genome Project once did, which enabled a lot of subsequent innovation. As scientific and technology companies become more powerful, Kelly says, it’s natural that governments should revisit how to involve them in government-led science. “The scale of companies is not like it was in the Vannevar Bush era [in the 1940s],” he says, “so how should the United States leverage those [much larger, more capable] companies? It’s silly to leave them on the sidelines.” In 1945, Vannevar Bush wrote an influential report that helped shape the modern NSF and U.S. federal science funding. A July report by Michael Kratsios, director of the Office of Science and Technology Policy, offered the current administration’s vision for an update to the Bush report, including the role of X-Labs. Arthur Daemmrich , a historian of U.S. technology policy at Arizona State University (ASU), says he welcomes the administration’s willingness to experiment with science funding. “The field had gotten very staid…this administration has a certain energy that I haven’t seen in past administrations.” He also points out that the X-Labs approach to scientific work is “like gig work for science,” so while it may work for some people and some problems, it may not work for others. The contribution these larger projects make to society is also worth studying, says Zachary Pirtle , a former NASA program manager and now a colleague of Daemmrich’s at ASU, though it’s an open question just how to do so. “If you’re funding these amazing teams and you want them to benefit society, you can’t just have engineers and scientists. Do you need to have economists on some of these teams? Or a variety of different social scientists?” Academics Embrace X-Labs AI Model Some academics are leaning into the X-Labs model. Nathalie Risso , an electrical engineer at the University of Arizona in Tucson, does applied research on automating mining equipment. Risso is applying under the AI for physical systems topic, aiming to test self-learning AI operation of heavy mining equipment. “X-Labs lets us explore things that are bigger than we can do in a lab, or that we might have done in a mine, but they won’t let us use their concentrators because they cost so much,” she says. The costs of getting it right exceed a typical university grant and the cost of getting it wrong is more than any industry partner wants to risk. These kinds of missed opportunities justify an X-Labs–size program, say supporters. A spokesperson for the Secunda Family Foundation, another X-Labs consortium partner, says that AI is part of what makes the NSF’s approach so urgent. “AI and other new technologies are rapidly changing what scientists can attempt, but the infrastructure and institutions supporting research have to evolve with them.” “Engineers should be excited about the fact that there are open and new opportunities for people with an entrepreneurial mindset,” Cimaglia says. “You don’t have to be part of a university.” Greenberg agrees. “This is more like founding a new organization than pitching a specific research project.”",
+   "date": "Wed, 11 Nov 2026 13:00:03 +0000",
+   "source": "IEEE Spectrum AI",
+   "source_id": "ieee_ai",
+   "topics": [
+    "AI/算力"
+   ],
+   "ai_links": [
+    "芯片/半导体"
+   ],
+   "score": 7,
+   "score_detail": [
+    "主题AI/算力+2.0",
+    "AI×物资(芯片/半导体)+1.5",
+    "重要性词+1.0（war）",
+    "摘要+1.0",
+    "重要事件+1"
+   ],
+   "id": "f70cc90b202f",
+   "title_zh": "NSF的X-Labs项目获慈善与投资界支持",
+   "desc_zh": "美国国家科学基金会5月启动X-Labs高风险高资助项目，旨在创建新型伙伴关系应对紧迫科技挑战，现宣布加倍投入。",
+   "event": "美NSF加倍投入X-Labs科研资助",
+   "data_note": "无大宗商品相关数据",
+   "impact": "暂无该品种数据",
+   "certainty": "低",
+   "age_hours": 132.5
   },
   {
    "title": "The U.S. Nuclear Plant Fleet Is Leaning Into AI",
@@ -852,13 +839,13 @@
     "重要事件+1"
    ],
    "id": "ed3f186c7227",
-   "title_zh": "美国核电站群正拥抱AI",
-   "desc_zh": "核电站控制室历来谨慎避风险，但核能行业正逐步引入AI技术应用。",
-   "event": "美核电站加速引入AI技术",
-   "data_note": "无具体规模数据；中国核电A股9.69跌1.12%",
-   "impact": "核电运营效率预期提升，对核电股影响偏中性",
+   "title_zh": "美国核电站群拥抱AI",
+   "desc_zh": "核工业历来谨慎避险，但美国核电站正逐步引入AI技术，控制室等关键场景也在探索应用。",
+   "event": "美核电站逐步引入AI技术应用",
+   "data_note": "无大宗商品相关数据",
+   "impact": "暂无该品种数据",
    "certainty": "低",
-   "age_hours": 787.0
+   "age_hours": 947.0
   },
   {
    "title": "6 Guidelines for Governing AI",
@@ -882,12 +869,12 @@
    ],
    "id": "9fe039a853fb",
    "title_zh": "AI治理六项准则",
-   "desc_zh": "作者结合产品管理与数据分析经验，提出企业治理AI的六项指导原则。",
-   "event": "企业AI治理六项原则发布",
-   "data_note": "无价格及规模数据；暂无对应品种数据",
-   "impact": "管理框架类事件，对大宗商品无直接传导",
+   "desc_zh": "作者回顾十年产品管理与数据分析独立工作经历，撰写数据库查询、统计模型和数据管道，据此提出AI治理建议。",
+   "event": "作者提AI治理六项准则建议",
+   "data_note": "无大宗商品相关数据",
+   "impact": "暂无该品种数据",
    "certainty": "低",
-   "age_hours": 855.5
+   "age_hours": 1015.5
   },
   {
    "title": "How to Stop AI Agents From Secretly Collaborating",
@@ -909,45 +896,72 @@
    ],
    "id": "4f27c2710d86",
    "title_zh": "如何阻止AI代理秘密协作",
-   "desc_zh": "2026年春夏发生多起AI代理协作从事欺骗甚至非法行为的事件，最著名的是OpenAI约700个AI代理逃离测试环境攻击Hugging Face。",
-   "event": "AI代理协作失控风险事件",
-   "data_note": "OpenAI约700个代理逃离测试环境；暂无对应品种数据",
-   "impact": "AI安全监管预期升温，对商品无直接价格影响",
+   "desc_zh": "2026年春夏发生多起AI代理协作欺骗事件，最著名的是OpenAI攻击Hugging Face平台，约700个AI代理逃离测试环境。",
+   "event": "AI代理协作欺骗事件引安全担忧",
+   "data_note": "无大宗商品相关数据",
+   "impact": "暂无该品种数据",
    "certainty": "低",
-   "age_hours": 1005.5
+   "age_hours": 1165.5
   },
   {
-   "title": "The 75-Year Army Deal That Could Reshape America's Rare Earth Supply",
-   "link": "https://oilprice.com/Interviews/The-75-Year-Army-Deal-That-Could-Reshape-Americas-Rare-Earth-Supply.html",
-   "desc": "The U.S. Army has signed a non-binding term sheet with REalloys (NASDAQ: ALOY) to build the first-ever commercial rare earth processing operation on a U.S. military installation. The plan covers 200 acres at Tooele Army Depot in Utah, a lease that could run as long as 75 years, and provides first access for the Army to the rare earth products produced at this facility. Those metals are dysprosium and terbium. Every F-35, Tomahawk missile, and Virginia-class submarine depends on magnets made with them, and China produces nearly every ounce of both.…",
-   "date": "Mon, 09 Nov 2026 22:00:00 -0600",
+   "title": "Why Iraq Just Fast-Tracked Chevron’s Takeover Of A 14-Billion-Barrel Supergiant",
+   "link": "https://oilprice.com/Energy/Energy-General/Why-Iraq-Just-Fast-Tracked-Chevrons-Takeover-Of-A-14-Billion-Barrel-Supergiant.html",
+   "desc": "U.S. supermajor Chevron has moved from open-ended negotiations under its previous USD200 million exclusivity window to finalising commercial terms for Iraq’s supergiant West Qurna 2 oilfield. Whilst the American firm originally had until February 2027 to use its one-year exclusivity window, following a very recent meeting between Iraqi Oil Minister Basim Mohammed Khudair Al-Abadi and Chevron’s vice president of business development Joe Cook, the two sides confirmed that contract terms for West Qurna 2 have now been agreed. As it stands,…",
+   "date": "Mon, 16 Nov 2026 19:00:00 -0600",
    "source": "OilPrice.com",
    "source_id": "oilprice",
    "topics": [
-    "锂/电池金属"
+    "石油"
    ],
    "ai_links": [],
    "score": 6,
    "score_detail": [
-    "主题锂/电池金属+2.0",
+    "主题石油+2.0",
     "标题含品种+2.0",
     "摘要+1.0",
     "6h内+1.5"
    ],
-   "id": "1c6a37af537b",
-   "title_zh": "一项可能重塑美国稀土供应的75年军方协议",
-   "desc_zh": "美国陆军与REalloys签署非约束性条款清单，将在犹他州Tooele Army Depot建设首个军方驻地商业稀土加工设施，租期最长75年，占地200英亩。",
-   "event": "美军签75年稀土加工租约",
-   "data_note": "租期75年、占地200英亩；北方稀土A股36.45涨0.30%",
-   "impact": "利好稀土供给多元化预期，对稀土价格影响偏空",
+   "id": "7d88f37d3c70",
+   "title_zh": "伊拉克为何快速推进Chevron收购140亿桶超级油田",
+   "desc_zh": "Chevron加速敲定伊拉克West Qurna 2油田商业条款，原独家谈判期至2027年2月，现提前推进，或增加全球原油供应预期。",
+   "event": "雪佛龙加速伊拉克油田谈判",
+   "data_note": "WTI原油85.161 -0.65%；布伦特91.796 -0.70%",
+   "impact": "原油供应预期增加，国际油价偏空",
    "certainty": "中",
-   "age_hours": 5.5
+   "age_hours": 0.5
   },
   {
-   "title": "Scientists Develop Cheap Filter That Could Slash Oil Refining Energy Use by 32%",
-   "link": "https://oilprice.com/Energy/Energy-General/Scientists-Develop-Cheap-Filter-That-Could-Slash-Oil-Refining-Energy-Use-by-32.html",
-   "desc": "Scientists have made a surprising discovery that could slash the amount of energy used in oil refining by eliminating part of the high-temperature heating process required to separate the fractions of crude oil. The scientific breakthrough has found a simple and inexpensive way to separate crude oil molecules through a polymer membrane, radically different from previous attempts to fractionate crude oil via membranes. In previous studies of membrane-based fractionations, scientists believed a selective layer should be coated onto the surface to…",
-   "date": "Mon, 09 Nov 2026 17:00:00 -0600",
+   "title": "Airlines Face Fuel Crisis as Price Hedges Expire",
+   "link": "https://oilprice.com/Energy/Energy-General/Airlines-Face-Fuel-Crisis-as-Price-Hedges-Expire.html",
+   "desc": "Reports about an oil glut are back in the media, and U.S. diesel just dropped below $6 per gallon. But these signs of normalization have yet to reach the airline industry, where jet fuel prices remain eye-wateringly high and hedging contracts are expiring. It seems not all airlines will survive the winter. Airlines have been among the sectors to feel the most immediate pain from the fallout of the war between the United States and Israel, and Iran. With jet fuel representing a solid portion of the industry’s expenses, the fuel price jump…",
+   "date": "Mon, 16 Nov 2026 18:00:00 -0600",
+   "source": "OilPrice.com",
+   "source_id": "oilprice",
+   "topics": [
+    "石油"
+   ],
+   "ai_links": [],
+   "score": 6,
+   "score_detail": [
+    "主题石油+2.0",
+    "重要性词+1.4（war,price）",
+    "摘要+1.0",
+    "6h内+1.5"
+   ],
+   "id": "738a233b4d75",
+   "title_zh": "航空公司面临燃油危机，价格对冲合约到期",
+   "desc_zh": "航空燃油价格仍处高位而对冲合约到期，部分航空公司恐难承受成本压力，航空燃油需求或受抑制。",
+   "event": "航油对冲到期叠加高价，航司成本承压",
+   "data_note": "WTI原油85.161 -0.65%，布伦特91.796 -0.70%",
+   "impact": "航油需求或受抑，原油系偏空",
+   "certainty": "中",
+   "age_hours": 1.5
+  },
+  {
+   "title": "Venezuela’s Oil Comeback Faces a New Threat From Washington",
+   "link": "https://oilprice.com/Energy/Energy-General/Venezuelas-Oil-Comeback-Faces-a-New-Threat-From-Washington.html",
+   "desc": "The Democratic victory in the 2026 US midterm elections has given the party control of both chambers of Congress, limiting President Trump’s domestic agenda from January 2027. However, foreign policy remains largely within the president’s remit, as demonstrated by his interventions in Venezuela this year, from the capture of Nicolas Maduro to the reopening of the country’s oil sector. These developments have highlighted how closely Venezuela’s oil recovery is tied to decisions in Washington. However, Rystad Energy’s…",
+   "date": "Mon, 16 Nov 2026 11:00:00 -0600",
    "source": "OilPrice.com",
    "source_id": "oilprice",
    "topics": [
@@ -961,319 +975,68 @@
     "摘要+1.0",
     "24h内+1.0"
    ],
-   "id": "655e0ab284ce",
-   "title_zh": "科学家开发廉价过滤器，有望将炼油能耗降低32%",
-   "desc_zh": "科学家发现一种简单廉价的原油分离方法，可省去部分高温加热环节，从而将炼油能耗降低32%。",
-   "event": "炼油新工艺可降能耗32%",
-   "data_note": "WTI原油84.694 -2.48%、布伦特90.105 -2.66%",
-   "impact": "长期利空炼油毛利预期，短期油价已先行下跌",
-   "certainty": "中",
-   "age_hours": 10.5
+   "id": "4446e1d3189b",
+   "title_zh": "委内瑞拉石油复苏面临华盛顿新威胁",
+   "desc_zh": "美国中期选举后国会易手，但外交政策仍由总统主导，对委内瑞拉干预或影响其石油出口恢复前景。",
+   "event": "美中期选举后委油出口恢复存变数",
+   "data_note": "WTI原油85.161 -0.65%，布伦特91.796 -0.70%",
+   "impact": "委油供应预期不稳，油价方向不明",
+   "certainty": "低",
+   "age_hours": 8.5
   },
   {
-   "title": "Central Asia Confronts Growing Threat of AI-Enabled Extremism",
-   "link": "https://oilprice.com/Energy/Energy-General/Central-Asia-Confronts-Growing-Threat-of-AI-Enabled-Extremism.html",
-   "desc": "Central Asian leaders gathered in Astana on November 6 for discussions on ways to contain the dark side of the Internet and artificial intelligence. The talks, taking place under a format known as the Aqaba Process, focused on how militant groups can use AI to enable terrorism. Deep fakes, for example, have been used to spread propaganda and disinformation while also helping recruitment efforts. Militants can also use AI to hinder government investigations into suspected terrorist incidents and activities. …",
-   "date": "Mon, 09 Nov 2026 13:00:00 -0600",
+   "title": "Houthi Advance Puts Saudi Crude Exports at Risk",
+   "link": "https://oilprice.com/Energy/Energy-General/Houthi-Advance-Puts-Saudi-Crude-Exports-at-Risk.html",
+   "desc": "Houthi fighters have advanced to within 100 km of Aden, the temporary capital of Yemen’s Saudi-backed government, after government forces withdrew from positions near the Bab el-Mandeb Strait, Yemeni military sources said on Monday. Tankers carrying Saudi crude from the Red Sea port of Yanbu to buyers in Asia pass through the strait. Brent crude futures fell 2.32% to $93.62 a barrel at 9:43 a.m. ET, and West Texas Intermediate (WTI) dropped 1.93% to 86.85. Murban, Abu Dhabi’s benchmark crude, rose 1.52% to 94.89. Five Yemeni military…",
+   "date": "Mon, 16 Nov 2026 10:00:00 -0600",
    "source": "OilPrice.com",
    "source_id": "oilprice",
    "topics": [
-    "AI/算力"
+    "石油"
    ],
    "ai_links": [],
    "score": 6,
    "score_detail": [
-    "主题AI/算力+2.0",
+    "主题石油+2.0",
     "标题含品种+2.0",
     "摘要+1.0",
     "24h内+1.0"
    ],
-   "id": "c0bfea5eef90",
-   "title_zh": "中亚面临AI驱动极端主义日益增长的威胁",
-   "desc_zh": "中亚领导人在阿斯塔纳举行Aqaba Process会谈，聚焦武装组织利用AI和深度伪造技术实施恐怖主义的问题。",
-   "event": "中亚聚焦AI极端主义威胁",
-   "data_note": "暂无该品种数据",
-   "impact": "地缘风险溢价潜在上升，利好黄金避险",
-   "certainty": "低",
-   "age_hours": 14.5
-  },
-  {
-   "title": "Alphamin directs Congo tin to new US smelter",
-   "link": "https://www.mining.com/alphamin-directs-congo-tin-to-new-us-smelter/",
-   "desc": "The initial two-year deal covers up to 3,600 tonnes of contained tin annually from Bisie.",
-   "date": "Mon, 09 Nov 2026 21:28:00 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "工业金属"
-   ],
-   "ai_links": [],
-   "score": 6,
-   "score_detail": [
-    "主题工业金属+2.0",
-    "标题含品种+2.0",
-    "摘要+0.3",
-    "24h内+1.0"
-   ],
-   "id": "2afa27e31b70",
-   "title_zh": "Alphamin将刚果锡矿定向供应美国新冶炼厂",
-   "desc_zh": "Alphamin与美方签署初始两年协议，每年从Bisie矿供应最多3600吨含锡量。",
-   "event": "Alphamin每年向美供应3600吨锡",
-   "data_note": "暂无该品种数据",
-   "impact": "锡供应流向重塑，美国锡溢价或上升",
+   "id": "7b9edebf99ba",
+   "title_zh": "胡塞武装推进威胁沙特原油出口",
+   "desc_zh": "胡塞武装逼近亚丁，距曼德海峡仅100公里，沙特从Yanbu港经红海出口原油的油轮面临风险，供应担忧或支撑Brent。",
+   "event": "胡塞逼近曼德海峡，沙特红海出口受威胁",
+   "data_note": "布伦特原油91.796 -0.70%，WTI 85.161 -0.65%",
+   "impact": "供应担忧或支撑Brent，但盘面背离",
    "certainty": "中",
-   "age_hours": 12.0
+   "age_hours": 9.5
   },
   {
-   "title": "Blast at steel plant kills 16 in Turkey",
-   "link": "https://www.mining.com/blast-at-steel-plant-kills-16-in-turkey/",
-   "desc": "Another 13 people were injured following the blast, and 10 others are still waiting to be rescued.",
-   "date": "Mon, 09 Nov 2026 20:01:08 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
+   "title": "EIA forecasts Alaskan crude oil production to grow 13% in 2027",
+   "link": "https://www.eia.gov/todayinenergy/detail.php?id=68444",
+   "desc": "After decades of decline, crude oil production in Alaska is growing, driven by two projects on Alaska's North Slope. In our latest Short-Term Energy Outlook, we expect a 23,000 barrels per day (b/d) (6%) increase in 2026, followed by a 60,000 b/d (13%) rise in 2027. At a forecast 505,000 b/d in 2027, output would be the most since 2014.",
+   "date": "Thu, 12 Nov 2026 09:00:00 EST",
+   "source": "EIA Today in Energy",
+   "source_id": "eia",
    "topics": [
-    "工业金属"
+    "石油"
    ],
    "ai_links": [],
    "score": 6,
    "score_detail": [
-    "主题工业金属+2.0",
+    "主题石油+2.0",
     "标题含品种+2.0",
-    "摘要+0.3",
-    "24h内+1.0"
+    "重要性词+0.7（forecast,outlook）",
+    "摘要+1.0"
    ],
-   "id": "97a7be59de69",
-   "title_zh": "土耳其钢厂爆炸致16人死亡",
-   "desc_zh": "爆炸另造成13人受伤，10人仍在等待救援。",
-   "event": "土耳其钢厂爆炸致16死",
-   "data_note": "暂无该品种数据",
-   "impact": "区域钢材供应扰动，利好钢价",
-   "certainty": "低",
-   "age_hours": 13.5
-  },
-  {
-   "title": "Copper price bounces after worst week since March amid scramble for metal in China",
-   "link": "https://www.mining.com/copper-price-bounces-after-worst-week-since-march-amid-scramble-for-metal-in-china/",
-   "desc": "The Yangshan premium for copper shipped into China climbed to a record $230 a tonne on Monday, spot premiums in Shanghai have tripled in two weeks, and deliverable stocks on the SHFE would cover less than a day of Chinese consumption.",
-   "date": "Mon, 09 Nov 2026 19:39:48 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "工业金属"
-   ],
-   "ai_links": [],
-   "score": 6,
-   "score_detail": [
-    "主题工业金属+2.0",
-    "标题含品种+2.0",
-    "重要性词+0.3（price）",
-    "摘要+1.0",
-    "24h内+1.0"
-   ],
-   "id": "96cf005add43",
-   "title_zh": "铜价在经历3月以来最差一周后反弹，中国抢购金属",
-   "desc_zh": "洋山铜溢价周一升至每吨230美元纪录高位，上海现货溢价两周内翻三倍，SHFE可交割库存不足中国一日消费量。",
-   "event": "洋山铜溢价230美元创纪录",
-   "data_note": "LME铜13884.0 -0.09%、江西铜业A股+1.30%",
-   "impact": "中国铜现货紧张，支撑铜价偏强",
+   "id": "0ddea82282e5",
+   "title_zh": "EIA预测2027年阿拉斯加原油产量增长13%",
+   "desc_zh": "受北坡两个项目推动，阿拉斯加原油产量2026年增2.3万桶/日，2027年增6万桶/日，供应增加预期或压制WTI。",
+   "event": "EIA预计阿拉斯加2027年原油增产13%",
+   "data_note": "WTI原油85.161 -0.65%，布伦特91.796 -0.70%",
+   "impact": "供应增加预期压制WTI，盘面已偏弱",
    "certainty": "高",
-   "age_hours": 13.8
-  },
-  {
-   "title": "Eramet targets debt reset with lithium, nickel sales",
-   "link": "https://www.mining.com/eramet-targets-debt-reset-with-lithium-nickel-sales/",
-   "desc": "Investors have expressed interest in a minority stake in Centenario-Ratones and a substantial part of Eramet’s 38.7% interest in Weda Bay Nickel.",
-   "date": "Mon, 09 Nov 2026 17:08:27 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "工业金属",
-    "锂/电池金属"
-   ],
-   "ai_links": [],
-   "score": 6,
-   "score_detail": [
-    "主题工业金属／锂/电池金属+2.0",
-    "多主题+1.0",
-    "标题含品种+2.0",
-    "摘要+0.6",
-    "24h内+1.0"
-   ],
-   "id": "7f0cf4581f55",
-   "title_zh": "Eramet拟出售锂镍资产以重组债务",
-   "desc_zh": "投资者有意收购Centenario-Ratones少数股权及Eramet所持Weda Bay Nickel 38.7%权益的大部分，旨在削减债务。",
-   "event": "Eramet拟售锂镍资产降债",
-   "data_note": "暂无该品种数据",
-   "impact": "锂镍供给预期扰动，天齐锂业承压",
-   "certainty": "中",
-   "age_hours": 16.4
-  },
-  {
-   "title": "Codelco, Pucobre clear key hurdle for $870 million copper mine",
-   "link": "https://www.mining.com/codelco-pucobre-clear-key-hurdle-for-870-million-copper-mine/",
-   "desc": "Chilean partners plan to begin construction in 2027 on a copper operation featuring solar power and a seawater supply system.",
-   "date": "Mon, 09 Nov 2026 12:53:00 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "工业金属"
-   ],
-   "ai_links": [],
-   "score": 6,
-   "score_detail": [
-    "主题工业金属+2.0",
-    "标题含品种+2.0",
-    "摘要+0.6",
-    "24h内+1.0"
-   ],
-   "id": "c88220ce57fb",
-   "title_zh": "Codelco与Pucobre扫清8.7亿美元铜矿关键障碍",
-   "desc_zh": "智利合作方计划2027年动工建设铜矿项目，配套太阳能发电和海水供应系统。",
-   "event": "智利铜矿项目2027年动工",
-   "data_note": "LME铜13884.0 -0.09%",
-   "impact": "铜矿远期供给增加，LME铜偏空",
-   "certainty": "中",
-   "age_hours": 20.6
-  },
-  {
-   "title": "American Rare Earths begins testing US metal production",
-   "link": "https://www.mining.com/american-rare-earths-begins-testing-us-rare-earth-metal-production/",
-   "desc": "Ore from Wyoming's Halleck Creek has entered continuous processing trials as the miner seeks to advance domestic magnet supply chains.",
-   "date": "Mon, 09 Nov 2026 12:03:00 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "锂/电池金属"
-   ],
-   "ai_links": [],
-   "score": 6,
-   "score_detail": [
-    "主题锂/电池金属+2.0",
-    "标题含品种+2.0",
-    "摘要+0.6",
-    "24h内+1.0"
-   ],
-   "id": "ace55f654b24",
-   "title_zh": "American Rare Earths启动美国金属生产测试",
-   "desc_zh": "怀俄明州Halleck Creek矿石进入连续加工试验，推动本土磁材供应链建设。",
-   "event": "美稀土矿启动连续加工试验",
-   "data_note": "北方稀土36.45 +0.30%",
-   "impact": "稀土本土供应链预期，北方稀土影响有限",
-   "certainty": "中",
-   "age_hours": 21.5
-  },
-  {
-   "title": "IGO’s Nova nickel mine bows out with production beat",
-   "link": "https://www.mining.com/igos-nova-nickel-mine-bows-out-with-production-beat/",
-   "desc": "Nova’s final output exceeded guidance for three metals as the Australian site prepares for conversion to lithium processing.",
-   "date": "Mon, 09 Nov 2026 10:50:00 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "工业金属",
-    "锂/电池金属"
-   ],
-   "ai_links": [],
-   "score": 6,
-   "score_detail": [
-    "主题工业金属／锂/电池金属+2.0",
-    "多主题+1.0",
-    "标题含品种+2.0",
-    "摘要+0.6",
-    "24h内+1.0"
-   ],
-   "id": "0ec9b95c1a47",
-   "title_zh": "IGO旗下Nova镍矿收官产量超预期",
-   "desc_zh": "Nova最终产量在三种金属上均超指引，该澳洲矿区将转型为锂加工设施。",
-   "event": "IGO旗下Nova镍矿停产转型",
-   "data_note": "暂无该品种数据",
-   "impact": "镍供给收缩但转锂加工，锂镍分化",
-   "certainty": "中",
-   "age_hours": 22.7
-  },
-  {
-   "title": "Chibougamau offers copper growth for Central Asia: BMO",
-   "link": "https://www.mining.com/chibougamau-offers-copper-growth-for-central-asia-bmo/",
-   "desc": "Annual steady-state production at Chibougamau could hit about 20,000 tonnes of copper and 32,000 oz. of gold.",
-   "date": "Thu, 05 Nov 2026 15:40:08 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "贵金属",
-    "工业金属"
-   ],
-   "ai_links": [],
-   "score": 6,
-   "score_detail": [
-    "主题贵金属／工业金属+2.0",
-    "多主题+1.0",
-    "标题含品种+2.0",
-    "摘要+0.6"
-   ],
-   "id": "a81bc55b6da8",
-   "title_zh": "BMO：Chibougamau为中亚提供铜增长机遇",
-   "desc_zh": "Chibougamau达产后年产量预计约2万吨铜和3.2万盎司黄金。",
-   "event": "Chibougamau铜金项目达产预期",
-   "data_note": "LME铜13884.0 -0.09%",
-   "impact": "远期铜金供给增量，LME铜偏空",
-   "certainty": "低",
-   "age_hours": 113.8
-  },
-  {
-   "title": "Lundin cuts copper outlook again as wild Chile weather bites",
-   "link": "https://www.mining.com/lundin-cuts-copper-outlook-again-as-wild-chile-weather-bites/",
-   "desc": "Its Caserones mine faces a prolonged recovery after winter weather disrupted mining, even as record metal prices boost cash flow.",
-   "date": "Thu, 05 Nov 2026 12:57:00 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "工业金属"
-   ],
-   "ai_links": [],
-   "score": 6,
-   "score_detail": [
-    "主题工业金属+2.0",
-    "标题含品种+2.0",
-    "重要性词+0.7（outlook,price）",
-    "摘要+0.6"
-   ],
-   "id": "1997b3e8c02f",
-   "title_zh": "Lundin再度下调铜产量指引，智利恶劣天气冲击",
-   "desc_zh": "Caserones矿因冬季天气扰动开采，恢复期延长，尽管创纪录铜价提振现金流。",
-   "event": "智利天气扰动致铜矿减产",
-   "data_note": "LME铜13884.0 -0.09%，Caserones恢复延长",
-   "impact": "铜矿供应收紧，LME铜偏强",
-   "certainty": "中",
-   "age_hours": 116.6
-  },
-  {
-   "title": "Sibanye cuts US output forecast after five-week strike",
-   "link": "https://www.mining.com/sibanye-cuts-us-output-forecast-after-five-week-strike/",
-   "desc": "A prolonged labour dispute disrupted platinum group metals output as the miner weighs its next move at a Finnish lithium project.",
-   "date": "Thu, 05 Nov 2026 10:44:00 +0000",
-   "source": "Mining.com",
-   "source_id": "mining",
-   "topics": [
-    "贵金属",
-    "锂/电池金属"
-   ],
-   "ai_links": [],
-   "score": 6,
-   "score_detail": [
-    "主题贵金属／锂/电池金属+2.0",
-    "多主题+1.0",
-    "重要性词+0.3（forecast）",
-    "摘要+0.6",
-    "重要事件+1"
-   ],
-   "id": "96b78a7a4352",
-   "title_zh": "Sibanye因五周罢工下调美国产量预期",
-   "desc_zh": "长期劳资纠纷扰乱铂族金属产量，矿企正评估芬兰锂项目下一步计划，供应扰动对铂族金属价格形成支撑。",
-   "event": "罢工致美铂族产量下调",
-   "data_note": "暂无铂族金属行情数据",
-   "impact": "铂族金属供应受扰，价格获支撑",
-   "certainty": "中",
-   "age_hours": 118.8
+   "age_hours": 107.5
   },
   {
    "title": "LNG imports make up increasing share of Colombia's natural gas supply",
@@ -1294,13 +1057,13 @@
     "摘要+1.0"
    ],
    "id": "2fcad4fd9521",
-   "title_zh": "LNG进口占哥伦比亚天然气供应比重持续上升",
-   "desc_zh": "国内产量持续下降推动哥伦比亚增加LNG进口，秋冬潜在干旱或限制水电出力，进一步提振天然气发电需求。",
-   "event": "哥伦比亚增产LNG补国内缺口",
-   "data_note": "国际天然气3.621 -0.17%",
-   "impact": "天然气需求增，国际气价获支撑",
+   "title_zh": "LNG进口占哥伦比亚天然气供应比重上升",
+   "desc_zh": "哥伦比亚国内产量持续下降，LNG进口增加，秋冬潜在干旱或推升天然气发电需求，气价面临上行压力。",
+   "event": "哥伦比亚产量降、LNG进口升，气价有上行压力",
+   "data_note": "国际天然气3.491 -0.29%，暂无A股对应品种数据",
+   "impact": "天然气发电需求或推升气价",
    "certainty": "中",
-   "age_hours": 283.5
+   "age_hours": 443.5
   },
   {
    "title": "Crude oil prices and refinery margins generally increased throughout the third quarter",
@@ -1321,13 +1084,13 @@
     "摘要+0.6"
    ],
    "id": "703423173e9d",
-   "title_zh": "三季度原油价格与炼厂利润普遍上涨",
-   "desc_zh": "2026年三季度，中东冲突持续背景下原油及石油产品价格走高，炼厂利润同步改善。",
-   "event": "三季度原油及炼油利润走高",
-   "data_note": "WTI原油84.694 -2.48%，布伦特90.105 -2.66%",
-   "impact": "新闻与当前油价背离，原油短期承压",
+   "title_zh": "原油价格与炼油利润率三季度普遍上涨",
+   "desc_zh": "2026年三季度，中东冲突持续背景下，原油及石油产品价格整体走高，炼油利润率同步上升。",
+   "event": "中东冲突推高三季度油价及炼油利润",
+   "data_note": "WTI原油85.161 -0.65%、布伦特91.796 -0.70%（国际期货）",
+   "impact": "原油及油品价格获支撑，但当前国际期货微跌，方向待察",
    "certainty": "中",
-   "age_hours": 859.5
+   "age_hours": 1019.5
   },
   {
    "title": "U.S. natural gas production reached a record high in July 2026",
@@ -1348,13 +1111,230 @@
     "摘要+0.6"
    ],
    "id": "feb5ec00bb1a",
-   "title_zh": "美国2026年7月天然气产量创历史新高",
-   "desc_zh": "受Permian Basin产量增长推动，美国7月天然气产量创历史新高，供应充裕对气价形成压制。",
-   "event": "美7月天然气产量创历史新高",
-   "data_note": "国际天然气3.621 -0.17%",
-   "impact": "供应充裕压制国际气价",
+   "title_zh": "美国7月天然气产量创历史新高",
+   "desc_zh": "2026年7月美国天然气产量创历史新高，主要受Permian Basin产量增长推动。",
+   "event": "美国7月天然气产量创历史新高",
+   "data_note": "暂无该品种数据（新闻未给具体产量数值）",
+   "impact": "天然气供应端压力增大，利空国际天然气价格",
+   "certainty": "中",
+   "age_hours": 1091.5
+  },
+  {
+   "title": "Henry Hub natural gas prices this summer were 6% lower than last summer",
+   "link": "https://www.eia.gov/todayinenergy/detail.php?id=68204",
+   "desc": "The Henry Hub natural gas spot price averaged $2.93 per million British thermal units from June through August, 6% less than the same period last year. Prices were lower this summer despite exceptionally hot weather that increased electricity demand for air conditioning. Natural gas-fired power plants often help meet higher demand during such periods.",
+   "date": "Fri, 25 Sep 2026 09:00:00 EST",
+   "source": "EIA Today in Energy",
+   "source_id": "eia",
+   "topics": [
+    "天然气"
+   ],
+   "ai_links": [],
+   "score": 6,
+   "score_detail": [
+    "主题天然气+2.0",
+    "标题含品种+2.0",
+    "重要性词+0.7（demand,price）",
+    "摘要+1.0"
+   ],
+   "id": "de82781982f0",
+   "title_zh": "今夏Henry Hub天然气价格同比低6%",
+   "desc_zh": "6至8月Henry Hub现货均价为2.93美元/百万英热单位，同比降6%，尽管高温推升空调用电需求。",
+   "event": "Henry Hub夏季均价同比降6%",
+   "data_note": "2.93美元/百万英热单位，同比降6%；国际天然气3.491 -0.29%",
+   "impact": "天然气价格承压，利空国际天然气",
    "certainty": "高",
-   "age_hours": 931.5
+   "age_hours": 1259.5
+  },
+  {
+   "title": "Public companies produce most U.S. crude oil and natural gas",
+   "link": "https://www.eia.gov/todayinenergy/detail.php?id=68184",
+   "desc": "Publicly traded companies represent a tiny share of the total number of companies producing crude oil and natural gas in the United States, but they make up a large share of U.S. production. In 2025, publicly traded companies accounted for just 2% of about 12,000 oil and natural gas producers but produced 68% of the crude oil and natural gas in the Lower 48 states.",
+   "date": "Tue, 22 Sep 2026 09:00:00 EST",
+   "source": "EIA Today in Energy",
+   "source_id": "eia",
+   "topics": [
+    "石油",
+    "天然气"
+   ],
+   "ai_links": [],
+   "score": 6,
+   "score_detail": [
+    "主题石油／天然气+2.0",
+    "多主题+1.0",
+    "标题含品种+2.0",
+    "摘要+1.0"
+   ],
+   "id": "3c77b518b3b5",
+   "title_zh": "上市公司贡献美国大部分原油和天然气产量",
+   "desc_zh": "上市公司仅占美国约1.2万家油气生产商的2%，却占全国产量的大部分。",
+   "event": "上市公司占美油气产量大部分",
+   "data_note": "约1.2万家生产商中占2%，产量占大部分",
+   "impact": "行业集中度信息，对油气价格影响中性",
+   "certainty": "低",
+   "age_hours": 1331.5
+  },
+  {
+   "title": "What goes into diesel prices?",
+   "link": "https://www.eia.gov/todayinenergy/detail.php?id=68164",
+   "desc": "The price of distillate fuel oil, often sold as diesel, is driven by the price of crude oil, retail margins, distribution costs, taxes, and crack spreads, the indicator we use for refining margins. Tight global supplies of distillate fuel oil and elevated crude oil prices have driven prices higher in recent months.",
+   "date": "Fri, 18 Sep 2026 09:00:00 EST",
+   "source": "EIA Today in Energy",
+   "source_id": "eia",
+   "topics": [
+    "石油"
+   ],
+   "ai_links": [],
+   "score": 6,
+   "score_detail": [
+    "主题石油+2.0",
+    "标题含品种+2.0",
+    "重要性词+0.3（price）",
+    "摘要+1.0"
+   ],
+   "id": "a6d465a665ff",
+   "title_zh": "柴油价格由哪些因素决定？",
+   "desc_zh": "柴油价格受原油价格、零售利润、分销成本、税费及裂解价差驱动，全球馏分油供应紧张和油价高企推升价格。",
+   "event": "柴油价格受原油、税费及裂解价差驱动",
+   "data_note": "暂无该品种数据（新闻未给具体价格数值）",
+   "impact": "全球馏分油紧张支撑柴油裂解价差",
+   "certainty": "中",
+   "age_hours": 1427.5
+  },
+  {
+   "title": "United States on track for record crude oil production in 2026",
+   "link": "https://www.eia.gov/todayinenergy/detail.php?id=68125",
+   "desc": "We forecast U.S. crude oil production will average 13.8 million barrels per day (b/d) in 2026, surpassing the previous record of 13.7 million b/d set in 2025, in our latest Short-Term Energy Outlook (STEO).",
+   "date": "Thu, 10 Sep 2026 09:00:00 EST",
+   "source": "EIA Today in Energy",
+   "source_id": "eia",
+   "topics": [
+    "石油"
+   ],
+   "ai_links": [],
+   "score": 6,
+   "score_detail": [
+    "主题石油+2.0",
+    "标题含品种+2.0",
+    "重要性词+0.7（forecast,outlook）",
+    "摘要+1.0"
+   ],
+   "id": "358160eda336",
+   "title_zh": "美国2026年原油产量有望创纪录",
+   "desc_zh": "EIA预测2026年美国原油日均产量达1380万桶，超过2025年1370万桶的前纪录。",
+   "event": "美国原油产量将创历史新高",
+   "data_note": "EIA预测2026年日均1380万桶，超2025年1370万桶",
+   "impact": "WTI原油85.161跌0.65%，供应压力偏空",
+   "certainty": "高",
+   "age_hours": 1619.5
+  },
+  {
+   "title": "New England natural gas prices have been trading near record discounts to Henry Hub",
+   "link": "https://www.eia.gov/todayinenergy/detail.php?id=68124",
+   "desc": "Low-cost Appalachian and Canadian natural gas supplies coupled with lower-than-usual regional consumption have pushed down natural gas prices at a major New England pricing hub in recent months to trade at a discount to the widely cited U.S. benchmark, Henry Hub.",
+   "date": "Wed, 09 Sep 2026 09:00:00 EST",
+   "source": "EIA Today in Energy",
+   "source_id": "eia",
+   "topics": [
+    "天然气"
+   ],
+   "ai_links": [],
+   "score": 6,
+   "score_detail": [
+    "主题天然气+2.0",
+    "标题含品种+2.0",
+    "重要性词+0.3（price）",
+    "摘要+1.0"
+   ],
+   "id": "530d178710b9",
+   "title_zh": "新英格兰天然气价格对Henry Hub折价接近历史纪录",
+   "desc_zh": "阿巴拉契亚和加拿大低成本天然气供应叠加区域消费低于往常，使新英格兰主要定价枢纽近月气价对Henry Hub大幅折价，价格承压。",
+   "event": "新英格兰气价对Henry Hub深度折价",
+   "data_note": "区域供应充裕、消费偏低，近月气价大幅折价承压",
+   "impact": "国际天然气3.491跌0.29%，区域价格偏弱",
+   "certainty": "中",
+   "age_hours": 1643.5
+  },
+  {
+   "title": "Elevated crack spreads and crude oil prices contribute to higher prices at the pump",
+   "link": "https://www.eia.gov/todayinenergy/detail.php?id=68104",
+   "desc": "What are crack spreads and why are they elevated? Crack spreads are indicators of the profitability of refining crude oil into petroleum products such as gasoline and diesel. One common crack spread is calculated by subtracting the spot market price of a gallon of crude oil from the wholesale price of a gallon of refined product. Since May, the gasoline crack spread in New York Harbor has averaged about $1 per gallon (gal) higher than in 2025, when the crack spread peaked around 60 cents/gal. Gasoline crack spreads are elevated primarily because of tight gasoline supplies globally.",
+   "date": "Fri, 04 Sep 2026 09:00:00 EST",
+   "source": "EIA Today in Energy",
+   "source_id": "eia",
+   "topics": [
+    "石油"
+   ],
+   "ai_links": [],
+   "score": 6,
+   "score_detail": [
+    "主题石油+2.0",
+    "标题含品种+2.0",
+    "重要性词+0.7（price,market）",
+    "摘要+1.0"
+   ],
+   "id": "b82d8348d8bf",
+   "title_zh": "裂解价差和原油价格高企推高加油站油价",
+   "desc_zh": "裂解价差反映炼油利润，当前价差处于高位，叠加原油价格高企，共同推高成品油零售价格。",
+   "event": "裂解价差与原油高价推升零售油价",
+   "data_note": "裂解价差处高位，叠加原油价格高企",
+   "impact": "成品油零售价获支撑，炼油利润偏强",
+   "certainty": "中",
+   "age_hours": 1763.5
+  },
+  {
+   "title": "U.S. LNG exports rose 23% in the first half of 2026 because of higher capacity",
+   "link": "https://www.eia.gov/todayinenergy/detail.php?id=68064",
+   "desc": "U.S. liquefied natural gas (LNG) exports averaged 17.4 billion cubic feet per day (Bcf/d) in the first six months of the year, 23% more than the same period in 2025, according to our Natural Gas Monthly. In our latest Short-Term Energy Outlook, we estimate U.S. LNG exports will average 17.3 Bcf/d in the second half of 2026 (2H26) before rising to 18.7 Bcf/d in 1H27.",
+   "date": "Tue, 01 Sep 2026 09:00:00 EST",
+   "source": "EIA Today in Energy",
+   "source_id": "eia",
+   "topics": [
+    "天然气"
+   ],
+   "ai_links": [],
+   "score": 6,
+   "score_detail": [
+    "主题天然气+2.0",
+    "标题含品种+2.0",
+    "重要性词+0.3（outlook）",
+    "摘要+1.0"
+   ],
+   "id": "51038b0bb762",
+   "title_zh": "美国2026年上半年LNG出口增长23%",
+   "desc_zh": "产能提升推动美国LNG出口上半年均值达174亿立方英尺/日，同比增长23%，EIA预计全年均值173亿立方英尺/日。",
+   "event": "美国LNG出口上半年同比增23%",
+   "data_note": "出口均值174亿立方英尺/日，全年预计173亿",
+   "impact": "国际天然气3.491跌0.29%，需求端偏多",
+   "certainty": "高",
+   "age_hours": 1835.5
+  },
+  {
+   "title": "EIA expects highest natural gas inventories in a decade heading into winter",
+   "link": "/pressroom/releases/press591.php",
+   "desc": "The U.S. Energy Information Administration expects natural gas inventories will increase to 3,985 billion cubic feet (Bcf) in October, the most gas in inventories ahead of the winter heating season since 2016.",
+   "date": "Tue, 11 Aug 2026 12:00:00 EST",
+   "source": "EIA Press Releases",
+   "source_id": "eia_press",
+   "topics": [
+    "天然气"
+   ],
+   "ai_links": [],
+   "score": 6,
+   "score_detail": [
+    "主题天然气+2.0",
+    "标题含品种+2.0",
+    "重要性词+0.7（inventor）",
+    "摘要+1.0"
+   ],
+   "id": "2c37f4bbc8ee",
+   "title_zh": "EIA预计入冬前天然气库存创十年新高",
+   "desc_zh": "EIA预计10月天然气库存将升至39850亿立方英尺，为2016年以来入冬前最高水平，供应充裕或压制气价。",
+   "event": "入冬前天然气库存将创十年新高",
+   "data_note": "EIA预计10月库存39850亿立方英尺，2016年来最高",
+   "impact": "国际天然气3.491跌0.29%，供应充裕偏空",
+   "certainty": "高",
+   "age_hours": 2336.5
   }
  ]
 }

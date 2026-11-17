@@ -14,10 +14,32 @@
 
 set -u
 
+# ══════════════════════════════════════════════════════════
+# 当日去重（2026-11-17 新增）
+#   原因：launchd 的 StartCalendarInterval 在机器深度睡眠时可能不触发；
+#         改用 RunAtLoad 后，每次唤醒都会跑一次，需要避免同一天重复。
+#   规则：若「今天」已成功跑完一次，直接退出（除非带 --force）
+#   --force 用于手动补跑
+# ══════════════════════════════════════════════════════════
+FORCE=0
+[ "${1:-}" = "--force" ] && FORCE=1
+
+
 WORKDIR="/Users/qumingtainanle/WorkBuddy/开源/工作台"
 PY="/Users/qumingtainanle/.workbuddy/binaries/python/envs/default/bin/python3"
 LOGDIR="$WORKDIR/logs"
 LOG="$LOGDIR/每日更新.log"
+
+# ── 当日去重检查 ──
+TODAY=$(date '+%Y-%m-%d')
+if [ "$FORCE" -eq 0 ] && [ -f "$LOG" ]; then
+  # 今天已成功完成过？
+  if grep -q "^\[${TODAY}.*✅ 完成" "$LOG" 2>/dev/null; then
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] 跳过：今日（${TODAY}）已完成更新，加 --force 可强制重跑" >> "$LOG"
+    exit 0
+  fi
+fi
+
 MAXLOG=$((2*1024*1024))          # 日志超过 2MB 自动截断保留末 500 行
 
 mkdir -p "$LOGDIR"
@@ -41,7 +63,7 @@ STEP1_OUT=$("$PY" 拉数据.py 2>&1)
 STEP1_RC=$?
 echo "$STEP1_OUT" >> "$LOG"
 if [ $STEP1_RC -ne 0 ]; then
-  say "⚠️ 拉数据.py 退出码 $STEP1_RC（可能有个别源失败，继续尝试生成）"
+  say "⚠️ 拉数据.py 退出码 ${STEP1_RC}（可能有个别源失败，继续尝试生成）"
 fi
 
 # 从输出里提取成功/失败统计
@@ -55,7 +77,7 @@ STEP2_RC=$?
 echo "$STEP2_OUT" >> "$LOG"
 
 if [ $STEP2_RC -ne 0 ]; then
-  say "❌ 生成工作台.py 失败（退出码 $STEP2_RC）"
+  say "❌ 生成工作台.py 失败（退出码 ${STEP2_RC}）"
   say "════════ 更新失败 ════════"
   exit 2
 fi
