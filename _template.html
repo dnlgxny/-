@@ -162,6 +162,38 @@
   .ntag{background:#f1f5f9;color:#475569;padding:1px 7px;border-radius:4px}
   .nitem .nlink{color:var(--info);text-decoration:none;margin-left:auto}
   .nitem .nlink:hover{text-decoration:underline}
+  /* ── 宏观新闻研究 ── */
+  .mksnap{display:flex;flex-wrap:wrap;gap:10px;background:#fff;border:1px solid var(--line);
+    border-radius:9px;padding:10px 14px;margin-bottom:14px;font-size:12.5px;overflow-x:auto}
+  .mkspan{white-space:nowrap;color:#4b5563}
+  .mkspan b{color:#111827;font-weight:600;margin-right:3px}
+  .macroc{background:#fff;border:1px solid var(--line);border-radius:10px;padding:22px 26px;
+    line-height:1.9;font-size:14.5px;color:#1f2937}
+  .macroc .mdh1{font-size:22px;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid #111;
+    font-weight:700;letter-spacing:-.3px}
+  .macroc .mdh2{font-size:18px;margin:30px 0 12px;padding-top:16px;border-top:1px solid #f1f3f5;
+    color:#0b6b4a;font-weight:700}
+  .macroc .mdh3{font-size:15.5px;margin:20px 0 8px;font-weight:600;color:#374151}
+  .macroc p{margin:11px 0}
+  .macroc .mdlist{margin:10px 0;padding-left:24px}
+  .macroc .mdlist li{margin:6px 0}
+  .macroc .mdnums{list-style:none;padding-left:0;counter-reset:n}
+  .macroc .mdnums li{counter-increment:n;position:relative;padding-left:26px}
+  .macroc .mdnums li:before{content:counter(n)".";position:absolute;left:0;color:#0b6b4a;
+    font-weight:600;font-size:13px}
+  .macroc .mdtable{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;
+    background:#fcfcfb}
+  .macroc .mdtable th{background:#f3f5f3;text-align:left;padding:9px 11px;
+    border:1px solid #e5e7eb;font-weight:600;font-size:12.5px;color:#374151}
+  .macroc .mdtable td{padding:8px 11px;border:1px solid #e5e7eb;vertical-align:top}
+  .macroc .mdtable td:last-child{text-align:left}
+  .macroc hr{border:none;border-top:1px solid #e5e7eb;margin:24px 0}
+  .macroc code{background:#f0f2f0;padding:1.5px 5px;border-radius:3px;font-size:12.5px}
+  .macroc strong{font-weight:700;color:#111}
+  .mempty{text-align:center;color:#9ca3af;padding:60px 0;font-size:14px;line-height:2}
+  .up{color:#dc2626;font-weight:600}
+  .down{color:#15803d;font-weight:600}
+
   .nempty{text-align:center;color:#9ca3af;padding:40px 0;font-size:13px}
   /* 行情快照条 */
   .mkbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:#fff;
@@ -303,7 +335,7 @@
 <div class="nav">
   <span class="brand">开源工作台</span>
   <button id="nav1" class="on" onclick="switchView(1)">① 指数情况</button>
-  <button id="nav2" class="off" onclick="switchView(2)">② 金融要闻</button>
+  <button id="nav2" class="off" onclick="switchView(2)">② 宏观新闻研究</button>
   <button class="off" title="模块名称待定">③ 待定</button>
   <span class="gap"></span>
   <span class="sub" id="genAt"></span>
@@ -315,24 +347,8 @@
 </div>
 
 <div id="viewNews" style="display:none">
-  <div class="sec">金融要闻 <span class="tag" id="newsMeta"></span><span class="tag" style="margin-left:6px" title="1-10 分：8-10 重大｜6-7 重要｜1-5 一般">评分为 1-10 分</span></div>
-  <div class="newsbar">
-    <span class="nf on" data-f="all" onclick="filterNews('all',this)">全部</span>
-    <span class="nf" data-f="石油" onclick="filterNews('石油',this)">石油</span>
-    <span class="nf" data-f="天然气" onclick="filterNews('天然气',this)">天然气</span>
-    <span class="nf" data-f="贵金属" onclick="filterNews('贵金属',this)">贵金属</span>
-    <span class="nf" data-f="工业金属" onclick="filterNews('工业金属',this)">工业金属</span>
-    <span class="nf" data-f="锂/电池金属" onclick="filterNews('锂/电池金属',this)">锂/电池</span>
-    <span class="nf" data-f="铀" onclick="filterNews('铀',this)">铀</span>
-    <span class="nf" data-f="煤炭" onclick="filterNews('煤炭',this)">煤炭</span>
-    <span class="nf" data-f="农产品" onclick="filterNews('农产品',this)">农产品</span>
-    <span class="nf" data-f="AI/算力" onclick="filterNews('AI/算力',this)">AI/算力</span>
-    <span class="nf nf-ai" data-f="__ai_link__" onclick="filterNews('__ai_link__',this)">AI×物资</span>
-    <span style="flex:1"></span>
-    <span class="nsort" onclick="toggleSort()" id="sortBtn">排序：评分↓</span>
-  </div>
-  <div id="newsMarket"></div>
-  <div id="newsList"></div>
+  <div class="sec">宏观新闻研究 <span class="tag" id="macroMeta"></span></div>
+  <div id="macroBody"></div>
 </div>
 
 <div id="viewDetail" style="display:none">
@@ -1430,113 +1446,109 @@ function switchView(n){
     v1.style.display='none'; v2.style.display='none'; vn.style.display='';
     b2.classList.add('on'); b2.classList.remove('off');
     b1.classList.add('off'); b1.classList.remove('on');
-    renderNews();
+    renderMacro();
   }
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function filterNews(f, el){
-  newsFilter=f;
-  document.querySelectorAll('.nf').forEach(x=>x.classList.remove('on'));
-  if(el) el.classList.add('on');
-  renderNews();
+/* ══════════ 宏观新闻研究（2026-11-18 重构）══════════
+   数据来源: 金融要闻/_data/macro.json
+   内容: AI 生成的 7 节结构化宏观研究报告（Markdown）
+*/
+
+/* 极简 Markdown 渲染（支持标题/表格/列表/粗体/段落）*/
+function mdToHtml(md){
+  if(!md) return '<div class="mempty">暂无报告</div>';
+  const lines = md.split('\n');
+  let html = '', inTable = false, inList = false;
+
+  const inline = t => t
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/`([^`]+)`/g,'<code>$1</code>');
+
+  for(let i=0;i<lines.length;i++){
+    let L = lines[i];
+    const tr = L.trim();
+
+    // 表格
+    if(/^\|/.test(tr)){
+      if(/^\|[\s\-:|]+\|$/.test(tr)) continue;   // 分隔行
+      const cells = tr.replace(/^\||\|$/g,'').split('|').map(x=>x.trim());
+      if(!inTable){
+        if(inList){ html += '</ul>'; inList=false; }
+        html += '<table class="mdtable">';
+        html += '<tr>' + cells.map(c=>'<th>'+inline(c)+'</th>').join('') + '</tr>';
+        inTable = true;
+      } else {
+        html += '<tr>' + cells.map(c=>'<td>'+inline(c)+'</td>').join('') + '</tr>';
+      }
+      continue;
+    } else if(inTable){ html += '</table>'; inTable = false; }
+
+    // 列表
+    if(/^[-*]\s+/.test(tr)){
+      if(!inList){ html += '<ul class="mdlist">'; inList = true; }
+      html += '<li>' + inline(tr.replace(/^[-*]\s+/,'')) + '</li>';
+      continue;
+    } else if(/^\d+\.\s+/.test(tr)){
+      if(!inList){ html += '<ul class="mdlist mdnums">'; inList = true; }
+      html += '<li>' + inline(tr.replace(/^\d+\.\s+/,'')) + '</li>';
+      continue;
+    } else if(inList){ html += '</ul>'; inList = false; }
+
+    // 标题
+    const hm = tr.match(/^(#{1,4})\s+(.+)$/);
+    if(hm){
+      const lv = hm[1].length;
+      const txt = inline(hm[2]);
+      if(lv===1) html += '<h2 class="mdh1">'+txt+'</h2>';
+      else if(lv===2) html += '<h3 class="mdh2">'+txt+'</h3>';
+      else html += '<h4 class="mdh3">'+txt+'</h4>';
+      continue;
+    }
+
+    // 分隔线
+    if(/^---+$/.test(tr)){ html += '<hr>'; continue; }
+    // 空行
+    if(!tr) continue;
+    // 段落
+    html += '<p>'+inline(tr)+'</p>';
+  }
+  if(inTable) html += '</table>';
+  if(inList) html += '</ul>';
+  return html;
 }
 
-function toggleSort(){
-  newsSortDesc=!newsSortDesc;
-  const b=document.getElementById('sortBtn');
-  if(b) b.textContent='排序：'+(newsSortDesc?'评分↓':'评分↑');
-  renderNews();
-}
-
-function renderNews(){
-  const box=document.getElementById('newsList');
+function renderMacro(){
+  const box = document.getElementById('macroBody');
+  const meta = document.getElementById('macroMeta');
   if(!box) return;
-  const N=(D.news && D.news.items) || [];
-  const meta=document.getElementById('newsMeta');
 
-  if(!N.length){
-    box.innerHTML='<div class="nempty">暂无要闻数据（请先运行 金融要闻 的每日更新）</div>';
-    if(meta) meta.textContent='无数据';
-    return;
-  }
-  if(meta) meta.textContent = D.news.generatedAt + ' · ' + D.news.total + ' 条 · ' + D.news.sources.length + ' 个源';
-
-  // 行情快照
-  const mk=document.getElementById('newsMarket');
-  if(mk){
-    const M=D.news.market||{};
-    const cs=M.commodities||[], ss=M.stocks||[];
-    if(cs.length || ss.length){
-      let h='<div class="mkbar"><span class="mkt-label">实时行情</span>';
-      cs.forEach(c=>{
-        const p= c.chg_pct==null?'' : (c.chg_pct>=0?'up':'down');
-        const pct= c.chg_pct==null?'—':(c.chg_pct>=0?'+':'')+c.chg_pct.toFixed(2)+'%';
-        h+='<span class="mkitem"><b>'+c.name+'</b> '+c.price+' <span class="'+p+'">'+pct+'</span></span>';
-      });
-      ss.slice(0,6).forEach(s=>{
-        const p= s.chg_pct==null?'' : (s.chg_pct>=0?'up':'down');
-        const pct= s.chg_pct==null?'—':(s.chg_pct>=0?'+':'')+s.chg_pct.toFixed(2)+'%';
-        h+='<span class="mkitem"><b>'+s.name+'</b> '+s.price+' <span class="'+p+'">'+pct+'</span></span>';
-      });
-      h+='</div>';
-      mk.innerHTML=h;
-    } else { mk.innerHTML=''; }
-  }
-
-  let list = N.slice();
-  if(newsFilter==='__ai_link__') list = list.filter(x=>(x.ai_links||[]).length>0);
-  else if(newsFilter!=='all') list = list.filter(x=>(x.topics||[]).includes(newsFilter));
-  list.sort((a,b)=> newsSortDesc ? b.score-a.score : a.score-b.score);
-
-  if(!list.length){
-    box.innerHTML='<div class="nempty">该分类下暂无新闻</div>';
+  const M = (D.macro) || {};
+  if(!M.report){
+    box.innerHTML = '<div class="mempty">暂无宏观研究报告<br><span style="font-size:12px;color:#9ca3af">请运行 金融要闻/run_macro.py 生成</span></div>';
+    if(meta) meta.textContent = '无数据';
     return;
   }
 
-  const CERT={'高':'ct-hi','中':'ct-mid','低':'ct-lo'};
-  box.innerHTML = list.map(it=>{
-    const sc = it.score>=8 ? 'sc-hi' : (it.score>=6 ? 'sc-mid' : 'sc-lo');
-    const title = it.title_zh || it.title;
-    const desc = it.desc_zh || it.desc || '';
-    const topics = (it.topics||[]).map(t=>'<span class="ntag">'+t+'</span>').join('');
-    // AI×物资 交叉标记
-    const aiTag = (it.ai_links&&it.ai_links.length)
-      ? '<span class="ntag ntag-ai" title="AI 算力扩张对实物物资需求的传导">AI→'+it.ai_links.join('／')+'</span>'
-      : '';
-    // 时效标签
-    let fresh='';
-    if(it.age_hours!=null){
-      const h=it.age_hours;
-      if(h<=6) fresh='<span class="nfresh nf-hot">'+Math.round(h)+'h前</span>';
-      else if(h<=24) fresh='<span class="nfresh nf-new">'+Math.round(h)+'h前</span>';
-      else if(h<=72) fresh='<span class="nfresh">'+Math.round(h/24)+'天前</span>';
-      else fresh='<span class="nfresh nf-old">'+Math.round(h/24)+'天前</span>';
-    }
-    // 确定性
-    const cert = it.certainty ? '<span class="cert '+(CERT[it.certainty]||'ct-mid')+'">确定性'+it.certainty+'</span>' : '';
-    // 事件说明块（含数据佐证）
-    let evt='';
-    if(it.event || it.impact || it.data_note){
-      evt = '<div class="nevt">'
-        + (it.event ? '<div class="nevt-row"><span class="nevt-k">事件</span><span class="nevt-v">'+it.event+'</span></div>' : '')
-        + (it.data_note ? '<div class="nevt-row"><span class="nevt-k">数据</span><span class="nevt-v ndata">'+it.data_note+'</span></div>' : '')
-        + (it.impact ? '<div class="nevt-row"><span class="nevt-k">影响</span><span class="nevt-v">'+it.impact+'</span></div>' : '')
-        + '</div>';
-    }
-    const orig = it.title_zh && it.title_zh!==it.title
-      ? '<div style="font-size:11px;color:#cbd5e1;margin-top:6px;font-style:italic;line-height:1.5">'
-        + it.title + '</div>' : '';
-    return '<div class="nitem">'
-      + '<div class="ntop"><div class="ntitle">'+title+'</div>'
-      +   '<span class="nscore '+sc+'">'+it.score+'<span style="font-size:10px;opacity:.65">/10</span></span></div>'
-      + evt
-      + (desc ? '<div class="ndesc">'+desc+'</div>' : '')
-      + '<div class="nfoot">'+topics+aiTag+cert+fresh
-      +   '<span style="margin-left:auto">'+it.source+'</span>'
-      +   '<a class="nlink" style="margin-left:8px" href="'+it.link+'" target="_blank" rel="noopener">原文 →</a></div>'
-      + orig + '</div>';
-  }).join('');
+  if(meta) meta.textContent = M.generatedAt + ' · ' + (M.newsCount||0) + ' 条新闻 · FRED 宏观';
+
+  // 顶部宏观指标快照
+  let snap = '';
+  const macro = M.macro || {};
+  const keys = ['DGS10','DGS2','T10Y2Y','FEDFUNDS','CPIAUCSL','UNRISE','UNRATE','VIXCLS'];
+  const items = [];
+  ['DGS10','DGS2','T10Y2Y','FEDFUNDS','UNRATE','VIXCLS'].forEach(k=>{
+    const v = macro[k];
+    if(v && v.latest != null) items.push('<span class="mkspan"><b>'+v.name.replace(/（.*/,'')+'</b> '+v.latest+(v.unit||'')+'</span>');
+  });
+  if(M.index){
+    items.unshift('<span class="mkspan"><b>纳指100</b> '+M.index.close+' <span class="'+(M.index.chg&&M.index.chg[0]==='+'?'up':'down')+'">'+M.index.chg+'</span></span>');
+  }
+  if(items.length) snap = '<div class="mksnap">'+items.join('')+'</div>';
+
+  box.innerHTML = snap + '<div class="macroc">' + mdToHtml(M.report) + '</div>';
 }
 
 /* ========== 启动 ========== */

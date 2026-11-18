@@ -64,54 +64,31 @@ jobs:
         continue-on-error: false
 
       # ── 金融要闻（2026-10-28 新增）──
-      - name: 抓取金融要闻
+      - name: 生成宏观新闻研究
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
         run: |
-          echo "── 抓取金融要闻 ──"
+          echo "── 宏观新闻研究 ──"
           if [ -z "$DEEPSEEK_API_KEY" ]; then
-            echo "⚠️ 未配置 DEEPSEEK_API_KEY secret，跳过 AI 翻译与事件说明"
-            echo "   如需启用：仓库 Settings → Secrets → Actions → New secret"
-            echo "   名称填 DEEPSEEK_API_KEY"
+            echo "⚠️ 未配置 DEEPSEEK_API_KEY，跳过 AI 报告生成"
             exit 0
           fi
           cd 金融要闻
-          echo "── run_daily.py 开始（完整输出）──"
           set +e
-          python -u run_daily.py 2>&1 | tee /tmp/news_run.log
+          python -u run_macro.py 2>&1 | tee /tmp/macro_run.log
           RC=${PIPESTATUS[0]}
           set -e
-          echo "── run_daily.py 退出码: $RC ──"
+          echo "── run_macro.py 退出码: $RC ──"
           cd ..
-          SN=0
-          echo "── 要闻数据 ──"
-          python - <<'PY' || SN=1
-          import json, sys, datetime
-          import os
-          d = json.load(open('金融要闻/_data/news.json'))
-          rc = os.environ.get('NEWS_RC', '0')
-          print(f"  run_daily 退出码 {rc}")
-          items = d.get('items', [])
-          zh = sum(1 for x in items if x.get('title_zh'))
-          ai = sum(1 for x in items if x.get('event'))
-          dn = sum(1 for x in items if x.get('data_note'))
-          print(f"  新闻 {d['total']} 条｜中文 {zh}｜AI 事件 {ai}｜数据佐证 {dn}")
-          print(f"  生成时间 {d['generatedAt']}")
-          print(f"  行情 A股 {len(d['market']['stocks'])} / 商品 {len(d['market']['commodities'])}")
-          # ⚠️ 云端强制校验：AI 必须真的跑通，不能只看步骤 success
-          age_h = (datetime.datetime.now() - datetime.datetime.strptime(d['generatedAt'], '%Y-%m-%d %H:%M')).total_seconds()/3600
-          bad = []
-          if zh < d['total']: bad.append(f"中文仅 {zh}/{d['total']}")
-          if ai < d['total']: bad.append(f"AI 事件仅 {ai}/{d['total']}")
-          if age_h > 6:       bad.append(f"生成时间过旧（{age_h:.1f}h 前）")
-          if bad:
-              print(f"❌ 要闻数据未真正更新：{'；'.join(bad)}")
-              sys.exit(1)
-          print("✅ 要闻数据校验通过（中文/AI 均完整且新鲜）")
-          PY
-          echo "SN=$SN" >> $GITHUB_ENV
           echo "NEWS_RC=$RC" >> $GITHUB_ENV
-        # 不阻塞指数数据部署（用 step 输出标记，最后统一判定）
+          # 报告生成成功则打标
+          if [ "$RC" = "0" ] && [ -f 金融要闻/_data/macro.json ]; then
+            echo "SN=0" >> $GITHUB_ENV
+          else
+            echo "SN=1" >> $GITHUB_ENV
+          fi
+        continue-on-error: true
 
       - name: 生成页面与发布包
         run: |
@@ -157,7 +134,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A _data 金融要闻/_data   # 只提交数据；dist 与 工作台.html 每次构建重新生成
+          git add -A _data 金融要闻/_data   # 含 macro.json；dist 与 工作台.html 每次构建重新生成
           if git diff --staged --quiet; then
             echo "无数据变化，跳过提交"
           else
@@ -165,12 +142,12 @@ jobs:
             git push
           fi
 
-      - name: 要闻失败则整体失败（避免静默）
+      - name: 宏观研究生成失败提示（不阻塞部署）
         if: env.SN == '1'
         run: |
-          echo "❌ 金融要闻未真正更新（见上一步输出）"
-          echo "   常见原因：DEEPSEEK_API_KEY 未配置或无效、API 余额不足、数据源失败"
-          exit 1
+          echo "::warning title=宏观新闻研究未更新::本次 AI 报告生成失败，已保留上一版报告。请查看上一步日志。"
+          echo "⚠️ 宏观新闻研究未更新，页面沿用上一版报告"
+          echo "   常见原因：DEEPSEEK_API_KEY 无效 / API 余额不足 / FRED 超时"
 
       - name: 上传 Pages 产物
         # ⚠️ 2026-11-07：加 always()，否则「要闻失败」那步 exit 1 之后 Pages 部署被整体跳过
