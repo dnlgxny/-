@@ -27,12 +27,6 @@ SOURCES = [
         'ua': 'Mozilla/5.0',
         'desc': '美国能源署新闻稿',
     },
-    {
-        'id': 'sa', 'name': 'Seeking Alpha', 'lang': 'en',
-        'url': 'https://seekingalpha.com/market_currents.xml',
-        'ua': 'Mozilla/5.0',
-        'desc': '市场快讯（含商品相关）',
-    },
     # ── AI 内容（2026-11-10 新增）──
     {
         'id': 'tc_ai', 'name': 'TechCrunch AI', 'lang': 'en',
@@ -50,20 +44,22 @@ SOURCES = [
 
 # 实物物资关键词（用于过滤 + 评分）
 TOPIC_KEYWORDS = {
-    '石油': ['oil', 'crude', 'petroleum', 'opec', 'barrel', 'wti', 'brent', 'refin', 'gasoline', 'diesel'],
-    '天然气': ['natural gas', 'lng', 'gas price', 'henry hub'],
+    # ══ 三大保留类别（2026-11-17 用户指定：只要 AI、石油、贵金属）══
+    'AI': ['artificial intelligence', ' ai ', 'ai-', 'llm', 'large language model',
+           'openai', 'anthropic', 'machine learning', 'agentic', 'generative ai',
+           'chatgpt', 'gemini', 'claude', 'model release', 'ai model'],
+    '石油': ['oil', 'crude', 'petroleum', 'opec', 'barrel', 'wti', 'brent',
+             'refin', 'gasoline', 'diesel', 'shale', 'pipeline'],
     '贵金属': ['gold', 'silver', 'platinum', 'palladium', 'precious metal', 'bullion'],
-    '工业金属': ['copper', 'aluminum', 'aluminium', 'zinc', 'nickel', 'iron ore', 'steel',
-                '^lead ', '^tin ', '^lead$', '^tin$'],   # lead/tin 需词边界，避免匹配 Latin/continuing
-    '锂/电池金属': ['lithium', 'cobalt', 'graphite', 'rare earth', 'battery metal'],
-    '农产品': ['wheat', 'corn', 'soybean', 'coffee', 'sugar', 'cocoa', 'cotton'],
-    '煤炭': ['coal', 'thermal coal', 'coking coal'],
-    '铀': ['uranium', 'nuclear fuel'],
-    # ── AI 相关（2026-11-10 新增）──
-    # 注意：AI 本身不是实物物资，但 AI 算力扩张直接拉动电力/铜/天然气需求
-    'AI/算力': ['artificial intelligence', ' ai ', 'ai-', 'llm', 'large language model',
-                'data center', 'datacenter', 'gpu', 'nvidia', 'openai', 'anthropic',
-                'machine learning', 'inference', 'hyperscaler', 'compute capacity'],
+
+    # ══ 以下仅用于 AI×物资 交叉识别，不单独作为栏目 ══
+    '_电力': ['electricity', 'power grid', 'grid capacity', 'utility company',
+              'power plant', 'natural gas', 'megawatt', 'gigawatt',
+              'nuclear power', 'power demand', 'electricity demand',
+              'energy consumption', 'data center power'],
+    '_铜铝': ['copper', 'aluminum', 'aluminium', 'transformer'],
+    '_芯片': ['chip', 'semiconductor', 'gpu', 'hbm', 'wafer', 'tsmc', 'foundry',
+              'nvidia', 'data center', 'datacenter'],
 }
 
 # 重要性权重（用于评分）

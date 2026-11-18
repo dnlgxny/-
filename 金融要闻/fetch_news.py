@@ -32,22 +32,22 @@ def parse_rss(xml, src):
 # ⚠️ 只保留「能直接指向实物需求」的词，避免 power/energy 这类泛词造成误判
 #    例：「AI empowers small business」不应判为电力需求
 AI_COMMODITY_LINK = {
-    '电力/天然气': ['electricity', 'power grid', 'grid capacity', 'utility company',
-                    'power plant', 'natural gas', 'megawatt', 'gigawatt', 'terawatt',
-                    'nuclear power', 'power demand', 'electricity demand',
-                    'energy consumption', 'data center power'],
-    '铜/铝': ['copper', 'aluminum', 'aluminium', 'wiring', 'transformer'],
-    '贵金属': ['gold', 'silver', 'platinum', 'palladium'],
-    '稀土/锂': ['rare earth', 'lithium', 'cobalt', 'magnet', 'battery metal'],
-    '芯片/半导体': ['chip', 'semiconductor', 'gpu', 'hbm', 'wafer', 'tsmc', 'foundry'],
+    '电力': ['electricity', 'power grid', 'grid capacity', 'utility company',
+             'power plant', 'natural gas', 'megawatt', 'gigawatt',
+             'nuclear power', 'power demand', 'electricity demand',
+             'energy consumption', 'data center power'],
+    '铜铝': ['copper', 'aluminum', 'aluminium', 'transformer'],
+    '芯片': ['chip', 'semiconductor', 'gpu', 'hbm', 'wafer', 'tsmc', 'foundry',
+             'nvidia', 'data center', 'datacenter'],
 }
-
 
 def classify(title, desc):
     """匹配主题分类"""
     text = (title + ' ' + desc).lower()
     hits = []
     for topic, kws in TOPIC_KEYWORDS.items():
+        if topic.startswith('_'):
+            continue          # 私有键只用于交叉识别，不作为栏目
         if any(kw_match(text, k) for k in kws):
             hits.append(topic)
     return hits
@@ -58,7 +58,7 @@ def ai_commodity_link(title, desc):
     仅当新闻含 AI 关键词 且 含物资关键词时才返回，用于交叉加权。
     """
     text = (title + ' ' + desc).lower()
-    ai_kws = TOPIC_KEYWORDS['AI/算力']
+    ai_kws = TOPIC_KEYWORDS['AI']
     if not any(kw_match(text, k) for k in ai_kws):
         return []
     links = []
@@ -68,96 +68,101 @@ def ai_commodity_link(title, desc):
     return links
 
 def score(item, topics):
-    """评分 1-10 分（1=最不重要，10=最重要）
+    """评分 1-10（2026-11-17 重设计）
 
-    评分维度（加权求和后映射到 1-10）：
-      ① 主题相关  权重 3.0  —— 是否属实物物资
-      ② 标题品种  权重 2.0  —— 标题直接点名品种，关注度更高
-      ③ 重要性词  权重 3.5  —— OPEC/制裁/战争/暴涨暴跌等
-      ④ 摘要详实  权重 1.0  —— 信息量
-      ⑤ 时效性    权重 1.5  —— 24h 内加分
+    ⚠️ 设计原则：本工作台关注「实物物资 + AI 算力对物资的传导」
+       纯 AI 概念文章（如「AI 是否有意识」「如何把 AI 融入产品」）
+       对物资无影响，必须低分，不能因为出现 AI 字样就得高分。
+
+    评分锚点（先定档，再微调）：
+      10 = 重大供给冲击/政策突变，直接影响价格（OPEC 减产、制裁、战争断供）
+       9 = 重要价格事件（暴涨暴跌 >5%、库存大幅超预期、大矿停产）
+       8 = 明确的需求/供应变化（数据中心电力大单、矿企扩产、央行购金）
+       7 = 行业重要动态（财报超预期、产能规划、政策表态）
+       6 = 有价值但影响有限（一般行业新闻、技术进展）
+       5 = 背景信息（趋势判断、分析观点）
+       4 = 弱相关（提到物资但非核心）
+     1-3 = 与物资无关（AI 伦理/产品/论文/教程等）
+
+    关键约束：topics 若只有「AI」且无 AI×物资交叉 → 最高 6 分
     """
     text = (item['title'] + ' ' + item['desc']).lower()
+    tl = item['title'].lower()
     detail = []
-
-    # ① 主题相关（0~3.0）
-    w1 = 0.0
-    if topics:
-        w1 = 2.0
-        detail.append(f'主题{"／".join(topics)}+2.0')
-        if len(topics) >= 2:
-            w1 += 1.0
-            detail.append('多主题+1.0')
-    else:
-        detail.append('无主题+0')
-
-    # ② 标题含品种（0~2.0）
-    w2 = 0.0
-    title_l = item['title'].lower()
-    if any(kw_match(title_l, k) for kws in TOPIC_KEYWORDS.values() for k in kws):
-        w2 = 2.0
-        detail.append('标题含品种+2.0')
-
-    # ②b AI × 实物物资 交叉加权（0~2.5）
-    #     这是本工作台最关心的：AI 算力扩张如何影响电力/铜/天然气/稀土需求
-    w2b = 0.0
     links = item.get('ai_links') or []
-    if links:
-        w2b = 2.0 if len(links) >= 2 else 1.5
-        detail.append(f'AI×物资({"／".join(links)})+{w2b:.1f}')
+    is_ai_only = (topics == ['AI']) and not links
 
-    # ③ 重要性词（0~3.5）
-    imp = 0.0
-    found = []
-    for w, wgt in IMPORTANCE.items():
-        if w in text:
-            imp += wgt * 0.35
-            found.append(w)
-    w3 = min(imp, 3.5)
-    if w3 > 0:
-        detail.append(f'重要性词+{w3:.1f}（{",".join(found[:3])}）')
+    # ══ ① 强供给冲击信号（决定 9-10 分）══
+    supply_shock = [
+        'opec+ cut', 'production cut', 'output cut', 'supply cut', 'embargo',
+        'sanction', 'invasion', 'war', 'attack', 'strike', 'blockade',
+        'halt', 'shut down', 'shutdown', 'force majeure', 'outage',
+        'record high', 'record low', 'all-time high', 'all-time low',
+    ]
+    hits = [w for w in supply_shock if w in text]
 
-    # ④ 摘要完整度（0~1.0）
-    dl = len(item['desc'])
-    w4 = 1.0 if dl >= 200 else (0.6 if dl >= 100 else (0.3 if dl >= 40 else 0.0))
-    if w4: detail.append(f'摘要+{w4}')
+    # ══ ② 价格异动幅度（标题里出现百分比）══
+    import re as _re
+    pcts = [float(x) for x in _re.findall(r'(\d+(?:\.\d+)?)\s*%', item['title'])]
+    big_move = max(pcts) if pcts else 0
 
-    # ⑤ 时效性（0~1.5）
-    w5 = 0.0
+    # ══ ③ 需求侧信号（AI→物资传导的核心）══
+    demand_signal = [
+        'data center', 'datacenter', 'power purchase', 'electricity demand',
+        'energy demand', 'buy.*turbine', 'megawatt', 'gigawatt',
+        'capacity expansion', 'new mine', 'production increase',
+        'central bank', 'reserve', 'etf inflow', 'inventory draw',
+    ]
+    d_hits = [w for w in demand_signal if _re.search(w, text)]
+
+    # ══ 定档 ══
+    base = 5
+    if len(hits) >= 2 and (big_move >= 3 or links):
+        base = 10; detail.append(f'多重供给冲击（{",".join(hits[:3])}）')
+    elif hits and big_move >= 5:
+        base = 10; detail.append(f'供给冲击+价格异动{big_move}%')
+    elif hits:
+        base = 9; detail.append(f'供给冲击（{",".join(hits[:2])}）')
+    elif big_move >= 5:
+        base = 9; detail.append(f'价格异动{big_move}%')
+    elif d_hits and links:
+        base = 8; detail.append(f'需求信号+物资传导（{",".join(d_hits[:2])}）')
+    elif links:
+        base = 8; detail.append(f'AI×物资传导（{"／".join(links)}）')
+    elif d_hits:
+        base = 7; detail.append(f'需求信号（{",".join(d_hits[:2])}）')
+    elif big_move >= 2:
+        base = 7; detail.append(f'价格变动{big_move}%')
+    elif topics and topics != ['AI']:
+        base = 6; detail.append(f'物资主题（{"／".join(topics)}）')
+
+    # ══ 微调（±1，不跨越档位太多）══
+    adj = 0
+    # 时效：6h 内 +1
     try:
         from email.utils import parsedate_to_datetime
         dt = parsedate_to_datetime(item['date'])
         age_h = (datetime.datetime.now(datetime.timezone.utc) - dt).total_seconds()/3600
-        if age_h <= 6:        w5 = 1.5; detail.append('6h内+1.5')
-        elif age_h <= 24:     w5 = 1.0; detail.append('24h内+1.0')
-        elif age_h <= 72:     w5 = 0.4; detail.append('3天内+0.4')
+        item['_age_h'] = age_h
+        if age_h <= 6:   adj += 1; detail.append('6h内+1')
+        elif age_h > 72: adj -= 1; detail.append('超3天-1')
     except Exception:
         pass
+    # 多主题（跨物资类）+1
+    real_topics = [t for t in topics if not t.startswith('_')]
+    if len(real_topics) >= 2:
+        adj += 1; detail.append('多物资主题+1')
+    # 标题直接点名物资 +1
+    if any(kw_match(tl, k) for t in ('石油','贵金属') for k in TOPIC_KEYWORDS[t]):
+        adj += 1; detail.append('标题含物资+1')
 
-    raw = w1 + w2 + w2b + w3 + w4 + w5   # 满分 13.5（含 AI 交叉 2.5）
-    # 映射到 1-10（2026-11-10 重校：加入 AI 源后整体分布上移，需重新锚定）
-    #   raw < 3    → 1~4 分（弱相关）
-    #   raw 3~6    → 4~6 分（一般）
-    #   raw 6~9    → 6~8 分（重要）
-    #   raw >= 9   → 8~10 分（重大）
-    if raw < 3:      sc = 1 + raw * 1.0
-    elif raw < 6:    sc = 4 + (raw - 3) * 0.67
-    elif raw < 9:    sc = 6 + (raw - 6) * 0.67
-    else:            sc = 8 + (raw - 9) * 0.45
-    # ⑥ 重大事件加成（决定 9-10 分档）
-    #    只有「多主题交叉 + 强重要性词 + 高时效」三者兼具才加，避免通胀
-    strong_imp = any(w in text for w in
-        ('opec', 'sanction', 'embargo', 'war', 'invasion', 'crisis', 'collapse',
-         'plunge', 'crash', 'soar', 'surge', 'record high', 'record low',
-         'supply cut', 'production cut', 'attack', 'strike'))
-    bonus = 0
-    if strong_imp and len(topics) >= 2 and w5 >= 1.0:
-        bonus = 2; detail.append('重大事件+2（多主题+强词+快讯）')
-    elif strong_imp and (len(topics) >= 2 or w2b >= 1.5):
-        bonus = 1; detail.append('重要事件+1')
-    sc += bonus
+    # ══ 硬约束：纯 AI 文章封顶 6 分 ══
+    if is_ai_only:
+        base = min(base, 6)
+        adj = min(adj, 0)   # 不给加分
+        detail.append('纯AI无物资关联→封顶6')
 
-    sc = max(1, min(10, round(sc)))
+    sc = max(1, min(10, base + adj))
     return int(sc), detail
 
 
