@@ -411,6 +411,38 @@ def fetch_cboe_vxn():
     return out
 
 
+def _fetch_via_scrapling(url, wait_ms=2500):
+    """用 scrapling stealthy-fetch 绕过反爬（2026-11-21 新增）
+
+    背景：CNN 对普通请求返回 HTTP 418 "I'm a teapot. You're a bot."
+          实测 scrapling stealthy-fetch + Edge 可绕过，成功抓到原始 JSON。
+
+    返回: 文本内容，失败返回 None
+    """
+    import subprocess, tempfile, os
+    SC = os.path.expanduser('~/.workbuddy/binaries/python/envs/default/bin/scrapling')
+    EDGE = '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge'
+    if not os.path.exists(SC):
+        return None
+    fd, tmp = tempfile.mkstemp(suffix='.txt')
+    os.close(fd)
+    try:
+        r = subprocess.run(
+            [SC, 'extract', 'stealthy-fetch', url, tmp,
+             '--executable-path', EDGE,
+             '--timeout', '45000', '--wait', str(wait_ms), '--block-ads'],
+            capture_output=True, text=True, timeout=90)
+        if os.path.exists(tmp) and os.path.getsize(tmp) > 100:
+            return open(tmp, encoding='utf-8', errors='replace').read()
+        return None
+    except Exception as e:
+        print(f'       [scrapling] {type(e).__name__}: {str(e)[:60]}')
+        return None
+    finally:
+        try: os.unlink(tmp)
+        except Exception: pass
+
+
 def load_vxn():
     print('[2] VXN ...')
     rows, base_src = ensure_cache(os.path.join(CACHE, 'fred_vxn.csv'), 'VXNCLS', 'VXNCLS')
@@ -531,7 +563,25 @@ def load_cnn():
            'Accept': 'application/json, text/plain, */*',
            'Origin': 'https://www.cnn.com'}
     base = 'https://production.dataviz.cnn.io/index/fearandgreed/graphdata'
-    d = json.loads(get(base, HDR).decode('utf-8'))
+
+    # ══ 2026-11-21：CNN 对普通请求返回 418 "I'm a teapot. You're a bot."
+    #    实测 scrapling stealthy-fetch + Edge 可绕过，回退方案优先用普通请求，
+    #    失败后自动升级到浏览器。
+    d = None
+    try:
+        d = json.loads(get(base, HDR).decode('utf-8'))
+    except Exception as e:
+        print(f'     [普通请求失败] {type(e).__name__}，改用 scrapling 浏览器绕过...')
+        txt = _fetch_via_scrapling(base)
+        if txt:
+            try:
+                d = json.loads(txt)
+                print(f'     [scrapling] ✅ 绕过成功')
+            except Exception as e2:
+                print(f'     [scrapling] 解析失败: {e2}')
+    if d is None:
+        raise RuntimeError('CNN 两种方式均失败（418 反爬 + scrapling 未成功）')
+
     hist = d.get('fear_and_greed_historical', {}).get('data', [])
     try:
         d2 = json.loads(get(base + '/2020-07-17', HDR).decode('utf-8'))
@@ -598,10 +648,42 @@ def load_danjuan():
 # ============ ⑥ 股息率（nikkei225jp，JSONP）============
 def load_dividend():
     print('[6] 股息率（nikkei225jp 列15）...')
-    # ⚠️ 该源无 Referer 会返回 404（实测），必须带站点 Referer
-    raw = get('https://nikkei225jp.com/_data/_nfsDATA/json_DAY/US_PER.json',
-              {'Referer': 'https://nikkei225jp.com/'}).decode('utf-8', 'replace')
-    body = raw[raw.index('['): raw.rindex(']') + 1]      # 去 JSONP 壳
+    # ── 2026-11-21 修复：该源 URL 已变更 ──
+    # 旧: /_data/_nfsDATA/json_DAY/US_PER.json           → 404
+    # 新: /_data/_nfsDATA/json_DAY/US_PER.json?<版本号>  → 200
+    # 版本号从 /data/us_per.php 页面里动态取（形如 ?498673），不能写死。
+    # 内容格式为 JS 变量 `var US_DAILY = [...]`，非纯 JSON。
+    import re as _re
+    ver = None
+    try:
+        _page = get('https://nikkei225jp.com/data/us_per.php',
+                    {'Referer': 'https://nikkei225jp.com/'}).decode('utf-8', 'replace')
+        _m = _re.search(r'US_PER\.json\?(\d+)', _page)
+        if _m:
+            ver = _m.group(1)
+    except Exception:
+        pass
+
+    urls = []
+    if ver:
+        urls.append(f'https://nikkei225jp.com/_data/_nfsDATA/json_DAY/US_PER.json?{ver}')
+    urls.append('https://nikkei225jp.com/_data/_nfsDATA/json_DAY/US_PER.json')
+
+    raw = None
+    for u in urls:
+        try:
+            raw = get(u, {'Referer': 'https://nikkei225jp.com/'}).decode('utf-8', 'replace')
+            if 'US_DAILY' in raw or raw.lstrip().startswith('['):
+                break
+        except Exception as e:
+            print(f'     [警告] {u[-30:]} 失败: {type(e).__name__}')
+            raw = None
+    if not raw:
+        raise RuntimeError('股息率源全部失败')
+
+    # 去 JS 壳：var US_DAILY = [ ... ];
+    _mm = _re.search(r'var\s+US_DAILY\s*=\s*(\[.*?\])\s*;', raw, _re.S)
+    body = _mm.group(1) if _mm else raw[raw.index('['): raw.rindex(']') + 1]
     arr = json.loads(body)
     rows = []
     for r in arr:
@@ -612,7 +694,7 @@ def load_dividend():
     save('dividend.json', {
         'src': 'nikkei225jp US_PER.json 列15', 'unit': '%',
         'start': rows[0][0], 'end': rows[-1][0], 'n': len(rows), 'rows': rows,
-        'note': 'NDX 指数级股息率；周频；经列3收盘价交叉验证与腾讯一致',
+        'note': 'NDX 指数级股息率；周频；列3=纳指点位（与工作台一致）；URL 需带版本号',
     })
     return rows
 
