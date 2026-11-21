@@ -371,10 +371,28 @@ def load_ndx():
     except Exception as e:
         print(f'     [警告] 腾讯补数失败（{type(e).__name__}: {str(e)[:60]}），仅用缓存')
 
+    # ══════════ 防倒退保护（2026-11-21 新增）══════════
+    # 事故复盘：11-21 06:31 运行时新浪+腾讯全失败，脚本「仅用缓存」，
+    # 却把内存里止于 FRED 10-23 的旧缓存写回文件，导致数据从 11-20 倒退到 10-23。
+    # 规则：新数据末日期若【早于】现有文件的末日期，拒绝写入并保留原文件。
+    old_end = None
+    try:
+        _p = os.path.join(OUT, 'ndx.json')
+        if os.path.exists(_p):
+            old_end = json.load(open(_p, encoding='utf-8')).get('end')
+    except Exception:
+        pass
+
+    new_end = rows[-1][0] if rows else None
+    if old_end and new_end and new_end < old_end:
+        print(f'     [保护] 拒绝写入：新数据末 {new_end} 早于现有 {old_end}（疑数据源全失败）')
+        print(f'     [保护] 保留原 ndx.json，请检查新浪/腾讯接口')
+        return rows
+
     save('ndx.json', {
         'src': src, 'unit': '指数点（价格口径，不含股息）',
         'start': rows[0][0], 'end': rows[-1][0], 'n': len(rows), 'rows': rows,
-        'note': 'FRED 直连被封，历史来自本地缓存；最新由腾讯 us.NDX 增量拼接',
+        'note': 'FRED 直连被封，历史来自本地缓存；最新由新浪 .NDX / 腾讯 us.NDX 增量拼接',
     })
     return rows
 
