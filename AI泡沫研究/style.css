@@ -1,0 +1,28 @@
+*{box-sizing:border-box}
+body{margin:0;background:#f7f8f9;color:#1a1a1a;font-size:15px;line-height:1.85;
+ font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+.page{max-width:1300px;margin:0 auto;padding:44px 34px 100px}
+header{border-bottom:3px solid #111;padding-bottom:22px;margin-bottom:28px}
+h1{font-size:30px;margin:0 0 8px;font-weight:700;letter-spacing:-.4px}
+.meta{color:#666;font-size:13.5px;line-height:2;margin-top:10px}
+.meta b{color:#111}
+h2{font-size:21px;margin:42px 0 14px;padding-top:16px;border-top:1px solid #e3e5e7;font-weight:700}
+h3{font-size:16.5px;margin:24px 0 10px;color:#0b6b4a;font-weight:700}
+.card{background:#fff;border:1px solid #e3e5e7;border-radius:10px;padding:20px 24px;margin-bottom:16px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+th{background:#f3f5f6;text-align:left;padding:9px 10px;border:1px solid #e3e5e7;font-weight:600;font-size:12px;color:#374151;white-space:nowrap}
+td{padding:8px 10px;border:1px solid #e3e5e7;vertical-align:middle}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:nth-child(even) td{background:#fcfcfd}
+.sym{font-size:11px;color:#9ca3af}
+p{margin:11px 0}
+.big{display:flex;gap:14px;flex-wrap:wrap;margin:16px 0}
+.big div{flex:1;min-width:150px;background:#fafbfc;border:1px solid #e3e5e7;border-radius:8px;padding:14px 16px}
+.big .l{font-size:12px;color:#6b7280}
+.big .v{font-size:23px;font-weight:700;margin-top:3px;font-variant-numeric:tabular-nums}
+.warn{background:#fef2f2;border-left:4px solid #b91c1c;padding:13px 17px;border-radius:6px;font-size:13.5px;margin:14px 0;line-height:1.85}
+.note{background:#eff6ff;border-left:4px solid #2563eb;padding:13px 17px;border-radius:6px;font-size:13.5px;margin:14px 0;line-height:1.85}
+.ok{background:#f0fdf4;border-left:4px solid #15803d;padding:13px 17px;border-radius:6px;font-size:13.5px;margin:14px 0;line-height:1.85}
+ul{margin:10px 0;padding-left:24px}
+li{margin:6px 0}
+code{background:#f0f2f4;padding:1.5px 6px;border-radius:3px;font-size:12.5px}

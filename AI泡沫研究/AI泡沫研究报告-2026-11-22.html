@@ -1,0 +1,192 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>美股 AI 公司收支与泡沫研究 · 2026-11-22（单季口径）</title>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#f7f8f9;color:#1a1a1a;font-size:15px;line-height:1.85;
+ font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+.page{max-width:1300px;margin:0 auto;padding:44px 34px 100px}
+header{border-bottom:3px solid #111;padding-bottom:22px;margin-bottom:28px}
+h1{font-size:30px;margin:0 0 8px;font-weight:700;letter-spacing:-.4px}
+.meta{color:#666;font-size:13.5px;line-height:2;margin-top:10px}
+.meta b{color:#111}
+h2{font-size:21px;margin:42px 0 14px;padding-top:16px;border-top:1px solid #e3e5e7;font-weight:700}
+h3{font-size:16.5px;margin:24px 0 10px;color:#0b6b4a;font-weight:700}
+.card{background:#fff;border:1px solid #e3e5e7;border-radius:10px;padding:20px 24px;margin-bottom:16px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+th{background:#f3f5f6;text-align:left;padding:9px 10px;border:1px solid #e3e5e7;font-weight:600;font-size:12px;color:#374151;white-space:nowrap}
+td{padding:8px 10px;border:1px solid #e3e5e7;vertical-align:middle}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:nth-child(even) td{background:#fcfcfd}
+.sym{font-size:11px;color:#9ca3af}
+p{margin:11px 0}
+.big{display:flex;gap:14px;flex-wrap:wrap;margin:16px 0}
+.big div{flex:1;min-width:150px;background:#fafbfc;border:1px solid #e3e5e7;border-radius:8px;padding:14px 16px}
+.big .l{font-size:12px;color:#6b7280}
+.big .v{font-size:23px;font-weight:700;margin-top:3px;font-variant-numeric:tabular-nums}
+.warn{background:#fef2f2;border-left:4px solid #b91c1c;padding:13px 17px;border-radius:6px;font-size:13.5px;margin:14px 0;line-height:1.85}
+.note{background:#eff6ff;border-left:4px solid #2563eb;padding:13px 17px;border-radius:6px;font-size:13.5px;margin:14px 0;line-height:1.85}
+.ok{background:#f0fdf4;border-left:4px solid #15803d;padding:13px 17px;border-radius:6px;font-size:13.5px;margin:14px 0;line-height:1.85}
+ul{margin:10px 0;padding-left:24px}
+li{margin:6px 0}
+code{background:#f0f2f4;padding:1.5px 6px;border-radius:3px;font-size:12.5px}
+</style></head><body><div class="page">
+
+<header>
+<h1>美股 AI 公司收支与泡沫研究</h1>
+<div class="meta">
+<b>生成日期</b> 2026-11-22 11:30　<b>行情</b> 2026-11-20 收盘　<b>财报</b> 年报 10-K + 单季 10-Q<br>
+<b>数据源</b> Finnhub（XBRL 原始申报）　<b>覆盖</b> 11 家美股 AI 核心公司 / <b>162 个真单季</b><br>
+<b>本版变更</b> 采用<b>单季口径</b>（更灵敏），年报作为对照保留
+</div>
+</header>
+
+<div class="note">
+<b>📌 本版说明：为什么改用单季口径</b><br>
+上一版用年报（10-K），但年报只能看到年度平均，<b>掩盖了季内的急剧变化</b>。<br>
+本版实测发现：Finnhub 季报接口的 <code>startDate</code> 是财年起点而非季度起点，
+原始数据是<b>财年内累计值</b>。经校验，直接筛选<b>期间 80–100 天的记录</b>即为真单季，
+无需减算（避免传递误差）。共提取 <b>162 个真单季</b>，最新至 2026-09-30。<br>
+<b>关键改善</b>：甲骨文单季 Capex 率已达 <b>147.3%</b>，年报口径（82.6%）严重低估了当前强度。
+</div>
+
+<h2>一、最新单季：Capex 率与自由现金流</h2>
+<div class="card">
+<table>
+<tr><th>公司</th><th class="n">季度截止</th><th class="n">期间</th><th class="n">单季营收</th>
+<th class="n">单季 Capex率</th><th class="n">单季自由现金流</th></tr>
+<tr><td><b>英伟达</b><br><span class="sym">NVDA</span></td><td class="n">2026-04-26</td><td class="n">90天</td><td class="n">81.6B</td><td class="n" style="color:#15803d;font-weight:600">2.2%</td><td class="n" style="color:#111;font-weight:600">48.6B</td></tr>
+<tr><td><b>微软</b><br><span class="sym">MSFT</span></td><td class="n">2026-09-30</td><td class="n">91天</td><td class="n">92.3B</td><td class="n" style="color:#b91c1c;font-weight:600">42.7%</td><td class="n" style="color:#111;font-weight:600">18.6B</td></tr>
+<tr><td><b>谷歌</b><br><span class="sym">GOOGL</span></td><td class="n">2026-03-31</td><td class="n">89天</td><td class="n">109.9B</td><td class="n" style="color:#b45309;font-weight:600">32.5%</td><td class="n" style="color:#111;font-weight:600">10.1B</td></tr>
+<tr><td><b>亚马逊</b><br><span class="sym">AMZN</span></td><td class="n">2026-03-31</td><td class="n">89天</td><td class="n">181.5B</td><td class="n" style="color:#b45309;font-weight:600">24.4%</td><td class="n" style="color:#15803d;font-weight:600">-18.2B</td></tr>
+<tr><td><b>Meta</b><br><span class="sym">META</span></td><td class="n">2026-03-31</td><td class="n">89天</td><td class="n">56.3B</td><td class="n" style="color:#b45309;font-weight:600">33.7%</td><td class="n" style="color:#111;font-weight:600">13.2B</td></tr>
+<tr><td><b>苹果</b><br><span class="sym">AAPL</span></td><td class="n">2025-12-27</td><td class="n">90天</td><td class="n">143.8B</td><td class="n" style="color:#15803d;font-weight:600">1.7%</td><td class="n" style="color:#111;font-weight:600">51.6B</td></tr>
+<tr><td><b>博通</b><br><span class="sym">AVGO</span></td><td class="n">2026-02-01</td><td class="n">90天</td><td class="n">19.3B</td><td class="n" style="color:#15803d;font-weight:600">1.3%</td><td class="n" style="color:#111;font-weight:600">8.0B</td></tr>
+<tr><td><b>AMD</b><br><span class="sym">AMD</span></td><td class="n">2026-03-28</td><td class="n">90天</td><td class="n">10.3B</td><td class="n" style="color:#15803d;font-weight:600">3.8%</td><td class="n" style="color:#111;font-weight:600">2.6B</td></tr>
+<tr><td><b>甲骨文</b><br><span class="sym">ORCL</span></td><td class="n">2026-08-31</td><td class="n">91天</td><td class="n">19.3B</td><td class="n" style="color:#b91c1c;font-weight:600">147.3%</td><td class="n" style="color:#15803d;font-weight:600">-5.4B</td></tr>
+<tr><td><b>Palantir</b><br><span class="sym">PLTR</span></td><td class="n">2026-03-31</td><td class="n">89天</td><td class="n">1.6B</td><td class="n" style="color:#15803d;font-weight:600">0.5%</td><td class="n" style="color:#111;font-weight:600">0.9B</td></tr>
+<tr><td><b>Salesforce</b><br><span class="sym">CRM</span></td><td class="n">2026-04-30</td><td class="n">88天</td><td class="n">11.1B</td><td class="n" style="color:#15803d;font-weight:600">—</td><td class="n" style="color:#111;font-weight:600">—</td></tr>
+</table>
+<p style="font-size:12.5px;color:#6b7280;margin-bottom:0">
+只采用期间 80–100 天的记录（真单季）。Capex率 = 单季资本开支 ÷ 单季营收。
+<span style="color:#b91c1c">红</span> &gt;40%｜<span style="color:#b45309">橙</span> 20-40%｜<span style="color:#15803d">绿</span> &lt;20%。
+</p>
+</div>
+
+<h2>二、单季 Capex 率五年演变（最关键证据）</h2>
+<div class="card">
+<table>
+<tr><th>公司 / 季度</th><th class="n">序列（早→晚）</th><th class="n">变化</th></tr>
+<tr><td><b>甲骨文</b><br><span class="sym">2012-08　2023-08　2024-08　2025-08　2026-08</span></td><td class="n" style="color:#15803d">1.7%</td><td class="n" style="color:#15803d">10.6%</td><td class="n" style="color:#15803d">17.3%</td><td class="n" style="color:#b91c1c">57.0%</td><td class="n" style="color:#b91c1c">147.3%</td><td class="n" style="font-weight:700;color:#b91c1c">+145.6pp</td></tr>
+<tr><td><b>微软</b><br><span class="sym">2016-09　2023-09　2024-09　2025-09　2026-09</span></td><td class="n" style="color:#15803d">10.6%</td><td class="n" style="color:#15803d">17.5%</td><td class="n" style="color:#b45309">22.8%</td><td class="n" style="color:#b45309">25.0%</td><td class="n" style="color:#b91c1c">42.7%</td><td class="n" style="font-weight:700;color:#b91c1c">+32.1pp</td></tr>
+<tr><td><b>谷歌</b><br><span class="sym">2022-03　2023-03　2024-03　2025-03　2026-03</span></td><td class="n" style="color:#15803d">14.4%</td><td class="n" style="color:#15803d">9.0%</td><td class="n" style="color:#15803d">14.9%</td><td class="n" style="color:#15803d">19.1%</td><td class="n" style="color:#b45309">32.5%</td><td class="n" style="font-weight:700;color:#b91c1c">+18.1pp</td></tr>
+<tr><td><b>亚马逊</b><br><span class="sym">2022-03　2023-03　2024-03　2025-03　2026-03</span></td><td class="n" style="color:#15803d">12.8%</td><td class="n" style="color:#15803d">11.2%</td><td class="n" style="color:#15803d">10.4%</td><td class="n" style="color:#15803d">16.1%</td><td class="n" style="color:#b45309">24.4%</td><td class="n" style="font-weight:700;color:#b91c1c">+11.5pp</td></tr>
+<tr><td><b>Meta</b><br><span class="sym">2022-03　2023-03　2024-03　2025-03　2026-03</span></td><td class="n" style="color:#15803d">19.5%</td><td class="n" style="color:#b45309">23.9%</td><td class="n" style="color:#15803d">17.6%</td><td class="n" style="color:#b45309">30.6%</td><td class="n" style="color:#b45309">33.7%</td><td class="n" style="font-weight:700;color:#b91c1c">+14.2pp</td></tr>
+<tr><td><b>英伟达</b><br><span class="sym">2021-05　2022-05　2024-04　2025-04　2026-04</span></td><td class="n" style="color:#15803d">5.3%</td><td class="n" style="color:#15803d">4.4%</td><td class="n" style="color:#15803d">1.4%</td><td class="n" style="color:#15803d">2.8%</td><td class="n" style="color:#15803d">2.2%</td><td class="n" style="font-weight:700;color:#15803d">-3.1pp</td></tr>
+<tr><td><b>博通</b><br><span class="sym">2022-01　2023-01　2024-02　2025-02　2026-02</span></td><td class="n" style="color:#15803d">1.3%</td><td class="n" style="color:#15803d">1.2%</td><td class="n" style="color:#15803d">1.0%</td><td class="n" style="color:#15803d">0.7%</td><td class="n" style="color:#15803d">1.3%</td><td class="n" style="font-weight:700;color:#15803d">-0.0pp</td></tr>
+<tr><td><b>苹果</b><br><span class="sym">2021-12　2022-12　2023-12　2024-12　2025-12</span></td><td class="n" style="color:#15803d">2.3%</td><td class="n" style="color:#15803d">3.2%</td><td class="n" style="color:#15803d">2.0%</td><td class="n" style="color:#15803d">2.4%</td><td class="n" style="color:#15803d">1.7%</td><td class="n" style="font-weight:700;color:#15803d">-0.6pp</td></tr>
+</table>
+<div class="warn">
+<b>单季数据揭示的三个事实</b><br>
+· <b>甲骨文</b>：单季 Capex 率从 10.6% 飙升至 <b>147.3%</b> —— 单季资本开支已超过营收本身<br>
+· <b>微软</b>：17.5% → <b>42.7%</b>，单季 Capex 率突破 40%<br>
+· <b>谷歌</b>：9.0% → <b>32.5%</b>；<b>Meta</b>：19.5% → <b>33.7%</b><br>
+· <b>亚马逊</b>：单季自由现金流连续为负（2026 Q1 <b>−18.17B</b>）<br>
+· <b>英伟达/苹果/博通/AMD</b>：始终低于 4%，是「卖铲子」而非「建机房」
+</div>
+</div>
+
+<h2>三、年报口径对照（10-K 完整数据）</h2>
+<div class="card">
+<table>
+<tr><th>公司</th><th class="n">股价</th><th class="n">当日</th><th class="n">距52周高</th>
+<th class="n">年营收</th><th class="n">Capex率</th><th class="n">自由现金流</th><th class="n">PE</th></tr>
+<tr><td><b>英伟达</b> <span class="sym">NVDA</span></td><td class="n">125.53</td><td class="n" style="color:#15803d">-14.01%</td><td class="n" style="color:#b91c1c;font-weight:600">-48.4%</td><td class="n">215.9B</td><td class="n" style="color:#15803d">2.8%</td><td class="n" style="color:#111">96.7B</td><td class="n">13.4</td></tr>
+<tr><td><b>微软</b> <span class="sym">MSFT</span></td><td class="n">484.52</td><td class="n" style="color:#15803d">-2.77%</td><td class="n" style="color:#b45309;font-weight:600">-13.3%</td><td class="n">331.8B</td><td class="n" style="color:#b91c1c">34.9%</td><td class="n" style="color:#111">67.0B</td><td class="n">25.2</td></tr>
+<tr><td><b>谷歌</b> <span class="sym">GOOGL</span></td><td class="n">265.29</td><td class="n" style="color:#15803d">-2.70%</td><td class="n" style="color:#b91c1c;font-weight:600">-35.1%</td><td class="n">402.8B</td><td class="n" style="color:#b45309">22.7%</td><td class="n" style="color:#111">73.3B</td><td class="n">13.8</td></tr>
+<tr><td><b>亚马逊</b> <span class="sym">AMZN</span></td><td class="n">246.82</td><td class="n" style="color:#15803d">-4.10%</td><td class="n" style="color:#b45309;font-weight:600">-14.1%</td><td class="n">716.9B</td><td class="n" style="color:#b45309">18.4%</td><td class="n" style="color:#111">7.7B</td><td class="n">19.8</td></tr>
+<tr><td><b>Meta</b> <span class="sym">META</span></td><td class="n">560.84</td><td class="n" style="color:#15803d">-5.93%</td><td class="n" style="color:#b45309;font-weight:600">-28.1%</td><td class="n">201.0B</td><td class="n" style="color:#b91c1c">34.7%</td><td class="n" style="color:#111">46.1B</td><td class="n">19.1</td></tr>
+<tr><td><b>苹果</b> <span class="sym">AAPL</span></td><td class="n">342.56</td><td class="n" style="color:#15803d">-1.90%</td><td class="n" style="color:#b45309;font-weight:600">-5.1%</td><td class="n">478.8B</td><td class="n" style="color:#15803d">1.9%</td><td class="n" style="color:#111">136.1B</td><td class="n">37.7</td></tr>
+<tr><td><b>博通</b> <span class="sym">AVGO</span></td><td class="n">304.41</td><td class="n" style="color:#15803d">-12.19%</td><td class="n" style="color:#b91c1c;font-weight:600">-38.5%</td><td class="n">63.9B</td><td class="n" style="color:#15803d">1.0%</td><td class="n" style="color:#111">26.9B</td><td class="n">38.0</td></tr>
+<tr><td><b>AMD</b> <span class="sym">AMD</span></td><td class="n">424.39</td><td class="n" style="color:#15803d">-13.25%</td><td class="n" style="color:#b91c1c;font-weight:600">-35.6%</td><td class="n">34.6B</td><td class="n" style="color:#15803d">2.8%</td><td class="n" style="color:#111">6.7B</td><td class="n">91.4</td></tr>
+<tr><td><b>甲骨文</b> <span class="sym">ORCL</span></td><td class="n">101.19</td><td class="n" style="color:#15803d">-8.48%</td><td class="n" style="color:#b91c1c;font-weight:600">-59.6%</td><td class="n">67.4B</td><td class="n" style="color:#b91c1c">82.6%</td><td class="n" style="color:#15803d">-23.7B</td><td class="n">16.2</td></tr>
+<tr><td><b>Palantir</b> <span class="sym">PLTR</span></td><td class="n">143.49</td><td class="n" style="color:#15803d">-6.63%</td><td class="n" style="color:#b91c1c;font-weight:600">-32.6%</td><td class="n">4.5B</td><td class="n" style="color:#15803d">0.8%</td><td class="n" style="color:#111">2.1B</td><td class="n">94.2</td></tr>
+</table>
+<p style="font-size:12.5px;color:#6b7280;margin-bottom:0">
+年报 10 家合计资本开支 <b>481B</b>，合计自由现金流 <b>+439B</b>。
+Salesforce（CRM）行情与财务指标接口未返回，仅保留单季数据。
+</p>
+</div>
+
+<h2>四、泡沫判断：数据正反两面</h2>
+
+<div class="ok">
+<b>✅ 支持「整体不是烧钱式泡沫」</b>
+<ul>
+<li><b>龙头盈利极强</b>：英伟达单季营收 81.61B、FCF <b>+48.59B</b>，Capex 率仅 2.2%</li>
+<li><b>苹果/博通现金牛</b>：单季 FCF 51.55B / 8.01B，Capex 率不足 2%</li>
+<li><b>年报层面 FCF 整体为正</b>：10 家合计 <b>+439B</b></li>
+<li><b>估值不极端</b>：英伟达 PE 13.4、谷歌 13.8、Meta 19.1，远低于 2000 年泡沫的 60-100 倍</li>
+<li><b>研发真实</b>：微软 R&D 35.6B、苹果 45.8B，非财务工程</li>
+</ul>
+</div>
+
+<div class="warn">
+<b>⚠️ 支持「存在泡沫成分」</b>
+<ul>
+<li><b>甲骨文单季 Capex 率达 147.3%</b>：花得比赚得多，单季 FCF <b>−5.40B</b></li>
+<li><b>微软单季 Capex 率 42.7%</b>，但单季 FCF 从 25.66B 降至 18.63B（<b>−27%</b>）</li>
+<li><b>亚马逊单季 FCF 连续为负</b>：2022 −17.74B → 2026 −18.17B，扩张未停</li>
+<li><b>四家超大规模厂商（微软/谷歌/亚马逊/Meta）单季 Capex 率均在 24-43%</b></li>
+<li><b>折旧压力尚未兑现</b>：当前 Capex 将转为未来 3-5 年折旧</li>
+<li><b>股价已定价风险</b>：甲骨文 −59.6%、英伟达 −48.4%（单日 −14.01%）</li>
+</ul>
+</div>
+
+<h2>五、口径说明与数据质量</h2>
+<div class="card">
+
+<h3>① 单季 vs 年报：哪个更准确</h3>
+<p><b>两者都准确，但回答不同问题</b>：</p>
+<ul>
+<li><b>年报（10-K）</b>：经审计、字段最全、跨公司可比。适合判断<b>长期趋势</b></li>
+<li><b>单季（10-Q）</b>：未经年度审计，但能捕捉<b>季内拐点</b>。适合判断<b>当下强度</b></li>
+</ul>
+<p style="margin-bottom:0">本版<b>以单季为主、年报对照</b>。若两者冲突，说明趋势正在加速或减速——这本身是重要信息。</p>
+
+<h3>② 实战踩坑记录（4 个）</h3>
+<ul>
+<li><b>季报 startDate 是财年起点</b>，不是季度起点。微软的「Q2」期间是 183 天（半年累计）</li>
+<li><b>不能靠 startDate 分组</b>：同一财年不同季度 startDate 相同，会把 3 个季度算成 1 个</li>
+<li><b>正确做法</b>：按 <code>endDate − startDate</code> 的天数筛，80-100 天为真单季</li>
+<li><b>字段名逐年变化</b>：亚马逊 2026 年把 <code>Total net sales</code> 改为 <code>Net sales</code>，导致匹配失败</li>
+</ul>
+
+<h3>③ 已知缺口</h3>
+<ul>
+<li><b>资产负债表（bs）为空</b>：微软、苹果、甲骨文的 10-K/10-Q 均返回 bs=0，无法计算资产负债率</li>
+<li><b>Salesforce（CRM）</b>：报价与 metric 接口未返回，仅有单季财务</li>
+<li><b>自由现金流为计算值</b>：FCF = 经营现金流 − 资本开支，<b>未扣股权激励（SBC）</b></li>
+<li><b>季报无 Q4</b>：10-Q 只含 Q1~Q3，Q4 需从 10-K 全年减算</li>
+</ul>
+</div>
+
+<h2>六、数据来源与可复算</h2>
+<div class="card">
+<table>
+<tr><th>数据</th><th>接口</th><th>参数</th><th>可复算</th></tr>
+<tr><td>年报（10-K）</td><td><code>/stock/financials-reported</code></td><td><code>symbol=X</code></td><td>✅</td></tr>
+<tr><td>季报（10-Q）</td><td><code>/stock/financials-reported</code></td><td><code>symbol=X&amp;freq=quarterly</code></td><td>✅</td></tr>
+<tr><td>财务指标</td><td><code>/stock/metric</code></td><td><code>symbol=X&amp;metric=all</code></td><td>✅</td></tr>
+<tr><td>股价</td><td><code>/quote</code> + 腾讯双源</td><td><code>symbol=X</code></td><td>✅</td></tr>
+</table>
+<p style="font-size:12.5px;color:#6b7280;margin-bottom:0">
+原始数据：<code>quarterly.json</code>（162 季）、<code>fin_summary.json</code>（年报）、<code>trend.json</code>
+</p>
+</div>
+
+<p style="margin-top:38px;padding-top:16px;border-top:1px solid #e3e5e7;font-size:12.5px;color:#9ca3af;line-height:1.8">
+⚠️ 本报告只列财务事实、口径说明与历史趋势，<b>不构成投资建议，也不对「是否泡沫」给出预测性结论</b>。
+所有数字来自 Finnhub 公开接口（SEC XBRL），可复算；若与公司原始 10-K/10-Q 有差异，以原始申报为准。
+</p>
+
+</div></body></html>
