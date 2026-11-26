@@ -386,7 +386,17 @@ def load_ndx():
     new_end = rows[-1][0] if rows else None
     if old_end and new_end and new_end < old_end:
         print(f'     [保护] 拒绝写入：新数据末 {new_end} 早于现有 {old_end}（疑数据源全失败）')
-        print(f'     [保护] 保留原 ndx.json，请检查新浪/腾讯接口')
+        # ⚠️ 2026-11-26 修复：原来 return rows 返回的是【内存里的旧数据】，
+        #    导致下游 calc_indicators 用旧值算指标，全局数据倒退到旧日期。
+        #    正确做法：重新读回磁盘上的真实数据返回。
+        try:
+            _disk = json.load(open(_p, encoding='utf-8'))
+            _rows = [list(r) for r in _disk.get('rows', [])]
+            if _rows:
+                print(f'     [保护] 已读回磁盘数据 {_disk.get("start")} ~ {_disk.get("end")}（{len(_rows)} 条）')
+                return _rows
+        except Exception as e:
+            print(f'     [保护] 读回磁盘失败：{type(e).__name__}，退回内存数据')
         return rows
 
     save('ndx.json', {
