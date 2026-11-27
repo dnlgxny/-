@@ -156,22 +156,60 @@ def _http_get_text(url, headers=None, timeout=8, tries=2, retry_sleep=1):
     raise RuntimeError(f'{url[:70]} -> {type(last).__name__}: {str(last)[:70]}')
 
 
+def _extract_end(obj):
+    """从数据对象里提取末日期，用于防倒退比较。
+
+    兼容 4 种结构：{end} / {dates[-1]} / {rows[-1][0]} / {items[0].end}
+    """
+    if not isinstance(obj, dict):
+        return None
+    if obj.get('end'):
+        return obj['end']
+    d = obj.get('dates')
+    if isinstance(d, list) and d:
+        return d[-1]
+    r = obj.get('rows')
+    if isinstance(r, list) and r and isinstance(r[-1], (list, tuple)) and r[-1]:
+        return r[-1][0]
+    it = obj.get('items')
+    if isinstance(it, list) and it and isinstance(it[0], dict):
+        ends = [x.get('end') for x in it if x.get('end')]
+        return max(ends) if ends else None
+    return None
+
+
 def save(name, obj):
     """原子写：先写 .tmp 再 os.replace，避免中途中断留下 0 字节文件。
 
     2026-10-26 事故：save() 原本 open('w') 会先清空文件，
     若此时进程被网络超时等异常打断，会留下空文件，
     导致下游「生成页面」步骤 JSONDecodeError 崩溃（今早 VIX 就这样挂的）。
+
+    ── 2026-11-27 新增：统一防倒退保护 ──
+    事故：GitHub Actions 在北京 09:35 运行时，天天基金 11-26 净值尚未入库，
+    云端抓到 11-25 并提交，覆盖了本地已抓到的 11-26。
+    此前只有 ndx.json 有保护，其余 6 个源都会被旧数据覆盖。
+
+    规则：新数据的 end / dates[-1] / rows[-1][0] 若【早于】现有文件，拒绝写入。
     """
     p = os.path.join(OUT, name)
+
+    # ══ 防倒退检查 ══
+    try:
+        new_end = _extract_end(obj)
+        if new_end and os.path.exists(p):
+            old = json.load(open(p, encoding='utf-8'))
+            old_end = _extract_end(old)
+            if old_end and new_end < old_end:
+                print(f'     [保护] {name}: 拒绝写入，新末 {new_end} 早于现有 {old_end}')
+                return
+    except Exception:
+        pass   # 检查失败不影响正常写入
+
     tmp = p + '.tmp'
     with open(tmp, 'w', encoding='utf-8') as f:
         json.dump(obj, f, ensure_ascii=False, separators=(',', ':'))
         f.flush()
-        os.fsync(f.fileno())
-    os.replace(tmp, p)          # 原子替换
-    print(f'  [OK] {name}  ({os.path.getsize(p):,} B)')
-
 
 def read_fred_csv(path, col):
     """读 FRED 格式 CSV（observation_date,<col>），跳过空值"""
